@@ -1,11 +1,13 @@
 <template>
-    <div>
-        <v-layout row wrap>
-            <v-layout row wrap text-xs-center>
-                <v-flex sm12><h2>{{user.username}}</h2></v-flex>
-            </v-layout>
-        </v-layout>
-        <v-layout row wrap>
+    <v-container>
+        <v-row justify="space-around">
+            <v-col
+                cols="12"
+            md="2">
+                <h2>{{user.username}}</h2>
+            </v-col>
+        </v-row>
+        <v-row justify="space-around">
             <v-flex sm3
                 v-for="item in empresas_open"
                 :key="item.id"
@@ -19,8 +21,8 @@
                     color="warning">
                 ></v-switch>
             </v-flex>
-        </v-layout>
-    </div>
+        </v-row>
+    </v-container>
 </template>
 <script>
 export default {

@@ -1,8 +1,13 @@
 <template>
-    <div>
-        <h3>Ip's Autorizadas</h3>
-        <v-layout row wrap>
-            <v-flex sm2>
+    <v-container>
+        <v-row no-gutters>
+            <h3>Ip's Autorizadas</h3>
+        </v-row>
+        <v-row no-gutters>
+            <v-col
+                cols="12"
+                md="2"
+            >
                 <v-text-field
                     v-model="ip"
                     v-validate="'ip'"
@@ -13,22 +18,27 @@
                     v-on:keyup.enter="add"
                 >
                 </v-text-field>
-            </v-flex>
-            <v-flex sm1>
-                <v-btn @click="add()" flat icon round><v-icon color="blue darken-4">add</v-icon></v-btn>
-            </v-flex>
+            </v-col>
+            <v-col
+                cols="4"
+                md="2"
+            >
+                <v-btn @click="add()" text rounded><v-icon color="blue darken-4">add</v-icon>Nueva IP</v-btn>
+            </v-col>
+        </v-row>
+        <v-row no-gutters>
 
-            <v-flex sm2
+            <v-col cols="12" md="2"
                 v-for="item in items"
                 :key="item.value"
             >
                 {{item.text}}
 
-                    <v-btn @click="del(item.value)" flat icon round><v-icon color="red darken-4">clear</v-icon></v-btn>
+                    <v-btn @click="del(item.value)" text icon rounded><v-icon color="red darken-4">clear</v-icon></v-btn>
 
-            </v-flex>
-        </v-layout>
-    </div>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 <script>
 import {mapGetters} from 'vuex';

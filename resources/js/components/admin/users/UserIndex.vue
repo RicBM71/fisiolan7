@@ -1,5 +1,6 @@
 <template>
-    <div v-if="registros">
+    <div>
+        <loading :show_loading="show_loading"></loading>
 		<my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
         <v-card>
             <v-card-title>
@@ -8,63 +9,77 @@
                 <menu-ope></menu-ope>
             </v-card-title>
         </v-card>
-        <v-card>
-            <v-container>
-                <v-layout row wrap>
-                    <v-flex xs6></v-flex>
-                    <v-flex xs6>
-                        <v-spacer></v-spacer>
-                        <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Buscar"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                    <v-flex xs12>
-                        <v-data-table
-                        :search="search"
-                        :pagination.sync="pagination"
-                        :headers="headers"
-                        :items="usuarios"
-                        rows-per-page-text="Registros por página"
+        <v-card v-if="!show_loading">
+            <v-card-title>
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Buscar"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-card-title>
+
+            <v-data-table
+                :search="search"
+                :headers="headers"
+                :items="usuarios"
+            >
+            <template v-slot:item.roles="{ item }">
+                {{ extrae(item.roles)}}
+            </template>
+            <template v-slot:item.actions="{ item }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(item.id)"
+                >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    @click="openDialog(item.id)"
+                >
+                    mdi-delete
+                </v-icon>
+            </template>
+            <v-data-footer>
+                <template v-slot:page-text="pagetext">
+                  {{pagetext}}sss
+                </template>
+            </v-data-footer>
+                <!-- <template slot="items" slot-scope="props">
+                    <td  v-if="props.item.blocked == false"  class="text-xs-left">{{ props.item.name + " " + props.item.lastname }}</td>
+                    <td v-else class="text-xs-left"><span class="red--text">BLOQUEADO -></span></td>
+                    <td class="text-xs-left">{{ props.item.username }}</td>
+                    <td>{{ props.item.email }}</td>
+                    <td class="text-xs-left">{{ formatDate(props.item.login_at) }}</td>
+                    <td class="text-xs-left">-</td>
+                    <td class="justify-center">
+
+                        <v-icon
+                            small
+                            class="mr-2"
+                            @click="editItem(props.item.id)"
                         >
-                            <template slot="items" slot-scope="props">
-                                <td  v-if="props.item.blocked == false"  class="text-xs-left">{{ props.item.name + " " + props.item.lastname }}</td>
-                                <td v-else class="text-xs-left"><span class="red--text">BLOQUEADO -></span></td>
-                                <td class="text-xs-left">{{ props.item.username }}</td>
-                                <td>{{ props.item.email }}</td>
-                                <td class="text-xs-left">{{ formatDate(props.item.login_at) }}</td>
-                                <td class="text-xs-left">{{ extrae(props.item.roles) }}</td>
-                                <td class="justify-center layout px-0">
-                                    <v-icon
-                                        small
-                                        class="mr-2"
-                                        @click="editItem(props.item.id)"
-                                    >
-                                        edit
-                                    </v-icon>
+                            mdi-lead-pencil
+                        </v-icon>
 
 
-                                    <v-icon
-                                        v-if="isRoot"
-                                        small
-                                        @click="openDialog(props.item.id)"
-                                        >
-                                        delete
-                                    </v-icon>
-                                </td>
-                            </template>
-                            <template slot="pageText" slot-scope="props">
-                                Registros {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
-                            </template>
-                        </v-data-table>
-                    </v-flex>
-                </v-layout>
-            </v-container>
+                        <v-icon
+                            v-if="isRoot"
+                            small
+                            @click="openDialog(props.item.id)"
+                            >
+                            mdi-delete
+                        </v-icon>
+                    </td>
+                </template> -->
+
+
+
+            </v-data-table>
         </v-card>
     </div>
 </template>
@@ -73,18 +88,19 @@ import moment from 'moment';
 import {mapGetters} from 'vuex';
 import MyDialog from '@/components/shared/MyDialog'
 import MenuOpe from './MenuOpe'
+import Loading from '@/components/shared/Loading'
   export default {
     components: {
         'my-dialog': MyDialog,
         'menu-ope': MenuOpe,
+        'loading': Loading
     },
     data () {
       return {
         titulo: "Usuarios",
+        show_loading: true,
         search:"",
-        pagination:{
-            rowsPerPage: 10,
-        },
+
         headers: [
           {
             text: 'Nombre',
@@ -99,7 +115,7 @@ import MenuOpe from './MenuOpe'
           },
           { text: 'Login', align: 'left', value: 'login_at' },
           { text: 'Roles', align: 'left', value: 'roles', sortable: false, },
-          { text: 'Acciones', align: 'left', value: 'acciones', sortable: false, }
+          { text: 'Acciones', align: 'left', value: 'actions', sortable: false, }
         ],
         usuarios:[],
         status: false,
@@ -113,15 +129,17 @@ import MenuOpe from './MenuOpe'
 
         axios.get('/admin/users')
             .then(res => {
-
+                console.log(res);
                 this.usuarios = res.data;
                 this.registros = true;
             })
             .catch(err =>{
-
                 this.$toast.error(err.response.data.message);
                 this.$router.push({ name: 'dash' })
             })
+            .finally(()=> {
+                this.show_loading = false;
+            });
     },
     computed: {
         ...mapGetters([
@@ -137,7 +155,7 @@ import MenuOpe from './MenuOpe'
         create(){
             this.$router.push({ name: 'users_create', params: { id: '0' } })
         },
-        extrae: function(role){ // extrae los permisos de cada role.
+        extrae(role){
 
             var i=0;
             var roles = "";
@@ -149,6 +167,7 @@ import MenuOpe from './MenuOpe'
             });
 
             return roles;
+
         },
         editItem (id) {
             this.$router.push({ name: 'users.edit', params: { id: id } })

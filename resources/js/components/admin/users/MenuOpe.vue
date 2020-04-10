@@ -1,7 +1,7 @@
 <template>
     <div>
         <my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
-         <v-dialog v-model="dialog_help" persistent max-width="800">
+         <!-- <v-dialog v-model="dialog_help" persistent max-width="800">
             <v-card>
                 <v-card-title class="headline">Roles y Permisos</v-card-title>
                 <v-card-text>
@@ -28,7 +28,7 @@
                 <v-btn color="blue darken-1" round flat @click="dialog_help = false">Cerrar</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn

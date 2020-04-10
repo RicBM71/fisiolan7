@@ -74,8 +74,8 @@ export default {
     data() {
         return {
             username:this.old_usr,
-            //username:"ricardo.bm",
-            password:"",
+            username:"ricardo.bm",
+            password:"123",
             loading: false
         }
     },

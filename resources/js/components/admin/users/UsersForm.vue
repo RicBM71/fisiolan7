@@ -1,7 +1,6 @@
 <template>
 	<div>
         <mod-menu :showMenuCli="showMenuCli" :x="x" :y="y" :items="items"></mod-menu>
-
         <h2>Usuarios</h2>
         <v-form>
             <v-container @contextmenu="showMenu">

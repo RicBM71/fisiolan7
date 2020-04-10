@@ -1,23 +1,24 @@
 <template>
-    <div v-show="show">
-        <h3>Roles Usuario</h3>
-
-        <v-layout row wrap>
-            <v-flex sm3
+    <v-container>
+        <v-row no-gutters>
+            <h3>Roles</h3>
+        </v-row>
+        <v-row no-gutters>
+            <v-col cols="12"
+                md="3"
                 v-for="item in roles"
                 :key="item"
             >
                 <v-switch
                     v-on:change="setUserRole"
                     v-model="role_selected"
-
                     :label="item"
                     :value="item"
                     color="success">
                 ></v-switch>
-            </v-flex>
-        </v-layout>
-    </div>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 <script>
 export default {
@@ -29,7 +30,7 @@ export default {
             show: false
         }
     },
-    mounted(){
+    beforeMount(){
 
             //cargamos todos los roles disponibles
         axios.get('/admin/roles')

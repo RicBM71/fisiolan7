@@ -1,6 +1,6 @@
 <template>
-    <v-app>
-          <loading :show_loading="show_loading"></loading>
+    <v-app id="inspire">
+        <loading :show_loading="show_loading"></loading>
           <div class="text-xs-center">
             <v-dialog
             v-model="myEmpresa"
@@ -32,8 +32,8 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     color="primary"
-                    round
-                    flat
+                    rounded
+                    text
                     @click="myEmpresa=false"
                 >
                     Cerrar
@@ -42,123 +42,137 @@
             </v-card>
             </v-dialog>
         </div>
-        <div v-if="isLoggedIn">
-            <v-navigation-drawer
-                v-if="isLoggedIn"
-                v-model="drawer"
-                :clipped="$vuetify.breakpoint.lgAndUp"
-                fixed
-                app
+        <v-navigation-drawer
+        v-model="drawer"
+        :clipped="$vuetify.breakpoint.lgAndUp"
+        app
+        >
+        <v-list dense>
+            <template v-for="item in items">
+            <v-row
+                v-if="item.heading"
+                :key="item.heading"
+                align="center"
+            >
+                <v-col cols="6">
+                <v-subheader v-if="item.heading">
+                    {{ item.heading }}
+                </v-subheader>
+                </v-col>
+                <v-col
+                cols="6"
+                class="text-center"
                 >
-                <v-list dense>
-                    <template v-for="item in mn_items">
-                    <v-layout
-                        v-if="item.heading"
-                        :key="item.heading"
-                        row
-                        align-center
-                    >
-                        <v-flex xs6>
-                        <v-subheader v-if="item.heading">
-                            {{ item.heading }}head
-                        </v-subheader>
-                        </v-flex>
-                        <v-flex xs6 class="text-xs-center">
-                        <a href="#!" class="body-2 black--text">EDIT</a>
-                        </v-flex>
-                    </v-layout>
-                    <v-list-group
-                        v-else-if="item.children"
-                        :key="item.text"
-                        v-model="item.model"
-                        :prepend-icon="item.model ? item.icon : item['icon-alt']"
-                        append-icon=""
-                    >
-                        <v-list-tile slot="activator">
-                        <v-list-tile-content>
-                            <v-list-tile-title>
-                            {{ item.text }}
-                            </v-list-tile-title>
-                        </v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile
-                        v-for="child in item.children"
-                        :key="child.name"
-                        :to="{ name: child.name}"
-                        >
-                        <v-list-tile-action v-if="child.icon">
-                            <v-icon>{{ child.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>
-                            {{ child.text }}
-                            </v-list-tile-title>
-                        </v-list-tile-content>
-                        </v-list-tile>
-                    </v-list-group>
-                    <v-list-tile v-else :key="item.text" @click="abrir(item.name)">
-                        <v-list-tile-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                        <v-list-tile-title>
-                            {{ item.text }}
-                        </v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    </template>
-                </v-list>
-            </v-navigation-drawer>
-            <v-toolbar
-                v-if="menu"
-                :clipped-left="$vuetify.breakpoint.lgAndUp"
-                color="blue darken-3"
-                dark
-                app
-                fixed
+                <a
+                    href="#!"
+                    class="body-2 black--text"
+                >EDIT</a>
+                </v-col>
+            </v-row>
+            <v-list-group
+                v-else-if="item.children"
+                :key="item.text"
+                v-model="item.model"
+                :prepend-icon="item.model ? item.icon : item['icon-alt']"
+                append-icon=""
+            >
+                <template v-slot:activator>
+                <v-list-item-content>
+                    <v-list-item-title>
+                    {{ item.text }}
+                    </v-list-item-title>
+                </v-list-item-content>
+                </template>
+                <v-list-item
+                v-for="(child, i) in item.children"
+                :key="i"
+                link
                 >
-                <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-                    <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-                    <span class="hidden-sm-and-down">{{ this.user.empresa_nombre }}</span>
-                </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn v-on="on" icon v-show="jobs > 0">
-                            <v-icon color="red darken-4">notification_important</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>({{jobs}}) Mails pendientes de envio.</span>
-                </v-tooltip>
+                <v-list-item-action v-if="child.icon">
+                    <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>
+                    {{ child.text }}
+                    </v-list-item-title>
+                </v-list-item-content>
+                </v-list-item>
+            </v-list-group>
+            <v-list-item
+                v-else
+                :key="item.text"
+                link
+            >
+                <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                <v-list-item-title @click="abrir(item.name)">
+                    {{ item.text }}
+                </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            </template>
+        </v-list>
+        </v-navigation-drawer>
 
-                <v-btn icon v-on:click="empresa">
-                    <v-icon>work_outline</v-icon>
+        <v-app-bar
+        :clipped-left="$vuetify.breakpoint.lgAndUp"
+        app
+        color="blue darken-3"
+        dark
+        >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+        <v-toolbar-title
+            style="width: 300px"
+            class="ml-0 pl-4"
+        >
+            <span class="hidden-sm-and-down">{{ this.user.empresa_nombre }}</span>
+        </v-toolbar-title>
+        <v-spacer />
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon v-show="jobs > 0">
+                    <v-icon color="red darken-4">mdi-bell</v-icon>
                 </v-btn>
-                <v-btn icon v-on:click="home">
-                    <v-icon>home</v-icon>
-                </v-btn>
-                <v-btn icon v-on:click="passwd">
-                    <v-avatar v-if="user.avatar !='#'" size="32px">
-                        <img class="img-fluid" :src="user.avatar">
-                    </v-avatar>
-                    <v-icon v-else>settings</v-icon>
-                </v-btn>
-                <strong v-html="user.name"></strong>
-                <v-btn icon large  v-on:click="Logout">
-                    <v-avatar size="32px" tile>
-                        <v-icon>exit_to_app</v-icon>
-                    </v-avatar>
-                </v-btn>
-                </v-toolbar>
-            <v-content>
+            </template>
+            <span>({{jobs}}) Mails pendientes de envio.</span>
+        </v-tooltip>
 
+        <!-- <v-btn icon v-on:click="empresa">
+            <v-icon>mdi-briefcase</v-icon>
+        </v-btn> -->
+        <v-btn icon v-on:click="home">
+            <v-icon>mdi-home</v-icon>
+        </v-btn>
+        <v-btn icon v-on:click="passwd">
+            <v-avatar v-if="user.avatar !='#'" size="32px">
+                <img class="img-fluid" :src="user.avatar">
+            </v-avatar>
+            <v-icon v-else>mdi-settings</v-icon>
+        </v-btn>
+        <strong v-html="user.name"></strong>
+        <v-btn icon v-on:click="Logout">
+            <v-avatar size="32px" tile>
+                <v-icon>mdi-exit-to-app</v-icon>
+            </v-avatar>
+        </v-btn>
 
-                    <router-view :key="$route.fullPath"></router-view>
+        </v-app-bar>
+        <v-content>
+        <v-container
+            fluid
+        >
+        <!--     <v-row
+            align="center"
+            justify="center"
+            > -->
+              <router-view :key="$route.fullPath"></router-view>
 
-
-            </v-content>
-        </div>
-</v-app>
+            <!-- </v-row> -->
+        </v-container>
+        </v-content>
+    </v-app>
 </template>
 <script>
 import {mapActions} from "vuex";
@@ -177,17 +191,12 @@ export default {
             'isLoggedIn',
             'isRoot',
             'isAdmin',
-            'hasFactura',
-            'isGestor',
-            'isSupervisor',
-            'empresaActiva',
-            'hasLiquidar'
 		]),
     },
     data: () => ({
         menu: true,
         dialog: false,
-        drawer: false,
+        drawer: true,
         show: true,
 
         empresaTxt:"...",
@@ -196,101 +205,39 @@ export default {
         empresa_id:0,
         jobs: 0,
         show_loading:  false,
-        //productos_online: 0,
 
-        // user: {
-        //     name : ""
-        // },
-
-        mn_root: {
-            icon: 'keyboard_arrow_up',
-            'icon-alt': 'keyboard_arrow_down',
-            text: 'Root',
+        items: [
+            { icon: 'mdi-contacts', text: 'Pacientes' },
+            { icon: 'mdi-history', text: 'Frequently contacted' },
+            { icon: 'mdi-content-copy', text: 'Duplicates' },
+            {
+            icon: 'mdi-chevron-up',
+            'icon-alt': 'mdi-chevron-down',
+            text: 'Labels',
+            model: true,
+            children: [
+                { icon: 'mdi-plus', text: 'Create label' },
+            ],
+            },
+            {
+            icon: 'mdi-chevron-up',
+            'icon-alt': 'mdi-chevron-down',
+            text: 'More',
             model: false,
             children: [
-                { text: 'Find Producto', name: 'tools.find.producto' },
-                { text: 'Importar Producto', name: 'tools.importar.producto' },
-                { text: 'Usuarios', name: 'users.index' },
-                { text: 'Roles', name: 'roles' },
-                { text: 'Grupos', name: 'grupo.index' },
-                { text: 'Clases', name: 'clase.index' },
-                { text: 'Tipos de Iva', name: 'iva.index' },
-                { text: 'Motivos Devolución', name: 'motivo.index' },
-                { text: 'Cruces Caja', name: 'cruce.index' },
-                { text: 'Cierre', name: 'tools.cierre' },
-                { text: 'Parámetros', name: 'parametro.edit' },
-            ]
-        },
-
-        mn_admin: {
-            icon: 'keyboard_arrow_up',
-            'icon-alt': 'keyboard_arrow_down',
-            text: 'Administración',
-            model: false,
-            children: [
-                { icon: 'supervised_user_circle', text: 'Usuarios', name: 'users.index' },
-                { icon: 'language', text: 'Empresas', name: 'empresa.index' },
-                { icon: 'event_seat', text: 'Ubicaciones', name: 'almacen.index' },
-            ]
-        },
-
-        mn_procesos:{
-            icon: 'keyboard_arrow_up',
-            'icon-alt': 'keyboard_arrow_down',
-            text: 'Procesos',
-            model: false,
-            children: [
-                { icon: 'lock', text: 'Facturar Recuperaciones', name:'facturacion.compras' },
-                { icon: 'lock', text: 'Facturar Albaranes', name:'facturacion.albaranes' },
-                { text: 'Reubicar Albaranes', name: 'reubicar', icon: 'shuffle'},
-                { icon: 'fireplace', text: 'Liquidar Lotes', name:'liquidar.index' },
-                { icon: 'compare_arrows', text: 'Intercambio de Operaciones', name:'intercambio' },
-            ]
-        },
-
-        // mn_items: [
-        //     { icon: 'people', text: 'Clientes', name:'cliente.index' },
-        //     { icon: 'local_offer', text: 'Productos', name:'producto.index' },
-
-        // ],
-
-
-
-        //  mn_consultas:{
-        //     icon: 'keyboard_arrow_up',
-        //     'icon-alt': 'keyboard_arrow_down',
-        //     text: 'Consultas I',
-        //     model: false,
-        //     children: [
-        //         { icon: 'forward', text: 'Balance por empresa', name:'exportar.balance' },
-        //         { icon: 'forward', text: 'Operaciones por empresa', name:'exportar.operaciones' },
-        //         { icon: 'forward', text: 'Cuadro de Mando', name:'exportar.mando' },
-        //         { icon: 'forward', text: 'Resumen por concepto', name:'exportar.situacion' },
-        //         { icon: 'forward', text: 'Resumen Contable', name:'exportar.resconta' },
-        //         { icon: 'forward', text: 'Detalle de compras', name:'exportar.detacom' },
-        //         { icon: 'forward', text: 'Detalle de ventas', name:'exportar.detaven' },
-        //         { icon: 'forward', text: 'Servicios Taller', name:'exportar.service' },
-        //         { icon: 'forward', text: 'Liquidados', name:'exportar.liquidados' },
-        //         { icon: 'home_work', text: 'Ventas en depósito', name:'exportar.vendepo' },
-        //     ],
-        // },
-
-        //  mn_consultas2:{
-        //     icon: 'keyboard_arrow_up',
-        //     'icon-alt': 'keyboard_arrow_down',
-        //     text: 'Consultas II',
-        //     model: false,
-        //     children: [
-        //         { text: 'Metal en Depósito', name: 'exportar.metdep', icon: 'print'},
-        //         { text: 'Apuntes por banco', name: 'exportar.apuban', icon: 'account_balance'},
-        //         { text: 'Relación facturas recuperacion', name: 'facturacion.lisfacom', icon: 'print'},
-        //         { text: 'Relación facturas de venta', name: 'facturacion.lisfaven', icon: 'print'},
-        //         { icon: 'forward', text: 'Inventario', name:'exportar.inventario' },
-        //         { icon: 'archive', text: 'Mod. 347', name:'exportar.mod347' },
-        //         { icon: 'menu_book', text: 'Imprimir Libro', name:'exportar.libro' },
-        //         { icon: 'check_circle_outline', text: 'Check Contadores', name:'contador.check' },
-        //     ],
-        // },
+                { text: 'Import' },
+                { text: 'Export' },
+                { text: 'Print' },
+                { text: 'Undo changes' },
+                { text: 'Other contacts' },
+            ],
+            },
+            { icon: 'mdi-settings', text: 'Settings' },
+            { icon: 'mdi-message', text: 'Send feedback' },
+            { icon: 'mdi-help-circle', text: 'Help' },
+            { icon: 'mdi-cellphone-link', text: 'App downloads' },
+            { icon: 'mdi-keyboard', text: 'Go to the old version' },
+        ],
 
         expired: false,
     }),
@@ -301,17 +248,12 @@ export default {
 
                     this.setAuthUser(res.data.user);
 
-                    this.mn_items.push(this.mn_etiquetas);
+                   // this.mn_items.push(this.mn_etiquetas);
 
 
 
                     this.empresa_id = this.user.empresa_id;
 
-                    if (this.isAdmin && this.isGestor)
-                        this.mn_items.push(this.mn_procesos);
-
-                    if (this.isRoot)
-                        this.mn_items.push(this.mn_root);
 
                     this.empresas = res.data.user.empresas;
                     var idx = this.empresas.map(x => x.value).indexOf(this.empresa_id);
@@ -341,6 +283,7 @@ export default {
                     });
 
                     this.expired = res.data.expired;
+
                     if (this.expired){
                         this.$toast.error('Password ha Expirado, debe reemplazarla');
                         this.$router.push({name: 'edit.password'});

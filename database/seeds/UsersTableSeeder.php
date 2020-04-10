@@ -30,24 +30,24 @@ class UsersTableSeeder extends Seeder
 
         $gestRole = Role::create(['name'=>'Gestor']);
 
-        Permission::create(['name'=>'addcom','nombre'=>'Crea Compras']);
-        Permission::create(['name'=>'addven','nombre'=>'Crea Ventas']);
-        Permission::create(['name'=>'delcom','nombre'=>'* Borra Compras/Edt Fecha']);
-        Permission::create(['name'=>'reacom','nombre'=>'* Reabre Compras']);
-        Permission::create(['name'=>'salefe','nombre'=>'* Saltar Límite Efectivo']);
-        Permission::create(['name'=>'liquidar','nombre'=>'Puede Liquidar']);
-        Permission::create(['name'=>'edtpro','nombre'=>'Edita Productos']);
-        Permission::create(['name'=>'factura','nombre'=>'Facturación']);
-        Permission::create(['name'=>'authtras','nombre'=>'Traspasos']);
-        Permission::create(['name'=>'harddel','nombre'=>'* Hard Delete']);
-        Permission::create(['name'=>'scan','nombre'=>'Scanea Docu']);
+        // Permission::create(['name'=>'addcom','nombre'=>'Crea Compras']);
+        // Permission::create(['name'=>'addven','nombre'=>'Crea Ventas']);
+        // Permission::create(['name'=>'delcom','nombre'=>'* Borra Compras/Edt Fecha']);
+        // Permission::create(['name'=>'reacom','nombre'=>'* Reabre Compras']);
+        // Permission::create(['name'=>'salefe','nombre'=>'* Saltar Límite Efectivo']);
+        // Permission::create(['name'=>'liquidar','nombre'=>'Puede Liquidar']);
+        // Permission::create(['name'=>'edtpro','nombre'=>'Edita Productos']);
+        // Permission::create(['name'=>'factura','nombre'=>'Facturación']);
+        // Permission::create(['name'=>'authtras','nombre'=>'Traspasos']);
+        // Permission::create(['name'=>'harddel','nombre'=>'* Hard Delete']);
+        // Permission::create(['name'=>'scan','nombre'=>'Scanea Docu']);
         Permission::create(['name'=>'users','nombre'=>'Usuarios']);
-        Permission::create(['name'=>'edtfac','nombre'=>'*Edita Facturas']);
-        Permission::create(['name'=>'desloc','nombre'=>'*Deslocalizar']);
+        // Permission::create(['name'=>'edtfac','nombre'=>'*Edita Facturas']);
+        // Permission::create(['name'=>'desloc','nombre'=>'*Deslocalizar']);
 
         $user = new User;
 
-        $user->name = "Ric";
+        $user->name = "Ricardo";
 		$user->email = "info@sanaval.com";
         $user->username = "ricardo.bm";
         $user->huella = "RBM";
@@ -59,10 +59,10 @@ class UsersTableSeeder extends Seeder
     //     $user->givePermissionTo('liquidar');
     //     $user->givePermissionTo('addcom');
     //     $user->givePermissionTo('addven');
-    //     $user->givePermissionTo('users');
+         $user->givePermissionTo('users');
     //     $user->givePermissionTo('edtpro');
-    //     $user->assignRole($rootRole);
-    //     $user->assignRole($adminRole);
+         $user->assignRole($rootRole);
+         $user->assignRole($adminRole);
     //     $user->assignRole($supRole);
 
     //     $user = new User;
@@ -80,18 +80,17 @@ class UsersTableSeeder extends Seeder
         //$per_edit->assingPermission();
 
 
-        // for ($i=2; $i <= 10  ; $i++) {
+        for ($i=2; $i <= 10  ; $i++) {
 
-        //     $user = new User;
+            $user = new User;
 
-        //     $user->name = "User ".$i;
-        //     $user->email = "user".$i."@rr.es";
-        //     $user->username = "User".$i;
-        //     $user->empresa_id = 1;
-        //     $user->password = Hash::make('123');
-        //     $user->save();
-        //     $user->assignRole($userRole);
-        // }
+            $user->name = "User ".$i;
+            $user->email = "user".$i."@rr.es";
+            $user->username = "User".$i;
+            $user->password = Hash::make('123');
+            $user->save();
+        //    $user->assignRole($userRole);
+        }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

@@ -21,13 +21,13 @@
         <v-toolbar-title class="font-weight-black headline teal--text accent-2">
             Centro de fisioterapia Sanaval
         </v-toolbar-title>
-        <!-- <v-spacer />
+        <v-spacer />
         <v-btn v-if="!isLoggedIn" icon v-on:click="login">
             <v-icon>mdi-account</v-icon>
         </v-btn>
         <v-btn v-else icon :to="{name: 'dash'}">
             <v-icon>desktop_windows</v-icon>
-        </v-btn> -->
+        </v-btn>
     </v-app-bar>
 
     <v-content>

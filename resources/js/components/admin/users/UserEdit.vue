@@ -1,5 +1,5 @@
 <template>
-	<div v-show="!show_loading">
+	<div>
         <loading :show_loading="show_loading"></loading>
         <my-dialog :dialog.sync="dialog" registro="avatar" @destroyReg="destroyReg"></my-dialog>
         <v-card>
@@ -15,7 +15,7 @@
                             icon
                             @click="reset"
                         >
-                            <v-icon color="orange">verified_user</v-icon>
+                            <v-icon color="orange">mdi-verified_user</v-icon>
                         </v-btn>
                     </template>
                         <span>Reset Password</span>
@@ -23,7 +23,7 @@
                 <menu-ope :id="user.id"></menu-ope>
             </v-card-title>
         </v-card>
-        <v-card>
+        <v-card v-show="!show_loading">
             <v-tabs fixed-tabs>
                 <v-tab>
                         Datos generales
@@ -41,8 +41,11 @@
 
                     <v-form>
                         <v-container>
-                            <v-layout row wrap>
-                                <v-flex sm4>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
                                     <v-text-field
                                         v-model="user.name"
                                         v-validate="'required'"
@@ -54,6 +57,11 @@
                                         required
                                     >
                                     </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
                                     <v-text-field
                                         v-model="user.lastname"
                                         :error-messages="errors.collect('lastname')"
@@ -63,6 +71,11 @@
                                         v-on:keyup.enter="submit"
                                     >
                                     </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
                                     <v-text-field
                                         v-model="user.username"
                                         v-validate="'required|min:6'"
@@ -75,8 +88,13 @@
                                         required
                                     >
                                     </v-text-field>
-                                </v-flex>
-                                <v-flex sm4>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
                                     <v-text-field
                                         v-model="user.email"
                                         v-validate="'required_if:id,1,2|email'"
@@ -87,96 +105,107 @@
                                         required
                                     >
                                     </v-text-field>
-
+                                </v-col>
+                                 <v-col
+                                    cols="12"
+                                    md="1"
+                                >
+                                    <v-text-field
+                                        v-model="user.expira"
+                                        v-validate="'numeric|min_value:0|max_value:180'"
+                                        :error-messages="errors.collect('expira')"
+                                        label="Días expira password"
+                                        hint="Indicar 0 días para password perpetua"
+                                        data-vv-name="expira"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-menu
+                                        ref="menu_fe"
+                                        v-model="menu_fe"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        transition="scale-transition"
+                                        offset-y
+                                        min-width="290px"
+                                    >
+                                        <template v-slot:activator="{ on }">
                                         <v-text-field
-                                            v-model="user.expira"
-                                            v-validate="'numeric|min_value:0|max_value:180'"
-                                            :error-messages="errors.collect('expira')"
-                                            label="Días expira password"
-                                            hint="Indicar 0 días para password perpetua"
-                                            data-vv-name="expira"
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-
-                                         <v-menu
-                                            ref="menu_fe"
-                                            v-model="menu_fe"
-                                            :close-on-content-click="false"
-                                            :nudge-right="40"
-                                            lazy
-                                            transition="scale-transition"
-                                            offset-y
-                                            full-width
-                                            min-width="290px"
-                                        >
-                                            <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                v-model="computedDateExpira"
-                                                label="Ult. Password"
-                                                prepend-icon="event"
-                                                clearable
-                                                @click:clear="clearDateExp"
-                                                readonly
-                                                v-on="on"
-                                            ></v-text-field>
-                                            </template>
-                                            <v-date-picker
-                                                ref="picker"
-                                                v-model="user.fecha_expira"
-                                                :max="new Date().toISOString().substr(0, 10)"
-                                                min="2000-01-01"
-                                                locale="es"
-                                                first-day-of-week=1
-                                                @change="save"
-                                            ></v-date-picker>
-                                        </v-menu>
-
-                                    <v-text-field
-                                        v-model="user.password"
-                                        ref="password"
-                                        :append-icon="show ? 'visibility_off' : 'visibility'"
-                                        :type="show ? 'text' : 'password'"
-                                        :error-messages="errors.collect('password')"
-                                        v-validate="'min:6'"
-                                        label="password"
-                                        hint="Indicar password solo si va a modificarla"
-                                        data-vv-name="password"
-                                        v-on:keyup.enter="submit"
-                                        @click:append="show = !show"
-                                        >
+                                            v-model="computedDateExpira"
+                                            label="Ult. Password"
+                                            prepend-icon="event"
+                                            clearable
+                                            @click:clear="clearDateExp"
+                                            readonly
+                                            v-on="on"
+                                        ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                            ref="picker"
+                                            v-model="user.fecha_expira"
+                                            :max="new Date().toISOString().substr(0, 10)"
+                                            min="2000-01-01"
+                                            locale="es"
+                                            first-day-of-week=1
+                                            @change="save"
+                                        ></v-date-picker>
+                                    </v-menu>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-text-field v-if="!user.blocked"
+                                        v-model="computedLoginAt"
+                                        label="Ult. Login"
+                                        readonly
+                                    >
                                     </v-text-field>
-                                    <v-text-field
-                                        v-model="user.password_confirmation"
-                                        v-validate="'min:6|confirmed:password'"
-                                        :append-icon="show ? 'visibility_off' : 'visibility'"
-                                        :type="show ? 'text' : 'password'"
-                                        :error-messages="errors.collect('password_confirmation')"
-                                        label="confirmar password"
-                                        hint="Confirmar password solo si va a modificarla"
-                                        data-vv-name="password_confirmation"
-                                        data-vv-as="password"
-                                        v-on:keyup.enter="submit"
-                                        @click:append="show = !show"
-                                        >
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex sm4>
+                                </v-col>
+                                 <v-col
+                                    cols="12"
+                                    md="2"
+                                >
 
-                                    <v-switch
-                                        v-model="user.blocked"
-                                        :disabled="computedId"
-                                        color="primary"
-                                        label="Bloqueado"
-                                    ></v-switch>
-                                    <v-menu v-if="user.blocked"
+                                    <v-menu
                                         v-model="menu2"
                                         :close-on-content-click="false"
                                         :nudge-right="40"
-                                        lazy
                                         transition="scale-transition"
                                         offset-y
-                                        full-width
+                                        min-width="290px"
+                                    >
+                                        <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                            v-model="computedDateFormat"
+                                            label="Fecha Bloqueo"
+                                            prepend-icon="event"
+                                            readonly
+                                            clearable
+                                            @click:clear="clearDate"
+                                            v-on="on"
+                                        ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                            v-model="user.blocked_at"
+                                            no-title
+                                            locale="es"
+                                            first-day-of-week=1
+                                            @input="menu2 = false">
+                                        </v-date-picker>
+                                    </v-menu>
+
+                                    <!-- <v-menu
+                                        v-model="menu2"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        transition="scale-transition"
+                                        offset-y
                                         min-width="290px"
                                     >
 
@@ -198,34 +227,87 @@
                                             @input="menu2 = false"
 
                                         ></v-date-picker>
-                                    </v-menu>
-                                    <v-text-field v-if="!user.blocked"
-                                        v-model="computedLoginAt"
-                                        label="Ult. Login"
-                                        readonly
-                                    >
+                                    </v-menu> -->
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-switch
+                                        v-model="user.blocked"
+                                        :disabled="computedId"
+                                        color="primary"
+                                        label="Bloqueado"
+                                    ></v-switch>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
+                                    <v-text-field
+                                        v-model="user.password"
+                                        ref="password"
+                                        :append-icon="show ? 'visibility_off' : 'visibility'"
+                                        :type="show ? 'text' : 'password'"
+                                        :error-messages="errors.collect('password')"
+                                        v-validate="'min:6'"
+                                        label="password"
+                                        hint="Indicar password solo si va a modificarla"
+                                        data-vv-name="password"
+                                        v-on:keyup.enter="submit"
+                                        @click:append="show = !show"
+                                        >
                                     </v-text-field>
-                                     <v-text-field
-                                        v-model="user.username_umod"
-                                        label="Modificado"
-                                        readonly
-                                    >
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
+                                    <v-text-field
+                                        v-model="user.password_confirmation"
+                                        v-validate="'min:6|confirmed:password'"
+                                        :append-icon="show ? 'visibility_off' : 'visibility'"
+                                        :type="show ? 'text' : 'password'"
+                                        :error-messages="errors.collect('password_confirmation')"
+                                        label="confirmar password"
+                                        hint="Confirmar password solo si va a modificarla"
+                                        data-vv-name="password_confirmation"
+                                        data-vv-as="password"
+                                        v-on:keyup.enter="submit"
+                                        @click:append="show = !show"
+                                        >
                                     </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
                                     <v-text-field
                                         v-model="computedFModFormat"
-                                        label="Modificado"
+                                        :label="user.username_umod"
                                         readonly
                                     >
                                     </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
                                     <v-text-field
                                         v-model="computedFCreFormat"
                                         label="Creado"
                                         readonly
                                     >
                                     </v-text-field>
-                                </v-flex>
-                                <v-flex sm1></v-flex>
-                                <v-flex sm2 v-if="showPer">
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
                                     <div v-if="user.avatar == '#'">
                                         <vue-dropzone
                                             ref="myVueDropzone"
@@ -238,20 +320,27 @@
                                         <v-avatar>
                                             <img class="img-fluid" :src="user.avatar" alt="avatar">
                                         </v-avatar>
-                                        <v-btn @click="openDialog" flat icon color="red darken-4">
+                                        <v-btn @click="openDialog" text icon color="red darken-4">
                                             <v-icon>delete</v-icon>
                                         </v-btn>
                                     </div>
-                                </v-flex>
+                                </v-col>
+                                <v-spacer></v-spacer>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-btn @click="submit"  rounded  :loading="loading" block  color="primary">
+                                        Guardar Usuario
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
 
-                            </v-layout>
                             <v-layout>
                                 <v-flex sm4></v-flex>
                                 <v-flex sm4>
                                     <div class="text-xs-center">
-                                        <v-btn @click="submit"  round  :loading="loading" block  color="primary">
-                                            Guardar Usuario
-                                        </v-btn>
+
                                     </div>
                                 </v-flex>
                             </v-layout>
@@ -259,29 +348,31 @@
                     </v-form>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-container v-if="showPer">
+                    <div v-if="showPer">
                         <user-emp :user="user" :emp_user="this.emp_user" :empresas="empresas"></user-emp>
+                    </div>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-container v-if="showPer">
+                        <v-row justify="space-around">
+                            <v-col
+                                cols="12"
+                            md="2">
+                                <h2>{{user.username}}</h2>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <user-role :user_id="this.user.id" :role_user="this.role_user"></user-role>
+                        </v-row>
+                        <v-row>
+                            <user-permiso :user_id="this.user.id" :permisos="this.permisos" :permisos_selected="permisos_selected"></user-permiso>
+                        </v-row>
                     </v-container>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-container>
-                        <v-layout row wrap text-xs-center>
-                            <v-flex sm12><h2>{{user.username}}</h2></v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                            <v-flex sm12>
-                                <div v-if="showPer">
-                                    <user-role :user_id="this.user.id" :role_user="this.role_user"></user-role>
-                                    <user-permiso :user_id="this.user.id" :permisos="this.permisos" :permisos_selected="permisos_selected"></user-permiso>
-                                </div>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                </v-tab-item>
-                <v-tab-item>
-                    <v-container v-if="user.id > 0">
+                    <div v-if="user.id > 0">
                         <user-ip :user_id="user.id" :ips="ips"></user-ip>
-                    </v-container>
+                    </div>
                 </v-tab-item>
             </v-tabs>
             </v-card>
@@ -431,7 +522,7 @@
             },
             computedFModFormat() {
                 moment.locale('es');
-                return this.user.updated_at ? moment(this.user.updated_at).format('D/MM/YYYY H:mm') : '';
+                return this.user.updated_at ? moment(this.user.updated_at).format('D/MM/YYYY H:mm:ss') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
