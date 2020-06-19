@@ -14,6 +14,11 @@
                     <v-row>
                         <v-col
                             cols="12"
+                            md="2"
+                        >
+                        </v-col>
+                        <v-col
+                            cols="12"
                             md="3"
                         >
                             <v-text-field
@@ -42,11 +47,14 @@
                                 :items="tratamientos"
                             ></v-select>
                         </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-spacer></v-spacer>
                         <v-col
                             cols="12"
-                            md="2"
+                            md="3"
                         >
-                            <v-btn @click="submit"  rounded  :loading="loading" small text color="primary">
+                            <v-btn @click="submit"  rounded  :loading="loading" small color="primary">
                                 Guardar
                             </v-btn>
                         </v-col>
@@ -82,22 +90,25 @@
                 titulo:   "Crear Bono",
                 tratamientos: [],
 
-                loading: false,
+                loading: true,
 
       		}
         },
         mounted(){
 
-            axios.get('/admin/bonos/create')
+            axios.get('/mto/bonos/create')
                 .then(res => {
-
+                    this.tratamientos = res.data.tratamientos;
                 })
                 .catch(err => {
                      if (err.response.status != 401){
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: 'users.index'});
+                        this.$router.push({ name: 'bono.index'});
                         }
                 })
+                .finally(()=>{
+                     this.loading = false;
+                });
         },
         computed: {
             ...mapGetters([
@@ -118,13 +129,14 @@
                 if (this.loading === false){
                     this.loading = true;
 
-                    var url = "/admin/bonos";
+                    var url = "/mto/bonos";
 
                     this.$validator.validateAll().then((result) => {
                         if (result){
-                            axios.post(url, this.user)
-                                .then(response => {
-                                    this.$router.push({ name: 'bono.edit', params: { id: response.data.bono.id } })
+                            axios.post(url, this.bono)
+                                .then(res => {
+                                    console.log(res);
+                                    this.$router.push({ name: 'bono.edit', params: { id: res.data.registro.id } })
                                 })
                                 .catch(err => {
                                         const msg_valid = err.response.data.errors;

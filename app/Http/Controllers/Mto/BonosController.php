@@ -59,4 +59,24 @@ class BonosController extends Controller
         if (request()->wantsJson())
             return ['registro'=>$reg, 'message' => 'EL registro ha sido creado'];
     }
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Bono $bono)
+    {
+
+      //  $this->authorize('update', $user->load('empresas'));
+
+
+        if (request()->wantsJson())
+            return [
+                'bono'         => $bono,
+                'tratamientos' => Tratamiento::selTratamientos()
+            ];
+
+    }
 }

@@ -1,4 +1,3 @@
-
 <template>
 <div>
         <loading :show_loading="loading"></loading>
@@ -30,16 +29,15 @@
             <template v-slot:item.actions="{ item }">
                 <v-icon
                     small
-                    class="mr-2"
                     @click="editItem(item.id)"
                 >
-                    mdi-pencil
+                    edit
                 </v-icon>
                 <v-icon
                     small
                     @click="openDialog(item.id)"
                 >
-                    mdi-delete
+                    delete
                 </v-icon>
             </template>
             </v-data-table>
@@ -86,12 +84,10 @@ import {mapActions} from "vuex";
             {
                 text: 'Acciones',
                 align: 'Center',
-                value: ''
+                value: 'actions'
             }
         ],
         items:[],
-        status: false,
-		registros: false,
         dialog: false,
         item_id: 0,
         loading: true
@@ -104,8 +100,7 @@ import {mapActions} from "vuex";
         axios.get('/mto/bonos')
             .then(res => {
 
-                this.bonos = res.data;
-                this.registros = true;
+                this.items = res.data;
 
             })
             .catch(err =>{
@@ -120,32 +115,13 @@ import {mapActions} from "vuex";
     computed: {
         ...mapGetters([
             'isRoot',
-            'getPagination'
         ])
     },
     methods:{
-        ...mapActions([
-            'setPagination',
-            'unsetPagination'
-		]),
-        updateEventPagina(obj){
-
-            this.paginaActual = obj;
-
-        },
-        updatePosPagina(pag){
-
-            this.pagination.page = pag.page;
-            this.pagination.descending = pag.descending;
-            this.pagination.rowsPerPage= pag.rowsPerPage;
-            this.pagination.sortBy = pag.sortBy;
-
-        },
         create(){
             this.$router.push({ name: 'bono.create'})
         },
         editItem (id) {
-            this.setPagination(this.paginaActual);
             this.$router.push({ name: 'bono.edit', params: { id: id } })
         },
         openDialog (id){
@@ -164,8 +140,6 @@ import {mapActions} from "vuex";
                 }
                 })
             .catch(err => {
-                this.status = true;
-
                 var msg = err.response.data.message;
                 this.$toast.error(msg);
 
@@ -175,7 +149,3 @@ import {mapActions} from "vuex";
     }
   }
 </script>
-
-<style scoped>
-  .tachado{text-decoration:line-through;}
-</style>

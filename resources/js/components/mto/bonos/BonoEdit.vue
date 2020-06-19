@@ -1,110 +1,115 @@
 <template>
-	<div v-show="show">
-        <loading :show_loading="show_loading"></loading>
-
+	<div>
+        <loading :show_loading="loading"></loading>
         <v-card>
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="iva.id"></menu-ope>
+                <menu-ope :id="bono.id"></menu-ope>
             </v-card-title>
         </v-card>
-        <v-card>
+        <v-card v-show="!loading">
             <v-form>
                 <v-container>
-                    <v-layout row wrap>
-                        <v-flex sm2></v-flex>
-                        <v-flex sm3>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
                             <v-text-field
-                                v-model="iva.nombre"
+                                v-model="bono.nombre"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('nombre')"
                                 label="Nombre"
                                 data-vv-name="nombre"
                                 data-vv-as="nombre"
-                                required
                                 v-on:keyup.enter="submit"
+                                required
                             >
                             </v-text-field>
-                        </v-flex>
-                         <v-flex sm2>
-                            <v-switch
-                                v-model="iva.rebu"
-                                color="primary"
-                                label="rebu"
-                            ></v-switch>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
+                            <v-select
+                                v-model="bono.tratamiento_id"
+                                v-validate="'required'"
+                                :error-messages="errors.collect('tratamiento_id')"
+                                label="Tratamiento"
+                                data-vv-name="tratamiento_id"
+                                data-vv-as="tratamiento"
+                                :items="tratamientos"
+                            ></v-select>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                         <v-col
+                            cols="12"
+                            md="2"
+                        >
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
                             <v-text-field
-                                v-model="iva.importe"
-                                v-validate="'required|decimal:2|min:1'"
+                                v-model="bono.importe"
+                                v-validate="'required'"
                                 :error-messages="errors.collect('importe')"
                                 label="Importe"
                                 data-vv-name="importe"
                                 data-vv-as="importe"
-                                class="inputPrice"
-                                type="number"
                                 v-on:keyup.enter="submit"
-                            >
-                            </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm2></v-flex>
-                        <v-flex sm10>
-                            <v-text-field
-                                v-model="iva.leyenda"
-                                v-validate="'max:150'"
-                                :error-messages="errors.collect('leyenda')"
-                                label="Leyenda"
-                                data-vv-name="leyenda"
-                                data-vv-as="leyenda"
                                 required
-                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm2></v-flex>
-                        <v-flex sm3>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
+                        </v-col>
+                        <v-col cols="12" md="2">
+                            <v-text-field
+                                v-model="bono.username"
+                                label="Usuario"
+                                readonly
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="2">
                             <v-text-field
                                 v-model="computedFModFormat"
                                 label="Modificado"
                                 readonly
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
+                        </v-col>
+                        <v-col cols="12" md="2">
                             <v-text-field
                                 v-model="computedFCreFormat"
                                 label="Creado"
                                 readonly
                             >
                             </v-text-field>
-                        </v-flex>
-                       <v-flex sm2>
-                            <v-text-field
-                                v-model="iva.username"
-                                :error-messages="errors.collect('username')"
-                                label="Usuario"
-                                data-vv-name="username"
-                                readonly
-                                v-on:keyup.enter="submit"
-                            >
-                            </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm7></v-flex>
-                        <v-flex sm2>
-                            <div class="text-xs-center">
-                                        <v-btn @click="submit"  round  :loading="loading" block  color="primary">
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
+                            <v-btn @click="submit"  rounded  :loading="loading" small color="primary">
                                 Guardar
-                                </v-btn>
-                            </div>
-                        </v-flex>
-                    </v-layout>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>
@@ -125,48 +130,37 @@ import MenuOpe from './MenuOpe'
 		},
     	data () {
       		return {
-                titulo:"Tipo IVA",
-                iva: {
-                    id:       0,
-                    nombre:  "",
-                    leyenda: "",
-                    rebu: false,
-                    username:"",
-                    updated_at:"",
-                    created_at:"",
-                },
-
-        		status: false,
-                loading: false,
-
-                show: false,
-                show_loading: true,
+                titulo:"Bonos",
+                bono: {},
+                loading: true,
+                tratamientos:[]
       		}
         },
         beforeMount(){
             var id = this.$route.params.id;
 
             if (id > 0)
-                axios.get('/mto/ivas/'+id+'/edit')
+                axios.get('/mto/bonos/'+id+'/edit')
                     .then(res => {
-
-                        this.iva = res.data.iva;
-                        this.show = true;
-                        this.show_loading = false;
+                        this.bono = res.data.bono;
+                        this.tratamientos = res.data.tratamientos;
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: 'iva.index'})
+                        this.$router.push({ name: 'bono.index'})
                     })
+                    .finally(()=>{
+                       this.loading = false;
+                });
         },
         computed: {
             computedFModFormat() {
                 moment.locale('es');
-                return this.iva.updated_at ? moment(this.iva.updated_at).format('D/MM/YYYY H:mm') : '';
+                return this.bono.updated_at ? moment(this.bono.updated_at).format('D/MM/YYYY H:mm') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
-                return this.iva.created_at ? moment(this.iva.created_at).format('D/MM/YYYY H:mm') : '';
+                return this.bono.created_at ? moment(this.bono.created_at).format('D/MM/YYYY H:mm') : '';
             }
 
         },
@@ -175,14 +169,13 @@ import MenuOpe from './MenuOpe'
 
                 if (this.loading === false){
                     this.loading = true;
-                    var url = "/mto/ivas/"+this.iva.id;
+                    var url = "/mto/bonos/"+this.bono.id;
                     this.$validator.validateAll().then((result) => {
                         if (result){
-                            axios.put(url,this.iva)
+                            axios.put(url,this.bono)
                                 .then(response => {
                                     this.$toast.success(response.data.message);
-                                    this.iva = response.data.iva;
-                                    this.loading = false;
+                                    this.bono = response.data.bono;
                                 })
                                 .catch(err => {
 
@@ -197,6 +190,8 @@ import MenuOpe from './MenuOpe'
                                     }else{
                                         this.$toast.error(err.response.data.message);
                                     }
+                                })
+                                .finally(()=>{
                                     this.loading = false;
                                 });
                             }

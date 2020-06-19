@@ -8,7 +8,7 @@ class Bono extends Model
 {
     protected $fillable = [
 
-        'nombre','importe','tratamiento_id','sesiones','caducidad','username',
+        'nombre', 'importe', 'tratamiento_id', 'sesiones', 'caducidad', 'username',
 
     ];
 

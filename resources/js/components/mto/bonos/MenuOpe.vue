@@ -17,7 +17,7 @@
          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    v-show="id > 0 && isRoot"
+                    v-show="id > 0 && isAdmin"
                     v-on="on"
                     color="white"
                     icon
@@ -60,15 +60,15 @@ export default {
     },
      computed: {
         ...mapGetters([
-            'isRoot',
+            'isAdmin',
         ])
     },
     methods:{
         goCreate(){
-            this.$router.push({ name: 'iva.create' })
+            this.$router.push({ name: 'bono.create' })
         },
         goIndex(){
-            this.$router.push({ name: 'iva.index' })
+            this.$router.push({ name: 'bono.index' })
         },
         openDialog (){
             this.dialog = true;
@@ -76,10 +76,10 @@ export default {
         destroyReg () {
             this.dialog = false;
 
-            axios.post('/mto/ivas/'+this.id,{_method: 'delete'})
+            axios.post('/mto/bonos/'+this.id,{_method: 'delete'})
                 .then(response => {
-                this.$router.push({ name: 'iva.index' })
-                this.$toast.success('IVA eliminado!');
+                this.$router.push({ name: 'bono.index' })
+                this.$toast.success('Registro eliminado!');
 
             })
             .catch(err => {

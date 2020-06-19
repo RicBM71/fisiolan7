@@ -15,7 +15,7 @@ class Tratamiento extends Model
 
     public static function selTratamientos(){
 
-        return Almacen::select('id AS value', 'nombre AS text')
+        return Tratamiento::select('id AS value', 'nombre AS text')
             ->orderBy('nombre', 'asc')
             ->get();
 
