@@ -91,7 +91,7 @@
                 <v-list-item-action v-if="child.icon">
                     <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-action>
-                <v-list-item-content>
+                <v-list-item-content @click="abrir(child.name)">
                     <v-list-item-title>
                     {{ child.text }}
                     </v-list-item-title>
@@ -207,36 +207,33 @@ export default {
         show_loading:  false,
 
         items: [
-            { icon: 'mdi-contacts', text: 'Pacientes' },
+            { icon: 'mdi-contacts', text: 'Pacientes', name: 'pacientes.index' },
             { icon: 'mdi-history', text: 'Frequently contacted' },
             { icon: 'mdi-content-copy', text: 'Duplicates' },
             {
             icon: 'mdi-chevron-up',
             'icon-alt': 'mdi-chevron-down',
-            text: 'Labels',
+            text: 'Mantenimmientos',
             model: true,
             children: [
-                { icon: 'mdi-plus', text: 'Create label' },
+                { icon: 'mdi-plus', text: 'Bonos', name:'bono.index' },
+                { icon: 'mdi-plus', text: 'Tratamientos', name:'bono.index'  },
             ],
             },
             {
             icon: 'mdi-chevron-up',
             'icon-alt': 'mdi-chevron-down',
-            text: 'More',
+            text: 'Administración',
             model: false,
             children: [
-                { text: 'Import' },
-                { text: 'Export' },
+                { text: 'Empresas', name: 'empresa.index' },
+                { text: 'Usuarios' },
                 { text: 'Print' },
                 { text: 'Undo changes' },
                 { text: 'Other contacts' },
             ],
             },
             { icon: 'mdi-settings', text: 'Settings' },
-            { icon: 'mdi-message', text: 'Send feedback' },
-            { icon: 'mdi-help-circle', text: 'Help' },
-            { icon: 'mdi-cellphone-link', text: 'App downloads' },
-            { icon: 'mdi-keyboard', text: 'Go to the old version' },
         ],
 
         expired: false,
@@ -307,6 +304,7 @@ export default {
                 'unsetParametros'
 			]),
         abrir(name){
+            console.log(name);
             //this.drawer = false;
             this.$router.push({name: name});
         },

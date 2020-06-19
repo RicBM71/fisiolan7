@@ -35,7 +35,6 @@ class GenericasSeeder extends Seeder
        // $emp->logo = "logo.jpg";
         $emp->certificado = "";
         $emp->passwd_cer="";
-        $emp->almacen_id = 1;
         $emp->flags='11111000000000000000';
         $emp->save();
 
@@ -80,14 +79,12 @@ class GenericasSeeder extends Seeder
         $reg = new Iva;
         $reg->nombre = "General";
         $reg->importe = 21;
-        $reg->rebu = false;
         $reg->save();
 
         $reg = new Iva;
         $reg->nombre = "Exento IVA";
         $reg->importe = 0;
-        $reg->leyenda="IVA NO APLICABLE SEGUN LEY 55/1999. BOE 30.12.1999";
-        $reg->rebu = false;
+        $reg->leyenda="Actividad exenta de IVA s/Art. 20 IVA.";
         $reg->save();
 
         // $mot = new Motivo();

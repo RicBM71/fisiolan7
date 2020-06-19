@@ -25,9 +25,7 @@ class CreateHcajasTable extends Migration
             $table->String('nombre')->nullable();
             $table->decimal('importe', 10, 2)->default(0);
             $table->String('manual',1)->default('S');
-            $table->unsignedInteger('deposito_id')->nullable();
-            $table->unsignedInteger('cobro_id')->nullable();
-            $table->unsignedInteger('apunte_id')->nullable()->index();
+            $table->unsignedInteger('cita_id')->nullable();
             $table->string('username',30)->nullable();
             $table->timestamps();
         });

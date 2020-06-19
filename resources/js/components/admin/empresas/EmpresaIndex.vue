@@ -1,76 +1,56 @@
 <template>
     <div>
         <loading :show_loading="show_loading"></loading>
-        <v-container>
-    		<my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
-            <v-card>
-                <v-card-title>
-                    <h2>{{titulo}}</h2>
-                    <v-spacer></v-spacer>
-                    <menu-ope></menu-ope>
-                </v-card-title>
-                </v-card>
-            <v-card>
-                <v-container>
-                    <v-layout row wrap>
-                        <v-flex xs6></v-flex>
-                        <v-flex xs6>
-                            <v-spacer></v-spacer>
-                            <v-text-field
-                                v-model="search"
-                                append-icon="search"
-                                label="Buscar"
-                                single-line
-                                hide-details
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <br/>
-                    <v-layout row wrap>
-                        <v-flex xs12>
-                            <v-data-table
-                            :headers="headers"
-                            :items="empresas"
-                            :search="search"
-                            :pagination.sync="pagination"
-                            rows-per-page-text="Registros por página"
-                            >
-                                <template slot="items" slot-scope="props">
-                                    <td>{{ props.item.id }}</td>
-                                    <td v-if="props.item.flags[0]==true">{{ props.item.nombre }}</td>
-                                    <td v-else class="tachado red--text darken-4">{{ props.item.nombre }}</td>
-                                    <td>{{ props.item.cif }}</td>
-                                    <td v-if="props.item.deleted_at==null">{{ props.item.contacto }}</td>
-                                    <td v-else class="red">Borrada {{props.item.deleted_at}}</td>
-                                    <td>{{ props.item.telefono1 }}</td>
-                                    <td class="justify-center layout px-0">
-                                        <v-icon
-                                            small
-                                            class="mr-2"
-                                            @click="editItem(props.item.id)"
-                                        >
-                                            edit
-                                        </v-icon>
+		<my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
+        <v-card>
+            <v-card-title>
+                <h2>{{titulo}}</h2>
+                <v-spacer></v-spacer>
+                <menu-ope></menu-ope>
+            </v-card-title>
+        </v-card>
+        <v-card v-if="!show_loading">
+            <v-card-title>
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Buscar"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-card-title>
 
-
-                                        <v-icon
-                                            v-show="props.item.id!=empresaActiva"
-                                            small
-                                            @click="openDialog(props.item.id)"
-                                        >
-                                        delete
-                                        </v-icon>
-                                    </td>
-                                </template>
-                                <template slot="pageText" slot-scope="props">
-                                    Registros {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
-                                </template>
-                            </v-data-table>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-card>
-        </v-container>
+            <v-data-table
+                :search="search"
+                :headers="headers"
+                :items="empresas"
+            >
+                <template v-slot:item.roles="{ item }">
+                    {{ extrae(item.roles)}}
+                </template>
+                <template v-slot:item.actions="{ item }">
+                    <v-icon
+                        small
+                        class="mr-2"
+                        @click="editItem(item.id)"
+                    >
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon
+                        small
+                        @click="openDialog(item.id)"
+                    >
+                        mdi-delete
+                    </v-icon>
+                </template>
+                <v-data-footer>
+                    <template v-slot:page-text="pagetext">
+                    {{pagetext}}
+                    </template>
+                </v-data-footer>
+            </v-data-table>
+        </v-card>
     </div>
 </template>
 <script>
@@ -117,15 +97,11 @@ import {mapGetters} from 'vuex';
           {
             text: 'Acciones',
             align: 'Center',
-            value: ''
+            value: 'actions',
+            sortable: false
           }
         ],
-        pagination:{
-            descending: true,
-            page: 1,
-            rowsPerPage: 10,
-            sortBy: "id",
-        },
+
         empresas:[],
         status: false,
         dialog: false,

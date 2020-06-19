@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Iva extends Model
 {
     protected $fillable = [
-        'nombre', 'rebu', 'importe', 'leyenda', 'username'
+        'nombre', 'importe', 'leyenda', 'username'
     ];
 
     public static function selIvas()

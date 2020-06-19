@@ -1,5 +1,7 @@
 <template>
 	<div>
+        <loading :show_loading="loading"></loading>
+        <my-dialog :dialog.sync="dialog" registro="avatar" @destroyReg="destroyReg"></my-dialog>
         <v-card>
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
@@ -19,79 +21,98 @@
                         Permisos
                 </v-tab>
                 <v-tab-item>
-                        <v-form>
-                            <v-container>
-                                <v-layout row wrap>
-                                    <v-flex sm3>
-                                        <v-text-field
-                                            v-model="empresa.nombre"
-                                            v-validate="'required'"
-                                            :error-messages="errors.collect('nombre')"
-                                            label="Nombre"
-                                            data-vv-name="nombre"
-                                            data-vv-as="nombre"
-                                            required
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
-                                        <v-text-field
-                                            v-model="empresa.razon"
-                                            v-validate="'required'"
-                                            :error-messages="errors.collect('razon')"
-                                            label="Razon"
-                                            data-vv-name="razon"
-                                            required
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
-                                        <v-text-field
-                                            v-model="empresa.cif"
-                                            :error-messages="errors.collect('cif')"
-                                            label="CIF"
-                                            data-vv-name="cif"
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
-                                        <v-text-field
-                                            v-model="empresa.telefono1"
-                                            :error-messages="errors.collect('telefono1')"
-                                            label="Telefono"
-                                            data-vv-name="telefono1"
-                                            data-vv-as="Teléfono"
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
-                                        <v-text-field
-                                            v-model="empresa.telefono2"
-                                            :error-messages="errors.collect('telefono2')"
-                                            label="Telefono"
-                                            data-vv-name="telefono2"
-                                            data-vv-as="Teléfono"
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row wrap>
-                                    <v-flex sm3>
-                                        <v-text-field
-                                            v-model="empresa.direccion"
-                                            :error-messages="errors.collect('direccion')"
-                                            label="Dirección"
-                                            data-vv-name="direccion"
-                                            v-on:keyup.enter="submit"
-                                        >
-                                        </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm1>
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.nombre"
+                                        v-validate="'required'"
+                                        :error-messages="errors.collect('name')"
+                                        label="Nombre"
+                                        data-vv-name="name"
+                                        data-vv-as="nombre"
+                                        v-on:keyup.enter="submit"
+                                        required
+                                        autofocus
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.razon"
+                                        v-validate="'required'"
+                                        :error-messages="errors.collect('razon')"
+                                        label="Razon"
+                                        data-vv-name="razon"
+                                        required
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.cif"
+                                        :error-messages="errors.collect('cif')"
+                                        label="CIF"
+                                        data-vv-name="cif"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.telefono1"
+                                        :error-messages="errors.collect('telefono1')"
+                                        label="Telefono"
+                                        data-vv-name="telefono1"
+                                        data-vv-as="Teléfono"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    md="2"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.telefono2"
+                                        :error-messages="errors.collect('telefono2')"
+                                        label="Telefono"
+                                        data-vv-name="telefono2"
+                                        data-vv-as="Teléfono"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="3"
+                                >
+                                    <v-text-field
+                                        v-model="empresa.direccion"
+                                        :error-messages="errors.collect('direccion')"
+                                        label="Dirección"
+                                        data-vv-name="direccion"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                    <v-col cols="12" md="1">
                                         <v-text-field
                                             v-model="empresa.cpostal"
                                             :error-messages="errors.collect('cpostal')"
@@ -100,8 +121,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.poblacion"
                                             :error-messages="errors.collect('poblacion')"
@@ -110,8 +131,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.provincia"
                                             :error-messages="errors.collect('provincia')"
@@ -120,8 +141,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
                                         <v-text-field
                                             v-model="empresa.sigla"
                                             :error-messages="errors.collect('sigla')"
@@ -130,10 +151,10 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row wrap>
-                                    <v-flex sm3>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.titulo"
                                             v-validate="'required'"
@@ -143,8 +164,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.contacto"
                                             :error-messages="errors.collect('contacto')"
@@ -153,8 +174,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.email"
                                             v-validate="'email'"
@@ -164,8 +185,8 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm3>
+                                    </v-col>
+                                    <v-col  cols="12" md="3">
                                         <v-text-field
                                             v-model="empresa.web"
                                             :error-messages="errors.collect('web')"
@@ -174,69 +195,169 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row wrap v-if="isRoot">
-                                    <v-flex sm2>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" md="1">
+                                        <v-text-field
+                                            v-model="empresa.sms_usr"
+                                            :error-messages="errors.collect('sms_usr')"
+                                            label="SMS User"
+                                            data-vv-name="sms_usr"
+                                            data-vv-as="usuario"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-text-field
+                                            v-model="empresa.sms_password"
+                                            :error-messages="errors.collect('sms_password')"
+                                            label="SMS Password"
+                                            data-vv-name="sms_password"
+                                            data-vv-as="password"
+                                            :append-icon="show_sms_passwd ? 'visibility' : 'visibility_off'"
+                                            :type="show_sms_passwd ? 'text' : 'password'"
+                                            @click:append="show_sms_passwd = !show_sms_passwd"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-text-field
+                                            v-model="empresa.sms_licencia"
+                                            :error-messages="errors.collect('sms_licencia')"
+                                            label="SMS Licencia"
+                                            data-vv-name="sms_licencia"
+                                            data-vv-as="licencia"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-text-field
+                                            v-model="empresa.sms_sender"
+                                            :error-messages="errors.collect('sms_sender')"
+                                            label="Remite"
+                                            data-vv-name="sms_sender"
+                                            data-vv-as="usuario"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="1">
+                                        <v-text-field
+                                            v-model="empresa.sms_pais"
+                                            :error-messages="errors.collect('sms_pais')"
+                                            label="País"
+                                            data-vv-name="sms_pais"
+                                            data-vv-as="pais"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
                                         <v-menu
-                                            v-model="menu"
+                                            ref="menu"
+                                            v-model="menu_am"
                                             :close-on-content-click="false"
                                             :nudge-right="40"
-                                            lazy
+                                            :return-value.sync="empresa.sms_am"
                                             transition="scale-transition"
                                             offset-y
-                                            full-width
-                                            min-width="290px"
+                                            max-width="190px"
+                                            min-width="190px"
                                         >
-
+                                            <template v-slot:activator="{ on, attrs }">
                                             <v-text-field
-                                                slot="activator"
-                                                :value="computedDateFormat"
-                                                clearable
-                                                label="Fecha Scaneo"
-                                                prepend-icon="event"
+                                                v-model="empresa.sms_am"
+                                                label="Envío mañanas"
+                                                append-icon="access_time"
                                                 readonly
-                                                data-vv-as="F. Scaneo"
-                                                @click:clear="clearDate"
-                                                ></v-text-field>
-                                            <v-date-picker
-                                                v-model="empresa.scan_doc"
-                                                no-title
-                                                locale="es"
-                                                first-day-of-week=1
-                                                @input="menu = false"
-                                            ></v-date-picker>
+                                                v-bind="attrs"
+                                                v-on="on"
+                                            ></v-text-field>
+                                            </template>
+                                            <v-time-picker
+                                            v-if="menu_am"
+                                            v-model="empresa.sms_am"
+                                            full-width
+                                            @click:minute="$refs.menu.save(empresa.sms_am)"
+                                            ></v-time-picker>
                                         </v-menu>
-                                    </v-flex>
-                                    <v-flex sm3 d-flex>
-                                        <v-select
-                                            :readonly="!isRoot"
-                                            v-validate="'required'"
-                                            v-model="empresa.deposito_empresa_id"
-                                            :error-messages="errors.collect('deposito_empresa_id')"
-                                            data-vv-name="deposito_empresa_id"
-                                            data-vv-as="empresa"
-                                            :items="empresas"
-                                            label="Empresa Depósitos"
-                                            :disabled="!isRoot"
-                                        ></v-select>
-                                    </v-flex>
-                                    <v-flex sm3 d-flex>
-                                        <v-select
-                                            :readonly="!isRoot"
-                                            v-model="empresa.comun_empresa_id"
-                                            v-validate="'required'"
-                                            :error-messages="errors.collect('comun_empresa_id')"
-                                            data-vv-name="comun_empresa_id"
-                                            data-vv-as="empresa"
-                                            :items="empresas"
-                                            label="Empresa Común"
-                                            :disabled="!isRoot"
-                                        ></v-select>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row wrap>
-                                    <v-flex sm12>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
+                                        <v-menu
+                                            ref="menu2"
+                                            v-model="menu_pm"
+                                            :close-on-content-click="false"
+                                            :nudge-right="40"
+                                            :return-value.sync="empresa.sms_pm"
+                                            transition="scale-transition"
+                                            offset-y
+                                            max-width="190px"
+                                            min-width="190px"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                                v-model="empresa.sms_pm"
+                                                label="Envío tardes"
+                                                append-icon="access_time"
+                                                readonly
+                                                v-bind="attrs"
+                                                v-on="on"
+                                            ></v-text-field>
+                                            </template>
+                                            <v-time-picker
+                                            v-if="menu_pm"
+                                            v-model="empresa.sms_pm"
+                                            full-width
+                                            @click:minute="$refs.menu2.save(empresa.sms_pm)"
+                                            ></v-time-picker>
+                                        </v-menu>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col
+                                        cols="12"
+                                        md="1"
+                                    >
+                                        <v-text-field
+                                            v-model="empresa.ult_bono"
+                                            v-validate="'required|numeric'"
+                                            :error-messages="errors.collect('ult_bono')"                                            d
+                                            label="Último bono"
+                                            data-vv-name="ult_bono"
+                                            data-vv-as="bono"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        md="3"
+                                    >
+                                        <v-text-field
+                                            v-model="empresa.ccc_ss"
+                                            v-validate="'max:30'"
+                                            :error-messages="errors.collect('ccc_ss')"                                            d
+                                            label="Cod. Cuenta SS"
+                                            data-vv-name="ccc_ss"
+                                            data-vv-as="código"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                    <v-switch
+                                        label="TPV PC"
+                                        v-model="empresa.tpv"
+                                        color="primary"
+                                    ></v-switch>
+                                </v-col>
+                                 </v-row>
+                                <v-row>
+                                    <v-col cols="12" md="12">
                                         <v-text-field
                                             v-model="empresa.txtpie1"
                                             :error-messages="errors.collect('txtpie1')"
@@ -245,10 +366,10 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row wrap>
-                                    <v-flex sm12>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" md="12">
                                         <v-text-field
                                             v-model="empresa.txtpie2"
                                             :error-messages="errors.collect('txtpie2')"
@@ -257,161 +378,146 @@
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
-                                    </v-flex>
-
-                                </v-layout>
-                                <v-layout row wrap>
-                                    <v-flex sm3 d-flex>
-                                        <v-select
-                                        v-model="empresa.almacen_id"
-                                        v-validate="'numeric'"
-                                        :error-messages="errors.collect('almacen_id')"
-                                        data-vv-name="almacen_id"
-                                        data-vv-as="almacén"
-                                        :items="almacenes"
-                                        label="Ubicación"
-                                        required
-                                        ></v-select>
-                                    </v-flex>
-                                    <v-flex sm2>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12" md="2">
                                         <v-text-field
                                             v-model="empresa.username"
                                             label="Usuario"
                                             readonly
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
                                         <v-text-field
                                             v-model="computedFModFormat"
                                             label="Modificado"
                                             readonly
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm2>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
                                         <v-text-field
                                             v-model="computedFCreFormat"
                                             label="Creado"
                                             readonly
                                         >
                                         </v-text-field>
-                                    </v-flex>
-                                    <v-flex sm5>
-                                    </v-flex>
-                                    <v-flex sm2>
+                                    </v-col>
+                                    <v-col cols="12" md="4"></v-col>
+                                    <v-col cols="12" md="2">
                                         <div class="text-xs-center">
-                                                    <v-btn @click="submit"  round  :loading="loading" block  color="primary">
+                                                    <v-btn @click="submit"  rounded  :loading="loading" small color="primary">
                                             Guardar
                                             </v-btn>
                                         </div>
-                                    </v-flex>
-                                </v-layout>
+                                    </v-col>
+                                </v-row>
                             </v-container>
                         </v-form>
                     </v-tab-item>
                     <v-tab-item>
                         <v-container>
-                            <v-layout row wrap>
-                                <v-flex sm12 class="font-weight-black text-xs-center"><p>{{empresa.nombre}}</p></v-flex>
-                            </v-layout>
-                            <v-layout row wrap>
-                                <v-flex sm2></v-flex>
-                                <v-flex sm3 v-if="empresa.img_logo==null">
+                            <v-row>
+                                <v-col cols="12" md="2" class="font-weight-black text-xs-center"><p>{{empresa.nombre}}</p></v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="2"></v-col>
+                                <v-col cols="12" md="3" v-if="empresa.img_logo==null">
                                     <vue-dropzone
                                             ref="myVueDropzone"
                                             id="dropzone"
                                             :options="dropzoneOptions"
                                             v-on:vdropzone-success="uploadLogo"
                                     ></vue-dropzone>
-                                </v-flex>
-                                <v-flex sm3 v-else>
+                                </v-col>
+                                <v-col cols="12" md="2" v-else>
                                     <v-img class="img-fluid" :src="empresa.img_logo"></v-img>
                                     <v-btn @click="borraLogo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Logo</v-btn>
-                                </v-flex>
-                                <v-flex sm1></v-flex>
-                                <v-flex sm3 v-if="empresa.img_fondo==null">
+                                </v-col>
+                                <v-col cols="12" md="1"></v-col>
+                                <v-col cols="12" md="3" v-if="empresa.img_fondo==null">
                                     <vue-dropzone
                                             ref="myVueDropzone2"
                                             id="dropzone2"
                                             :options="dropzoneOptions2"
                                             v-on:vdropzone-success="uploadFondo"
                                     ></vue-dropzone>
-                                </v-flex>
-                                <v-flex sm3 v-else>
+                                </v-col>
+                                <v-col cols="12" md="3" v-else>
                                     <v-img class="img-fluid" :src="empresa.img_fondo"></v-img>
                                     <v-btn @click="borraFondo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Fondo</v-btn>
-                                </v-flex>
-                            </v-layout>
+                                </v-col>
+                            </v-row>
                         </v-container>
                     </v-tab-item>
                     <v-tab-item>
                         <v-container>
-                            <v-layout row wrap>
-                                <v-flex sm12 class="font-weight-black text-xs-center"><p>{{empresa.nombre}}</p></v-flex>
-                            </v-layout>
-                            <v-layout row wrap>
-                                <v-flex sm3>
+                            <v-row>
+                                <v-col cols="12" md="2" class="font-weight-black text-xs-center"><p>{{empresa.nombre}}</p></v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Activa"
                                         v-model="sw[0]"
-                                        color="primary">
-                                        @change="estado"
+                                        color="primary"
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Compras"
                                         v-model="sw[1]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Ventas"
                                         v-model="sw[2]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Nuevas Compras"
                                         v-model="sw[3]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Nuevas Ventas"
                                         v-model="sw[4]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Proveedora Efectivo"
                                         v-model="sw[5]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                                <v-flex sm3>
+                                </v-col>
+                                <v-col cols="12" md="3">
                                     <v-switch
                                         label="Bloquear Facturación"
                                         v-model="sw[6]"
                                         color="primary">
                                     ></v-switch>
-                                </v-flex>
-                            </v-layout>
-                            <v-layout row wrap>
-                                   <v-flex sm5></v-flex>
-                                   <v-flex sm2>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                   <v-col cols="12" md="5"></v-col>
+                                   <v-col cols="12" md="2">
                                         <div class="text-xs-center">
-                                                    <v-btn @click="submit"  round  :loading="loading" block  color="primary">
+                                                    <v-btn @click="submit"  rounded small :loading="loading" color="primary">
                                             Guardar
                                             </v-btn>
                                         </div>
-                                    </v-flex>
-                            </v-layout>
+                                    </v-col>
+                            </v-row>
                         </v-container>
                     </v-tab-item>
                 </v-tabs>
@@ -421,6 +527,8 @@
 </template>
 <script>
 import moment from 'moment'
+import Loading from '@/components/shared/Loading'
+import MyDialog from '@/components/shared/MyDialog'
 import MenuOpe from './MenuOpe'
 import vue2Dropzone from 'vue2-dropzone'
 import {mapGetters} from 'vuex';
@@ -432,47 +540,24 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
         components: {
             'menu-ope': MenuOpe,
             'vueDropzone': vue2Dropzone,
+            'my-dialog': MyDialog,
+            'loading': Loading
 		},
     	data () {
       		return {
                 titulo:"Empresas",
-                empresa: {
-                    id: 0,
-                    nombre: "",
-                    razon: "",
-                    cif: "",
-                    poblacion: "",
-                    direccion: "",
-                    cpostal: "",
-                    provincia: "",
-                    telefono1: "",
-                    telefono2: "",
-                    contacto: "",
-                    email: "",
-                    web: "",
-                    txtpie1: "",
-                    txtpie2: "",
-                    flags: "",
-                    sigla: "",
-                    titulo: "",
-                    img_logo:"",
-                    img_fondo:"",
-                    certificado:"",
-                    passwd_cer:"",
-                    almacen_id:"",
-                    scan_doc:"",
-                    comun_empresa_id:"",
-                    username: "",
-                    updated_at:"",
-                    created_at:"",
-                },
+                empresa: {},
+                dialog:false,
+                show_sms_passwd:false,
                 sw:[] ,
                 almacenes:[],
                 empresas:[],
                 empresa_id: "",
 
         		status: false,
-                loading: false,
+                loading: true,
+                menu_am: false,
+                menu_pm: false,
 
                 show: false,
                 menu: false,
@@ -522,14 +607,14 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                         // });
                         this.getFlags(this.empresa.flags);
 
-
-
-
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
                         this.$router.push({ name: 'empresa.index'})
                     })
+                    .finally(()=> {
+                        this.loading = false;
+                    });
         },
         computed: {
             ...mapGetters([
@@ -591,6 +676,19 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                         this.loading = false;
                     })
             },
+            destroyReg(){
+                //  axios({
+                //     method: 'delete',
+                //     url: '/admin/avatars/'+this.user.id+'/delete',
+                //     })
+                //     .then(response => {
+                //         this.user.avatar = "#";
+                //         this.$toast.success(response.data.msg);
+                //     })
+                //     .catch(err => {
+                //         this.$toast.error(err.response.data);
+                //     });
+            },
             submit() {
                 if (this.loading === false){
 
@@ -651,7 +749,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.v-form>.container>.layout>.flex {
+.v-form>.container>.layout>.col {
     padding: 1px 8px 1px 8px;
 }
 .v-text-field {

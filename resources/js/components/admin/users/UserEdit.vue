@@ -426,7 +426,7 @@
                     // updated_at:"",
                     // created_at:"",
                 },
-                titulo:   "Usuarios",
+                titulo:   "Editar usuario",
 
                 emp_user:[],
                 role_user: [],

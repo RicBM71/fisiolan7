@@ -31,9 +31,12 @@ class Empresa extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'razon', 'cif', 'poblacion', 'direccion', 'cpostal','provincia', 'telefono1','telefono2',
-        'contacto', 'email', 'web', 'txtpie1', 'txtpie2', 'flags','sigla', 'titulo','comun_empresa_id',
-        'img_logo','img_fondo','certificado','passwd_cer', 'almacen_id','scan_doc','username','deposito_empresa_id'
+
+        'nombre','razon','cif','poblacion','direccion','cpostal','provincia','telefono1','telefono2','contacto',
+        'email', 'web','txtpie1','txtpie2','flags','sigla','titulo','img_logo','img_fondo','certificado',
+        'passwd_cer','ult_bono','sms_usr', 'sms_password', 'sms_licencia', 'sms_sender', 'sms_pais',
+        'sms_zona', 'sms_am', 'sms_pm', 'ccc_ss', 'tpv','username',
+
     ];
 
     public function setCifAttribute($cif)
@@ -84,14 +87,7 @@ class Empresa extends Model
 
     public static function selEmpresas(){
 
-
-        if (session('aislar_empresas'))
-            return Empresa::select('id AS value', 'nombre AS text')
-                ->whereIn('id', session('empresas_usuario'))
-                ->flag(0)
-                ->orderBy('nombre', 'asc');
-        else
-            return Empresa::select('id AS value', 'nombre AS text')
+        return Empresa::select('id AS value', 'nombre AS text')
                 ->flag(0)
                 ->orderBy('nombre', 'asc');
             // ->get();

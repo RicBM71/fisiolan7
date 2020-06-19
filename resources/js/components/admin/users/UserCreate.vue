@@ -1,5 +1,6 @@
 <template>
 	<div>
+        <loading :show_loading="loading"></loading>
         <v-card>
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
@@ -7,12 +8,14 @@
                 <menu-ope :id="user.id"></menu-ope>
             </v-card-title>
         </v-card>
-        <v-card>
+        <v-card v-show="!loading">
             <v-form>
                 <v-container>
-                    <v-layout row wrap>
-                        <v-flex sm3></v-flex>
-                        <v-flex sm3>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
                             <v-text-field
                                 v-model="user.name"
                                 v-validate="'required'"
@@ -20,33 +23,15 @@
                                 label="Nombre"
                                 data-vv-name="name"
                                 data-vv-as="nombre"
+                                v-on:keyup.enter="submit"
                                 required
-                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                            <v-text-field
-                                v-model="user.username"
-                                v-validate="'required|min:6'"
-                                :counter="20"
-                                :error-messages="errors.collect('username')"
-                                label="Usuario"
-                                data-vv-name="username"
-                                data-vv-as="usuario"
-                                required
-                                v-on:keyup.enter="submit"
-                            >
-                            </v-text-field>
-                            <v-text-field
-                                v-model="user.email"
-                                v-validate="'email'"
-                                :error-messages="errors.collect('email')"
-                                label="email"
-                                data-vv-name="email"
-                                v-on:keyup.enter="submit"
-                            >
-                            </v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
                             <v-text-field
                                 v-model="user.lastname"
                                 :error-messages="errors.collect('lastname')"
@@ -56,19 +41,50 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                     <v-layout row wrap>
-                        <v-flex sm4>
-                        </v-flex>
-                        <v-flex sm6>
-                            <div class="text-xs-center">
-                                <v-btn @click="submit"  round  :loading="loading" block  color="primary">
-                                    Crear Usuario
-                                </v-btn>
-                            </div>
-                        </v-flex>
-                    </v-layout>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
+                            <v-text-field
+                                v-model="user.username"
+                                v-validate="'required|min:6'"
+                                :counter="20"
+                                :error-messages="errors.collect('username')"
+                                label="Usuario"
+                                data-vv-name="username"
+                                data-vv-as="usuario"
+                                v-on:keyup.enter="submit"
+                                required
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="3"
+                        >
+                            <v-text-field
+                                v-model="user.email"
+                                v-validate="'required_if:id,1,2|email'"
+                                :error-messages="errors.collect('email')"
+                                label="email"
+                                data-vv-name="email"
+                                v-on:keyup.enter="submit"
+                                required
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
+                            <v-btn @click="submit"  rounded  :loading="loading" small text color="primary">
+                                Guardar Usuario
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>
@@ -78,13 +94,15 @@
     import moment from 'moment'
     import {mapGetters} from 'vuex';
     import MenuOpe from './MenuOpe'
+    import Loading from '@/components/shared/Loading'
 
 	export default {
 		$_veeValidate: {
       		validator: 'new'
     	},
         components: {
-            'menu-ope': MenuOpe
+            'menu-ope': MenuOpe,
+            'loading': Loading
 
 		},
     	data () {
@@ -100,32 +118,22 @@
                     updated_at:"",
                     created_at:"",
                 },
-                password: "",
-                password_confirmation:"",
-                titulo:   "Usuarios",
-                role_user: [],
-                permisos:[],
-                permisos_selected:[],
 
-        		status: false,
-        		msg : "",
-                color: "error",
-                icon: "warning",
+                titulo:   "Crear Usuario",
+
                 loading: false,
 
-                show: false,
-                menu2: false,
-
-                showPer: false,
       		}
         },
         mounted(){
-            // if (!this.isRoot)
-            //     this.items.splice(3,1)
+
+            // if (!this.isRoot){
+            //     this.$toast.error('No autorizado');
+            // }
 
             axios.get('/admin/users/create')
                 .then(res => {
-                    this.showMainDiv = true;
+
                 })
                 .catch(err => {
                      if (err.response.status != 401){

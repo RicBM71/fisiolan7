@@ -10,8 +10,8 @@
         <v-card>
             <v-form>
                 <v-container>
-                    <v-layout row wrap>
-                        <v-flex sm3>
+                    <v-row>
+                        <v-col cols="12" md="3">
                             <v-text-field
                                 v-model="empresa.nombre"
                                 v-validate="'required'"
@@ -23,8 +23,8 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
+                        </v-col>
+                        <v-col cols="12" md="3">
                             <v-text-field
                                 v-model="empresa.razon"
                                 v-validate="'required'"
@@ -35,8 +35,8 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm3>
+                        </v-col>
+                        <v-col cols="12" md="3">
                             <v-text-field
                                 v-model="empresa.titulo"
                                 v-validate="'required'"
@@ -46,17 +46,17 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm5>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12" md="5">
+                        </v-col>
+                        <v-col cols="12" md="2">
                             <div class="text-xs-center">
-                                        <v-btn @click="submit"  round  :loading="loading" block  color="primary">
+                                        <v-btn @click="submit"  rounded  :loading="loading" small color="primary">
                                 Guardar
                                 </v-btn>
                             </div>
-                        </v-flex>
-                    </v-layout>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>
@@ -83,29 +83,6 @@ import {mapGetters} from 'vuex';
                     nombre: "",
                     razon: "",
                     cif: "",
-                    poblacion: "",
-                    direccion: "",
-                    cpostal: "",
-                    provincia: "",
-                    telefono1: "",
-                    telefono2: "",
-                    contacto: "",
-                    email: "",
-                    web: "",
-                    txtpie1: "",
-                    txtpie2: "",
-                    flags: "",
-                    sigla: "",
-                    path_archivo: "",
-                    titulo: "",
-                    logo:"",
-                    certificado:"",
-                    passwd_cer:"",
-                    carext_id:"",
-                    carn43_id:"",
-                    username: "",
-                    updated_at:"",
-                    created_at:"",
                 },
                 empresa_id: "",
 
@@ -155,12 +132,9 @@ import {mapGetters} from 'vuex';
                         if (result){
                             axios.post(url, this.empresa)
                                 .then(response => {
-
-                                    // this.setEmpresa(response.data.empresa.id);
-                                    this.$toast.success('Cambiar a la nueva empresa para configurar');
-
                                     this.loading = false;
-                                    this.$router.push({ name: 'dash' })
+
+                                    this.$router.push({ name: 'empresa.edit', params: { id: response.data.empresa.id } })
                                 })
                                 .catch(err => {
 

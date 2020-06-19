@@ -25,9 +25,9 @@ import IvaIndex from './components/iva/IvaIndex.vue';
 import IvaCreate from './components/iva/IvaCreate.vue';
 import IvaEdit from './components/iva/IvaEdit.vue';
 
-import CuentaIndex from './components/cuenta/CuentaIndex.vue';
-import CuentaCreate from './components/cuenta/CuentaCreate.vue';
-import CuentaEdit from './components/cuenta/CuentaEdit.vue';
+import BonoIndex from './components/mto/bonos/BonoIndex.vue';
+import BonoCreate from './components/mto/bonos/BonoCreate.vue';
+import BonoEdit from './components/mto/bonos/BonoEdit.vue';
 
 import CajaIndex from './components/cajas/CajaIndex.vue';
 import CajaEdit from './components/cajas/CajaEdit.vue';
@@ -166,6 +166,21 @@ export default [
                 path: '/cajas/cierre',
                 name: 'caja.cierre',
                 component: CajaCierre,
+            },
+            {
+                path: '/bonos',
+                name: 'bono.index',
+                component: BonoIndex,
+            },
+            {
+                path: '/bonos/create',
+                name: 'bono.create',
+                component: BonoCreate,
+            },
+            {
+                path: '/bonos/:id/edit',
+                name: 'bono.edit',
+                component: BonoEdit,
             },
             // {
             //     path: '*',
