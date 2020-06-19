@@ -220,12 +220,12 @@
                     </v-avatar>
                 </v-btn>
             </v-app-bar>
-            <v-content>
+            <v-main>
 
 
                     <router-view :key="$route.fullPath"></router-view>
 
 
-            </v-content>
+            </v-main>
         </div>
 </v-app>

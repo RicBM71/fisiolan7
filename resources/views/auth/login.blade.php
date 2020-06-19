@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<v-content>
+<v-main>
     <v-container>
       <v-layout align-center justify-center>
 
@@ -25,5 +25,5 @@
             </v-flex>
       </v-layout>
     </v-container>
-  </v-content>
+  </v-main>
 @endsection

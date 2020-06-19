@@ -2,7 +2,7 @@
 
 @section('content')
 <br/>
-<v-content>
+<v-main>
         <v-layout align-center justify-center>
             <v-flex sm8>
                 <v-card>
@@ -24,6 +24,6 @@
                 </v-card>
             </v-flex>
         </v-layout>
-    </v-content>
+    </v-main>
 
 @endsection

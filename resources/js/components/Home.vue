@@ -159,7 +159,7 @@
         </v-btn>
 
         </v-app-bar>
-        <v-content>
+        <v-main>
         <v-container
             fluid
         >
@@ -171,7 +171,7 @@
 
             <!-- </v-row> -->
         </v-container>
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 <script>

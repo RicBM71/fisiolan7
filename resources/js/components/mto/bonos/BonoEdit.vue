@@ -61,10 +61,43 @@
                             <v-text-field
                                 v-model="bono.importe"
                                 v-validate="'required'"
+                                suffix="€"
                                 :error-messages="errors.collect('importe')"
                                 label="Importe"
                                 data-vv-name="importe"
                                 data-vv-as="importe"
+                                v-on:keyup.enter="submit"
+                                required
+                            >
+                            </v-text-field>
+                        </v-col>
+                         <v-col
+                            cols="12"
+                            md="2"
+                        >
+                            <v-text-field
+                                v-model="bono.sesiones"
+                                v-validate="'required'"
+                                :error-messages="errors.collect('sesiones')"
+                                label="Sesiones"
+                                data-vv-name="sesiones"
+                                data-vv-as="sesiones"
+                                v-on:keyup.enter="submit"
+                                required
+                            >
+                            </v-text-field>
+                        </v-col>
+                         <v-col
+                            cols="12"
+                            md="2"
+                        >
+                            <v-text-field
+                                v-model="bono.caducidad"
+                                v-validate="'required'"
+                                :error-messages="errors.collect('caducidad')"
+                                label="Caducidad"
+                                data-vv-name="caducidad"
+                                data-vv-as="caducidad"
                                 v-on:keyup.enter="submit"
                                 required
                             >
