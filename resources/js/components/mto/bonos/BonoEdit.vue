@@ -61,6 +61,7 @@
                             <v-text-field
                                 v-model="bono.importe"
                                 v-validate="'required'"
+                                class="inputNumber"
                                 suffix="€"
                                 :error-messages="errors.collect('importe')"
                                 label="Importe"
@@ -78,6 +79,7 @@
                             <v-text-field
                                 v-model="bono.sesiones"
                                 v-validate="'required'"
+                                class="inputNumber"
                                 :error-messages="errors.collect('sesiones')"
                                 label="Sesiones"
                                 data-vv-name="sesiones"
@@ -94,6 +96,7 @@
                             <v-text-field
                                 v-model="bono.caducidad"
                                 v-validate="'required'"
+                                class="inputNumber"
                                 :error-messages="errors.collect('caducidad')"
                                 label="Caducidad"
                                 data-vv-name="caducidad"
@@ -189,11 +192,11 @@ import MenuOpe from './MenuOpe'
         computed: {
             computedFModFormat() {
                 moment.locale('es');
-                return this.bono.updated_at ? moment(this.bono.updated_at).format('D/MM/YYYY H:mm') : '';
+                return this.bono.updated_at ? moment(this.bono.updated_at).format('D/MM/YYYY H:mm:ss') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
-                return this.bono.created_at ? moment(this.bono.created_at).format('D/MM/YYYY H:mm') : '';
+                return this.bono.created_at ? moment(this.bono.created_at).format('D/MM/YYYY H:mm:ss') : '';
             }
 
         },
@@ -205,10 +208,10 @@ import MenuOpe from './MenuOpe'
                     var url = "/mto/bonos/"+this.bono.id;
                     this.$validator.validateAll().then((result) => {
                         if (result){
-                            axios.put(url,this.bono)
-                                .then(response => {
-                                    this.$toast.success(response.data.message);
-                                    this.bono = response.data.bono;
+                            axios.put(url, this.bono)
+                                .then(res => {
+                                    this.$toast.success(res.data.message);
+                                    this.bono = res.data.registro;
                                 })
                                 .catch(err => {
 
@@ -239,3 +242,11 @@ import MenuOpe from './MenuOpe'
     }
   }
 </script>
+<style scoped>
+
+.inputNumber >>> input {
+  text-align: center;
+  -moz-appearance:textfield;
+}
+
+</style>

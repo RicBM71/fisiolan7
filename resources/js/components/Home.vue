@@ -217,7 +217,7 @@ export default {
             model: true,
             children: [
                 { icon: 'mdi-plus', text: 'Bonos', name:'bono.index' },
-                { icon: 'mdi-plus', text: 'Tratamientos', name:'bono.index'  },
+                { icon: 'mdi-plus', text: 'Tratamientos', name:'tratamiento.index'  },
             ],
             },
             {

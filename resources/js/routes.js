@@ -29,6 +29,10 @@ import BonoIndex from './components/mto/bonos/BonoIndex.vue';
 import BonoCreate from './components/mto/bonos/BonoCreate.vue';
 import BonoEdit from './components/mto/bonos/BonoEdit.vue';
 
+import TratamientoIndex from './components/mto/tratamientos/TratamientoIndex.vue';
+import TratamientoCreate from './components/mto/tratamientos/TratamientoCreate.vue';
+import TratamientoEdit from './components/mto/tratamientos/TratamientoEdit.vue';
+
 import CajaIndex from './components/cajas/CajaIndex.vue';
 import CajaEdit from './components/cajas/CajaEdit.vue';
 import CajaCreate from './components/cajas/CajaCreate.vue';
@@ -181,6 +185,21 @@ export default [
                 path: '/bonos/:id/edit',
                 name: 'bono.edit',
                 component: BonoEdit,
+            },
+            {
+                path: '/tratamientos',
+                name: 'tratamiento.index',
+                component: TratamientoIndex,
+            },
+            {
+                path: '/tratamientos/create',
+                name: 'tratamiento.create',
+                component: TratamientoCreate,
+            },
+            {
+                path: '/tratamientos/:id/edit',
+                name: 'tratamiento.edit',
+                component: TratamientoEdit,
             },
             // {
             //     path: '*',

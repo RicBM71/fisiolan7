@@ -135,7 +135,7 @@
                         if (result){
                             axios.post(url, this.bono)
                                 .then(res => {
-                                    console.log(res);
+                                    
                                     this.$router.push({ name: 'bono.edit', params: { id: res.data.registro.id } })
                                 })
                                 .catch(err => {

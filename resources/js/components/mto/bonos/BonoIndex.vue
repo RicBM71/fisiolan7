@@ -31,13 +31,13 @@
                     small
                     @click="editItem(item.id)"
                 >
-                    edit
+                    mdi-pencil
                 </v-icon>
                 <v-icon
                     small
                     @click="openDialog(item.id)"
                 >
-                    delete
+                    mdi-delete
                 </v-icon>
             </template>
             </v-data-table>
@@ -97,6 +97,7 @@ import {mapActions} from "vuex";
     mounted()
     {
 
+
         axios.get('/mto/bonos')
             .then(res => {
 
@@ -132,11 +133,11 @@ import {mapActions} from "vuex";
             this.dialog = false;
 
             axios.post('/mto/bonos/'+this.item_id,{_method: 'delete'})
-                .then(response => {
+                .then(res => {
 
-                if (response.status == 200){
+                if (res.status == 200){
                     this.$toast.success('bono eliminado!');
-                    this.bonos = response.data;
+                    this.items = res.data;
                 }
                 })
             .catch(err => {

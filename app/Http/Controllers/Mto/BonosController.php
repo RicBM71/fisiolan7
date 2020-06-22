@@ -6,6 +6,7 @@ use App\Bono;
 use App\Tratamiento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Mto\UpdateBonoRequest;
 
 class BonosController extends Controller
 {
@@ -79,4 +80,34 @@ class BonosController extends Controller
             ];
 
     }
+
+    public function update(UpdateBonoRequest $request, Bono $bono)
+    {
+
+        //$this->authorize('update', $bono);
+
+        $data = $request->validated();
+
+        $bono->update($data);
+
+        if (request()->wantsJson())
+            return ['registro'=>$bono, 'message' => 'EL registro ha sido modificado!'];
+
+    }
+
+    public function destroy(Bono $bono)
+    {
+
+        //$this->authorize('delete', $bono);
+
+        $bono->delete();
+
+        if (request()->wantsJson()){
+            return response()->json(Bono::all());
+        }
+
+
+    }
+
+
 }

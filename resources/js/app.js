@@ -63,25 +63,65 @@ axios.interceptors.response.use(response => {
 /*********************************
 /* VuetifyToast
 **********************************/
+import Vuetify, { VSnackbar } from 'vuetify/lib'
 import VuetifyToast from 'vuetify-toast-snackbar'
 
-Vue.use(VuetifyToast, {
-	x: 'center--text', // default
-	y: 'top',
-	color: 'info', // default
-	icon: 'info',
-	timeout: 3000, // default
-	dismissable: true, // default
-	autoHeight: false, // default
-	multiLine: false, // default
-	vertical: false, // default
-	shorts: {
-		custom: {
-			color: 'purple'
-		}
-	},
-	property: '$toast' // default
-})
+Vue.use(Vuetify, {
+    components: {
+    VSnackbar
+    }
+    })
+
+// const opts = {x: 'center--text',
+//         y: 'top',
+//         color: 'info',
+//         icon: 'info',
+//         timeout: 3000,
+//         dismissable: true,
+//         autoHeight: false,
+//         multiLine: false,
+//         vertical: false,
+//         property: '$toast' }; // your options
+// const vueObj = new Vuetify(opts);
+
+// export default vueObj;
+
+Vue.use(VuetifyToast, { $vuetify: vuetify.framework,
+    x: 'center',
+    y: 'top', // default
+    color: 'info', // default
+    icon: '', iconColor: '', // default
+    classes: [ 'body-2' ], timeout: 4000, // default
+    dismissable: true, // default
+    multiLine: false, // default
+    vertical: false, // default
+    queueable: true, // default
+    showClose: false, // default
+    closeText: '', // default
+    closeColor: '', // default
+    shorts: { custom: { color: 'purple' } },
+    property: '$toast' // default
+ });
+
+    // Vue.use(VuetifyToast, { $vuetify: vueObj.framework });
+
+    // Vue.use(VuetifyToast, {
+    // 	x: 'center--text', // default
+    // 	y: 'top',
+    // 	color: 'info', // default
+    // 	icon: 'info',
+    // 	timeout: 3000, // default
+    // 	dismissable: true, // default
+    // 	autoHeight: false, // default
+    // 	multiLine: false, // default
+    // 	vertical: false, // default
+    // 	shorts: {
+    // 		custom: {
+    // 			color: 'purple'
+    // 		}
+    // 	},
+    // 	property: '$toast' // default
+    // })
 
 /*************************
  * VeeValidate
