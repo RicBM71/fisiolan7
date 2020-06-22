@@ -54,11 +54,11 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="tratamiento.web"
+                                v-model="tratamiento.nombre_web"
                                 v-validate="'required'"
-                                :error-messages="errors.collect('web')"
+                                :error-messages="errors.collect('nombre_web')"
                                 label="Nombre web"
-                                data-vv-name="web"
+                                data-vv-name="nombre_web"
                                 data-vv-as="web"
                                 v-on:keyup.enter="submit"
                                 required
@@ -158,7 +158,7 @@
                                 v-validate="'required'"
                                 class="inputNumber"
                                 :error-messages="errors.collect('duracion_aparatos')"
-                                label="Duracion aparatos"
+                                label="Duración aparatos"
                                 data-vv-name="duracion_aparatos"
                                 data-vv-as="duración aparatos"
                                 v-on:keyup.enter="submit"
@@ -182,6 +182,34 @@
                                 required
                             >
                             </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
+                        </v-col>
+                        <v-col cols="12" md="2">
+                            <v-switch
+                                label="Venta TPV"
+                                v-model="tratamiento.tpv"
+                                color="primary">
+                            ></v-switch>
+                        </v-col>
+                        <v-col cols="12" md="2">
+                            <v-switch
+                                label="Inventario"
+                                v-model="tratamiento.inventario"
+                                color="primary">
+                            ></v-switch>
+                        </v-col>
+                        <v-col cols="12" md="2">
+                            <v-switch
+                                label="Activo"
+                                v-model="tratamiento.activo"
+                                color="primary">
+                            ></v-switch>
                         </v-col>
                     </v-row>
                     <v-row>

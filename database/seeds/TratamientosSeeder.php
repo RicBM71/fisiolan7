@@ -1,0 +1,71 @@
+<?php
+
+use App\Bono;
+use App\Tratamiento;
+use Illuminate\Database\Seeder;
+
+class TratamientosSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Tratamiento::truncate();
+
+        $reg = DB::connection('db2')->select('select * from tratamientos');
+
+        foreach($reg as $row){
+
+
+            $data[]=array(
+                'id'        => $row->id,
+                'nombre'    => $row->nombre,
+                'nombre_web'      => $row->nomweb,
+                'nombre_reducido' => $row->reducido,
+                'importe'         => $row->importe,
+                'importe_reducido'  => $row->imp_red,
+                'precio_coste'      => $row->coste,
+                'duracion_manual'   => 30,
+                'duracion_aparatos' => 0,
+                'edad'       => $row->edad,
+                'tpv'        => $row->vendible == 'S' ? true : false,
+                'inventario' => $row->inventario == 'N' ? true : false,
+                'activo'     => $row->baja == 'N' ? true : false,
+                'created_at' => $row->sysfum.' 00:00:00',
+                'updated_at' => $row->sysfum.' '.$row->syshum,
+                'username'   => $row->sysusr
+            );
+
+        }
+
+        DB::table('tratamientos')->insert($data);
+
+        Bono::truncate();
+        $reg = DB::connection('db2')->select('select * from bonos');
+
+        $data=array();
+
+        foreach($reg as $row){
+
+
+            $data[]=array(
+                'id'        => $row->id,
+                'nombre'    => $row->nombre,
+                'importe'        => $row->importe,
+                'tratamiento_id' => $row->tratamiento,
+                'sesiones'   => $row->sesiones,
+                'caducidad'  => $row->caducidad,
+                'created_at' => $row->sysfum.' 00:00:00',
+                'updated_at' => $row->sysfum.' '.$row->syshum,
+                'username'   => $row->sysusr
+            );
+
+        }
+
+        DB::table('bonos')->insert($data);
+
+    }
+}

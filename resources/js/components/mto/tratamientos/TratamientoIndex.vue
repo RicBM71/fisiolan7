@@ -26,8 +26,14 @@
                 :headers="headers"
                 :items="items"
             >
-            <template v-slot:item.actions="{ item }">
-                <v-icon
+            <template v-slot:body="{ items }">
+            <tbody>
+            <tr v-for="item in items" :key="item.id">
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.duracion_manual }}</td>
+                <td class="text-right">{{ item.importe_reducido | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                <td class="text-right">{{ item.importe | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                <td> <v-icon
                     small
                     @click="editItem(item.id)"
                 >
@@ -38,8 +44,11 @@
                     @click="openDialog(item.id)"
                 >
                     mdi-delete
-                </v-icon>
-            </template>
+                </v-icon></td>
+            </tr>
+            </tbody>
+        </template>
+
             </v-data-table>
         </v-card>
     </div>
@@ -73,12 +82,12 @@ import {mapActions} from "vuex";
             },
             {
                 text: 'Imp. Red',
-                align: 'left',
+                align: 'center',
                 value: 'importe_reducido'
             },
             {
                 text: 'Importe',
-                align: 'left',
+                align: 'center',
                 value: 'importe'
             },
             {
