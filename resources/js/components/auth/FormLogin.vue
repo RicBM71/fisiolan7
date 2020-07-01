@@ -42,8 +42,8 @@
                 <v-btn
                     :disabled="loading"
                     @click="submit"
-                    round
-                    flat
+                    rounded
+                    text
                     color="primary">
                         <span v-show="loading">Espere...</span>
                         <span v-show="!loading">Login</span>

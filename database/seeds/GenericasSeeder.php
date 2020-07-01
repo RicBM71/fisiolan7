@@ -4,6 +4,7 @@ use App\Iva;
 use App\Fpago;
 use App\Almacen;
 use App\Empresa;
+use App\Categoria;
 use App\Parametro;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -86,6 +87,9 @@ class GenericasSeeder extends Seeder
         $reg->importe = 0;
         $reg->leyenda="Actividad exenta de IVA s/Art. 20 IVA.";
         $reg->save();
+
+        $cat = new Categoria;
+        $cat->nombre = "FISIOTERAPEUTA";
 
         // $mot = new Motivo();
         // $mot->nombre = "Falta de información importante en el documento";

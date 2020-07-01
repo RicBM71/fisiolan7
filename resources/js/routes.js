@@ -16,14 +16,14 @@ import EmpresaIndex from './components/admin/empresas/EmpresaIndex.vue';
 import EmpresaCreate from './components/admin/empresas/EmpresaCreate.vue';
 import EmpresaEdit from './components/admin/empresas/EmpresaEdit.vue';
 
-import AlmacenIndex from './components/almacen/AlmacenIndex.vue';
-import AlmacenCreate from './components/almacen/AlmacenCreate.vue';
-import AlmacenEdit from './components/almacen/AlmacenEdit.vue';
+import AlmacenIndex from './components/mto/almacen/AlmacenIndex.vue';
+import AlmacenCreate from './components/mto/almacen/AlmacenCreate.vue';
+import AlmacenEdit from './components/mto/almacen/AlmacenEdit.vue';
 
 
-import IvaIndex from './components/iva/IvaIndex.vue';
-import IvaCreate from './components/iva/IvaCreate.vue';
-import IvaEdit from './components/iva/IvaEdit.vue';
+import IvaIndex from './components/mto/iva/IvaIndex.vue';
+import IvaCreate from './components/mto/iva/IvaCreate.vue';
+import IvaEdit from './components/mto/iva/IvaEdit.vue';
 
 import BonoIndex from './components/mto/bonos/BonoIndex.vue';
 import BonoCreate from './components/mto/bonos/BonoCreate.vue';
@@ -33,10 +33,10 @@ import TratamientoIndex from './components/mto/tratamientos/TratamientoIndex.vue
 import TratamientoCreate from './components/mto/tratamientos/TratamientoCreate.vue';
 import TratamientoEdit from './components/mto/tratamientos/TratamientoEdit.vue';
 
-import CajaIndex from './components/cajas/CajaIndex.vue';
-import CajaEdit from './components/cajas/CajaEdit.vue';
-import CajaCreate from './components/cajas/CajaCreate.vue';
-import CajaCierre from './components/cajas/CajaCierre.vue';
+import CajaIndex from './components/mto/cajas/CajaIndex.vue';
+import CajaEdit from './components/mto/cajas/CajaEdit.vue';
+import CajaCreate from './components/mto/cajas/CajaCreate.vue';
+import CajaCierre from './components/mto/cajas/CajaCierre.vue';
 
 
 import ParametroEdit from './components/admin/parametros/ParametroEdit.vue';
@@ -200,6 +200,21 @@ export default [
                 path: '/tratamientos/:id/edit',
                 name: 'tratamiento.edit',
                 component: TratamientoEdit,
+            },
+            {
+                path: '/fisios',
+                name: 'fisio.index',
+                component: FisioIndex,
+            },
+            {
+                path: '/fisios/create',
+                name: 'fisio.create',
+                component: FisioCreate,
+            },
+            {
+                path: '/fisios/:id/edit',
+                name: 'fisio.edit',
+                component: FisioEdit,
             },
             // {
             //     path: '*',

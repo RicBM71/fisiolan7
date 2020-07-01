@@ -304,7 +304,7 @@ export default {
                 'unsetParametros'
 			]),
         abrir(name){
-            console.log(name);
+            //console.log(name);
             //this.drawer = false;
             this.$router.push({name: name});
         },
