@@ -89,7 +89,13 @@ class GenericasSeeder extends Seeder
         $reg->save();
 
         $cat = new Categoria;
-        $cat->nombre = "FISIOTERAPEUTA";
+        $cat->nombre = "Fisioterapueta";
+        $cat->save();
+
+        $cat = new Categoria;
+        $cat->nombre = "Servicios";
+        $cat->save();
+
 
         // $mot = new Motivo();
         // $mot->nombre = "Falta de información importante en el documento";

@@ -33,9 +33,9 @@ class CreateEmpleadosTable extends Migration
             $table->string('email', 50)->nullable();
             $table->string('alias', 15)->nullable();
             $table->string('numero_ss', 50)->nullable();
-            $table->unsignedInteger('grupo_id');
+            $table->unsignedInteger('grupo_id')->default(1);
             $table->unsignedInteger('categoria_id');
-            $table->integer('orden');
+            $table->integer('orden')->default(999);
             $table->string('username', 15)->nullable();
             $table->timestamps();
         });

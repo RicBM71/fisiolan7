@@ -91,6 +91,8 @@ Route::group([
         Route::resource('bonos', 'BonosController', ['as' => 'mto']);
         Route::resource('ivas', 'IvasController', ['as' => 'mto']);
         Route::resource('tratamientos', 'TratamientosController', ['as' => 'mto']);
+        Route::post('empleados/filtrar', 'EmpleadosController@filtrar');
+        Route::resource('empleados', 'EmpleadosController', ['as' => 'mto']);
 
         Route::resource('cajas', 'CajasController', ['as' => 'mto']);
         Route::post('cajas/filtrar', 'CajasController@filtrar');

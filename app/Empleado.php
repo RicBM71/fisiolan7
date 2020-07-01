@@ -21,4 +21,25 @@ class Empleado extends Model
         'username',
 
     ];
+
+    protected $appends = ['nom_ape'];
+
+    public function getNomApeAttribute(){
+
+        return $this->nombre." ".$this->apellidos;
+
+    }
+
+    public function categoria()
+    {
+    	return ($this->belongsTo(Categoria::class));
+    }
+
+    public function scopeActivos($query, $activo)
+    {
+
+        return ($activo) ? $query->whereNull('fecha_baja') :  $query;
+
+    }
+
 }

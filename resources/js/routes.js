@@ -32,6 +32,9 @@ import BonoEdit from './components/mto/bonos/BonoEdit.vue';
 import TratamientoIndex from './components/mto/tratamientos/TratamientoIndex.vue';
 import TratamientoCreate from './components/mto/tratamientos/TratamientoCreate.vue';
 import TratamientoEdit from './components/mto/tratamientos/TratamientoEdit.vue';
+import EmpleadoIndex from './components/mto/empleados/EmpleadoIndex.vue';
+import EmpleadoCreate from './components/mto/empleados/EmpleadoCreate.vue';
+import EmpleadoEdit from './components/mto/empleados/EmpleadoEdit.vue';
 
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
@@ -202,19 +205,19 @@ export default [
                 component: TratamientoEdit,
             },
             {
-                path: '/fisios',
-                name: 'fisio.index',
-                component: FisioIndex,
+                path: '/empleados',
+                name: 'empleado.index',
+                component: EmpleadoIndex,
             },
             {
-                path: '/fisios/create',
-                name: 'fisio.create',
-                component: FisioCreate,
+                path: '/empleados/create',
+                name: 'empleado.create',
+                component: EmpleadoCreate,
             },
             {
-                path: '/fisios/:id/edit',
-                name: 'fisio.edit',
-                component: FisioEdit,
+                path: '/empleados/:id/edit',
+                name: 'empleado.edit',
+                component: EmpleadoEdit,
             },
             // {
             //     path: '*',
