@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mto;
 
 use App\Empleado;
 use App\Categoria;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mto\UpdateEmpleadoRequest;
@@ -91,6 +92,19 @@ class EmpleadosController extends Controller
             return ['registro'=>$reg, 'message' => 'EL registro ha sido creado'];
     }
 
+
+    public function show(Empleado $empleado)
+    {
+
+        $empleado->load('categoria');
+
+        if (request()->wantsJson())
+            return [
+                'registro'     => $empleado,
+            ];
+
+    }
+
      /**
      * Show the form for editing the specified resource.
      *
@@ -99,7 +113,8 @@ class EmpleadosController extends Controller
      */
     public function edit(Empleado $empleado)
     {
-
+        if ($empleado->fecha_baja != null)
+            $this->show($empleado->id);
       //  $this->authorize('update', $user->load('empresas'));
 
 
@@ -130,7 +145,11 @@ class EmpleadosController extends Controller
 
         //$this->authorize('delete', $empleado);
 
-        $empleado->delete();
+        $data = [
+            'fecha_baja' => Carbon::today()
+        ];
+
+        $empleado->update($data);
 
         if (request()->wantsJson()){
             return response()->json(Empleado::with(['categoria'])->activos(true)->get());

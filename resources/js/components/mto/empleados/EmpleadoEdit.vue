@@ -5,7 +5,21 @@
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
                 <v-spacer></v-spacer>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-on="on"
+                            color="white"
+                            icon
+                            @click="goHorario"
+                        >
+                            <v-icon color="primary">mdi-alarm</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Horario</span>
+                </v-tooltip>
                 <menu-ope :id="empleado.id"></menu-ope>
+
             </v-card-title>
         </v-card>
         <v-card v-show="!loading">
@@ -320,7 +334,7 @@
                                 v-model="empleado.iban"
                                 :error-messages="errors.collect('iban')"
                                 label="IBAN"
-                                counter=24
+                                counter=30
                                 data-vv-name="iban"
                                 v-on:keyup.enter="submit"
                             >
@@ -445,6 +459,8 @@ import MenuOpe from './MenuOpe'
                                 .then(res => {
                                     this.$toast.success(res.data.message);
                                     this.empleado = res.data.registro;
+                                    //this.$validator.reset();
+                                    this.errors.clear()
                                 })
                                 .catch(err => {
 
@@ -469,6 +485,9 @@ import MenuOpe from './MenuOpe'
                         }
                     });
                 }
+
+            },
+            goHorario(){
 
             },
             clearFechaNac(){

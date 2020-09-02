@@ -30,9 +30,29 @@ class Empleado extends Model
 
     }
 
+    public function getIbanAttribute($iban){
+
+        return getIbanPrint($iban);
+
+    }
+
+    public function setIbanAttribute($iban)
+    {
+        $iban = str_replace(" ","", $iban);
+
+        $this->attributes['iban'] = strtoupper($iban);
+
+    }
+
+
     public function categoria()
     {
     	return ($this->belongsTo(Categoria::class));
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class);
     }
 
     public function scopeActivos($query, $activo)

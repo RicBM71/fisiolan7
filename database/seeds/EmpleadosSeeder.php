@@ -1,5 +1,6 @@
 <?php
 
+use App\Horario;
 use App\Empleado;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,8 @@ class EmpleadosSeeder extends Seeder
     public function run()
     {
         Empleado::truncate();
+        Horario::truncate();
+
         $reg = DB::connection('db2')->select('select * from fisios');
 
         $data=array();
@@ -52,6 +55,55 @@ class EmpleadosSeeder extends Seeder
         }
 
         DB::table('empleados')->insert($data);
+
+        $reg = DB::connection('db2')->select('select * from horarios');
+
+        $data=array();
+
+        foreach($reg as $row){
+
+
+            $data[]=array(
+                'id'         => $row->id,
+                'empleado_id'=> $row->fisio,
+                'fecha'      => $row->fecha,
+                'inim_1'     => $row->ini1_1,
+                'finm_1'     => $row->fin1_1,
+                'init_1'     => $row->ini2_1,
+                'fint_1'     => $row->fin2_1,
+                'inim_2'     => $row->ini1_2,
+                'finm_2'     => $row->fin1_2,
+                'init_2'     => $row->ini2_2,
+                'fint_2'     => $row->fin2_2,
+                'inim_3'     => $row->ini1_3,
+                'finm_3'     => $row->fin1_3,
+                'init_3'     => $row->ini2_3,
+                'fint_3'     => $row->fin2_3,
+                'inim_4'     => $row->ini1_4,
+                'finm_4'     => $row->fin1_4,
+                'init_4'     => $row->ini2_4,
+                'fint_4'     => $row->fin2_4,
+                'inim_5'     => $row->ini1_5,
+                'finm_5'     => $row->fin1_5,
+                'init_5'     => $row->ini2_5,
+                'fint_5'     => $row->fin2_5,
+                'inim_6'     => $row->ini1_6,
+                'finm_6'     => $row->fin1_6,
+                'init_6'     => $row->ini2_6,
+                'fint_6'     => $row->fin2_6,
+                'inim_0'     => $row->ini1_0,
+                'finm_0'     => $row->fin1_0,
+                'init_0'     => $row->ini2_0,
+                'fint_0'     => $row->fin2_0,
+                'created_at' => ($row->sysfum == "0000-00-00" ) ? null : $row->sysfum.' '.$row->syshum,
+                'updated_at' => ($row->sysfum == "0000-00-00" ) ? null : $row->sysfum.' '.$row->syshum,
+                'username'   => $row->sysusr
+            );
+
+        }
+
+        DB::table('horarios')->insert($data);
+
 
     }
 }

@@ -2,6 +2,7 @@
 <div>
         <loading :show_loading="loading"></loading>
 		<my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
+        <rest-dialog :dialog.sync="dialog_rest" registro="registro" @destroyReg="destroyReg"></rest-dialog>
         <v-card>
             <v-card-title>
                 <h2>{{titulo}}</h2>
@@ -47,15 +48,23 @@
             <template v-slot:item.actions="{ item }">
                 <v-icon
                     small
-                    @click="editItem(item.id)"
+                    @click="editItem(item)"
                 >
                     mdi-pencil
                 </v-icon>
                 <v-icon
+                    v-if="item.fecha_baja == null"
                     small
-                    @click="openDialog(item.id)"
+                    @click="openDialog(item)"
                 >
                     mdi-delete
+                </v-icon>
+                <v-icon
+                    v-else
+                    small
+                    @click="openDialog(item)"
+                >
+                    mdi-restore
                 </v-icon>
             </template>
             </v-data-table>
@@ -64,6 +73,7 @@
 </template>
 <script>
 import MyDialog from '@/components/shared/MyDialog'
+import RestDialog from '@/components/shared/RestDialog'
 import Loading from '@/components/shared/Loading'
 import MenuOpe from './MenuOpe'
 import Filtro  from './EmpleadoFiltro'
@@ -72,6 +82,7 @@ import {mapActions} from "vuex";
   export default {
     components: {
         'my-dialog': MyDialog,
+        'rest-dialog': RestDialog,
         'menu-ope': MenuOpe,
         'loading': Loading,
         'filtro' : Filtro
@@ -115,6 +126,7 @@ import {mapActions} from "vuex";
         ],
         items:[],
         dialog: false,
+        dialog_rest: false,
         item_id: 0,
         loading: true
 
@@ -149,12 +161,19 @@ import {mapActions} from "vuex";
         create(){
             this.$router.push({ name: 'empleado.create'})
         },
-        editItem (id) {
-            this.$router.push({ name: 'empleado.edit', params: { id: id } })
+        editItem(item) {
+            if (item.fecha_baja == null)
+                this.$router.push({ name: 'empleado.edit', params: { id: item.id } })
+            else
+                this.$router.push({ name: 'empleado.show', params: { id: item.id } })
+
         },
-        openDialog (id){
-            this.dialog = true;
-            this.item_id = id;
+        openDialog(item){
+            if (item.fecha_baja != null)
+                this.dialog_rest = true;
+            else
+                this.dialog = true;
+            this.item_id = item.id;
         },
         destroyReg () {
             this.dialog = false;

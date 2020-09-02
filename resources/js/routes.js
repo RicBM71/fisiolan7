@@ -35,6 +35,7 @@ import TratamientoEdit from './components/mto/tratamientos/TratamientoEdit.vue';
 import EmpleadoIndex from './components/mto/empleados/EmpleadoIndex.vue';
 import EmpleadoCreate from './components/mto/empleados/EmpleadoCreate.vue';
 import EmpleadoEdit from './components/mto/empleados/EmpleadoEdit.vue';
+import EmpleadoShow from './components/mto/empleados/EmpleadoShow.vue';
 
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
@@ -218,6 +219,11 @@ export default [
                 path: '/empleados/:id/edit',
                 name: 'empleado.edit',
                 component: EmpleadoEdit,
+            },
+            {
+                path: '/empleados/:id',
+                name: 'empleado.show',
+                component: EmpleadoShow,
             },
             // {
             //     path: '*',
