@@ -118,6 +118,8 @@ class EmpleadosController extends Controller
       //  $this->authorize('update', $user->load('empresas'));
 
 
+        session(['empleado_id' => $empleado->id]);
+
         if (request()->wantsJson())
             return [
                 'registro'     => $empleado,

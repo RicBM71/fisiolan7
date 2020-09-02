@@ -93,6 +93,7 @@ Route::group([
         Route::resource('tratamientos', 'TratamientosController', ['as' => 'mto']);
         Route::post('empleados/filtrar', 'EmpleadosController@filtrar');
         Route::resource('empleados', 'EmpleadosController', ['as' => 'mto']);
+        Route::resource('horarios', 'HorariosController', ['as' => 'mto']);
 
         Route::resource('cajas', 'CajasController', ['as' => 'mto']);
         Route::post('cajas/filtrar', 'CajasController@filtrar');

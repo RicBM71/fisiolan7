@@ -488,7 +488,7 @@ import MenuOpe from './MenuOpe'
 
             },
             goHorario(){
-
+                this.$router.push({ name: 'horario.index'})
             },
             clearFechaNac(){
                 this.empleado.fecha_nacimiento = null;

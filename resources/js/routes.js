@@ -37,6 +37,10 @@ import EmpleadoCreate from './components/mto/empleados/EmpleadoCreate.vue';
 import EmpleadoEdit from './components/mto/empleados/EmpleadoEdit.vue';
 import EmpleadoShow from './components/mto/empleados/EmpleadoShow.vue';
 
+import HorarioIndex from './components/mto/empleados/HorarioIndex.vue';
+import HorarioCreate from './components/mto/empleados/HorarioCreate.vue';
+import HorarioEdit from './components/mto/empleados/HorarioEdit.vue';
+
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
 import CajaCreate from './components/mto/cajas/CajaCreate.vue';
@@ -224,6 +228,21 @@ export default [
                 path: '/empleados/:id',
                 name: 'empleado.show',
                 component: EmpleadoShow,
+            },
+            {
+                path: '/horarios',
+                name: 'horario.index',
+                component: HorarioIndex,
+            },
+            {
+                path: '/horarios/create',
+                name: 'horario.create',
+                component: HorarioCreate,
+            },
+            {
+                path: '/horarios/:id/edit',
+                name: 'horario.edit',
+                component: HorarioEdit,
             },
             // {
             //     path: '*',
