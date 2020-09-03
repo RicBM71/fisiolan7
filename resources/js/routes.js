@@ -41,6 +41,10 @@ import HorarioIndex from './components/mto/empleados/HorarioIndex.vue';
 import HorarioCreate from './components/mto/empleados/HorarioCreate.vue';
 import HorarioEdit from './components/mto/empleados/HorarioEdit.vue';
 
+import AreaIndex from './components/mto/areas/AreaIndex.vue';
+import AreaCreate from './components/mto/areas/AreaCreate.vue';
+import AreaEdit from './components/mto/areas/AreaEdit.vue';
+
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
 import CajaCreate from './components/mto/cajas/CajaCreate.vue';
@@ -243,6 +247,21 @@ export default [
                 path: '/horarios/:id/edit',
                 name: 'horario.edit',
                 component: HorarioEdit,
+            },
+            {
+                path: '/areas',
+                name: 'area.index',
+                component: AreaIndex,
+            },
+            {
+                path: '/areas/create',
+                name: 'area.create',
+                component: AreaCreate,
+            },
+            {
+                path: '/areas/:id/edit',
+                name: 'area.edit',
+                component: AreaEdit,
             },
             // {
             //     path: '*',

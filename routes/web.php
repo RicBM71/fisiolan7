@@ -88,6 +88,7 @@ Route::group([
         // Route::get('clidocs/{cliente_id}/{compra_id?}/create', 'ClidocsController@create');
 
         Route::resource('almacenes', 'AlmacenesController', ['as' => 'mto']);
+        Route::resource('areas', 'AreasController', ['as' => 'mto']);
         Route::resource('bonos', 'BonosController', ['as' => 'mto']);
         Route::resource('ivas', 'IvasController', ['as' => 'mto']);
         Route::resource('tratamientos', 'TratamientosController', ['as' => 'mto']);

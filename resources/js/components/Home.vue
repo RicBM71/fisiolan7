@@ -216,6 +216,7 @@ export default {
             text: 'Mantenimmientos',
             model: true,
             children: [
+                { icon: 'mdi-plus', text: 'Areas', name:'area.index'  },
                 { icon: 'mdi-plus', text: 'Bonos', name:'bono.index' },
                 { icon: 'mdi-plus', text: 'Tratamientos', name:'tratamiento.index'  },
             ],

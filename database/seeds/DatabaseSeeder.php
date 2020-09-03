@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BancosTableSeeder::class);
         $this->call(TratamientosSeeder::class);
         $this->call(EmpleadosSeeder::class);
+        $this->call(MutuasSeeder::class);
+        $this->call(AreasSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
