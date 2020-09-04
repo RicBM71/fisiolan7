@@ -26,29 +26,28 @@
                 :headers="headers"
                 :items="items"
             >
-            <template v-slot:body="{ items }">
-            <tbody>
-            <tr v-for="item in items" :key="item.id">
-                <td>{{ item.nombre }}</td>
-                <td>{{ item.duracion_manual }}</td>
-                <td class="text-right">{{ item.importe_reducido | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
-                <td class="text-right">{{ item.importe | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
-                <td> <v-icon
-                    small
-                    @click="editItem(item.id)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    @click="openDialog(item.id)"
-                >
-                    mdi-delete
-                </v-icon></td>
-            </tr>
-            </tbody>
-        </template>
-
+                <template v-slot:body="{ items }">
+                    <tbody>
+                    <tr v-for="item in items" :key="item.id">
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.duracion_manual }}</td>
+                        <td class="text-right">{{ item.importe_reducido | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                        <td class="text-right">{{ item.importe | currency('', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                        <td> <v-icon
+                            small
+                            @click="editItem(item.id)"
+                        >
+                            mdi-pencil
+                        </v-icon>
+                        <v-icon
+                            small
+                            @click="openDialog(item.id)"
+                        >
+                            mdi-delete
+                        </v-icon></td>
+                    </tr>
+                    </tbody>
+                </template>
             </v-data-table>
         </v-card>
     </div>

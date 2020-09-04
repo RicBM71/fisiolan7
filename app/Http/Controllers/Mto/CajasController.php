@@ -23,9 +23,7 @@ class CajasController extends Controller
     public function index()
     {
 
-        if (Cruce::count() >= 2){
-            return abort(403, 'Esta empresa no admite apuntes de caja');
-        }
+
 
         if (request()->session()->has('filtro_caj'))
             return $this->seleccionar();
@@ -34,11 +32,8 @@ class CajasController extends Controller
                 $hoy = Carbon::now()->format('Y-m-d');
 
                 return [
-                    'caja'  => Caja::with('apunte')
-                                        ->admin()
-                                        ->orderBy('fecha','desc')
-                                        ->where('fecha','=',$hoy)
-                                        ->get(),
+                    //'caja'  => Caja::where('fecha','=',$hoy)->get(),
+                    'caja'  => Caja::where('fecha','>=','2020-01-01')->get(),
                     'fecha_saldo'=> getFecha($hoy),
                     'saldo' => Caja::saldo($hoy)
                 ];
@@ -59,7 +54,6 @@ class CajasController extends Controller
             'fecha_d'   => ['string','required',new RangoFechaRule($request->fecha_d, $request->fecha_h)],
             'fecha_h'   => ['string','required', new MaxDiasRangoFechaRule($request->fecha_d, $request->fecha_h)],
             'dh'        => ['nullable','string'],
-            'apunte_id' => ['nullable','integer'],
             'manual'    => ['nullable','string'],
         ]);
 
@@ -79,11 +73,9 @@ class CajasController extends Controller
 
         $data = session('filtro_caj');
 
-        $apuntes = Caja::with('apunte')
-                        ->rangoFechas($data['fecha_d'],$data['fecha_h'])
+        $apuntes = Caja::rangoFechas($data['fecha_d'],$data['fecha_h'])
                         ->dh($data['dh'])
                         ->manual($data['manual'])
-                        ->apunte($data['apunte_id'])
                         ->orderby('fecha')
                         ->get()
                         ->take(500);
@@ -107,14 +99,11 @@ class CajasController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre' => ['required', 'string', 'max:190'],
-            'importe' => ['required','numeric'],
-            'manual' => ['required', 'string'],
-            'fecha'=> ['required','date'],
-            'dh'=> ['required','string'],
-            'deposito_id'=> ['nullable','integer'],
-            'cobro_id'=> ['nullable','integer'],
-            'apunte_id'=> ['nullable','integer'],
+            'nombre'    => ['required', 'string', 'max:190'],
+            'importe'   => ['required','numeric'],
+            'fecha'     => ['required','date'],
+            'dh'        => ['required','string'],
+            'manual'    => ['required','string'],
         ]);
 
         $data['empresa_id'] =  session()->get('empresa')->id;
@@ -129,22 +118,7 @@ class CajasController extends Controller
             ];
     }
 
-
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if (request()->wantsJson())
-            return [
-                'apuntes' => Apunte::selApuntes()
-            ];
-
-    }
-
-     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -158,7 +132,6 @@ class CajasController extends Controller
             return [
                 'caja' =>$caja,
                 'saldo'=>getCurrency(Caja::saldo($caja->fecha)),
-                'apuntes' => Apunte::selApuntes()
             ];
     }
 
@@ -178,8 +151,6 @@ class CajasController extends Controller
             'importe'   => ['required', 'numeric'],
             'fecha'     => ['required', 'date'],
             'dh'        => ['required', 'string'],
-            'manual'    => ['required', 'string'],
-            'apunte_id' => ['nullable', 'integer'],
         ]);
 
         $data['empresa_id'] = session()->get('empresa')->id;
@@ -215,9 +186,7 @@ class CajasController extends Controller
 
         if (request()->wantsJson()){
             return [
-                'caja'  => Caja::with('apunte')
-                                ->where('fecha','=',$hoy)
-                                ->orderBy('fecha','desc')
+                'caja'  => Caja::where('fecha','=',$hoy)
                                 ->get(),
                 'fecha_saldo'=> getFecha($hoy),
                 'saldo' => Caja::saldo($hoy)

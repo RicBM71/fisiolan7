@@ -1,118 +1,111 @@
 <template>
     <v-form>
         <v-container>
-            <v-layout row wrap>
-                    <v-flex sm2>
-                        <v-menu
-                            v-model="menu_d"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            min-width="290px"
-                        >
-                            <v-text-field
-                                slot="activator"
-                                :value="computedFechaD"
-                                :label="label"
-                                append-icon="event"
-                                v-validate="'date_format:dd/MM/yyyy'"
-                                data-vv-name="fecha_d"
-                                :error-messages="errors.collect('fecha_d')"
-                                data-vv-as="Desde"
-                                ></v-text-field>
-                            <v-date-picker
-                                v-model="fecha_d"
-                                no-title
-                                locale="es"
-                                first-day-of-week=1
-                                @input="menu_d = false"
-                                ></v-date-picker>
-                        </v-menu>
-                    </v-flex>
-                    <v-flex sm2>
-                        <v-menu
-                            v-model="menu_h"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            min-width="290px"
-                        >
-                            <v-text-field
-                                slot="activator"
-                                :value="computedFechaH"
-                                :label="label"
-                                append-icon="event"
-                                v-validate="'date_format:dd/MM/yyyy'"
-                                data-vv-name="fecha_h"
-                                :error-messages="errors.collect('fecha_h')"
-                                data-vv-as="Hasta"
-                                ></v-text-field>
-                            <v-date-picker
-                                v-model="fecha_h"
-                                no-title
-                                locale="es"
-                                first-day-of-week=1
-                                @input="menu_h = false"
-                                ></v-date-picker>
-                        </v-menu>
-                    </v-flex>
-                    <v-flex sm1>
-                        <v-select
-                            v-model="dh"
-                            data-vv-name="dh"
-                            data-vv-as="D-H"
-                            :error-messages="errors.collect('dh')"
-                            :items="dh_items"
-                            label="D/H"
-                            required
-                            ></v-select>
-                    </v-flex>
-                    <v-flex sm2>
-                        <v-select
-                            v-model="manual"
-                            data-vv-name="manual"
-                            data-vv-as="origen"
-                            :error-messages="errors.collect('manual')"
-                            :items="ma_items"
-                            label="Origen"
-                            ></v-select>
-                    </v-flex>
-                    <v-flex sm3>
-                        <v-select
-                            v-model="apunte_id"
-                            v-validate="'numeric'"
-                            data-vv-name="apunte_id"
-                            data-vv-as="apunte"
-                            :error-messages="errors.collect('apunte_id')"
-                            :items="apuntes"
-                            label="Apunte"
-                            ></v-select>
-                    </v-flex>
-                    <!-- <v-flex sm2>
-                        <v-select
-                            v-model="manual"
-                            v-validate="'required'"
-                            data-vv-name="manual"
-                            data-vv-as="Manual"
-                            :error-messages="errors.collect('manual')"
-                            :items="ma_items"
-                            label="Tipo Apunte"
-                            required
-                            ></v-select>
-                    </v-flex> -->
-                    <v-spacer></v-spacer>
-                    <v-flex sm2>
-                        <v-btn small flat @click="submit"  :loading="loading" round  block  color="info">
-                            Filtrar
-                        </v-btn>
-                    </v-flex>
-            </v-layout>
+            <v-row>
+                <v-spacer></v-spacer>
+                <v-col
+                    cols="12"
+                    md="2"
+                >
+                    <v-menu
+                        v-model="menu_d"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                        <v-text-field
+                            v-model="computedFechaD"
+                            label="Fecha"
+                            prepend-icon="event"
+                            readonly
+                            data-vv-name="fecha_d"
+                            :error-messages="errors.collect('fecha_d')"
+                            data-vv-as="Desde"
+                            v-on="on"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="fecha_d"
+                            no-title
+                            locale="es"
+                            first-day-of-week=1
+                            @input="menu_d = false">
+                        </v-date-picker>
+                    </v-menu>
+                </v-col>
+                <v-col
+                    cols="12"
+                    md="2"
+                >
+                    <v-menu
+                        v-model="menu_h"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                        <v-text-field
+                            v-model="computedFechaH"
+                            label="Fecha"
+                            prepend-icon="event"
+                            readonly
+                            data-vv-name="fecha_h"
+                            :error-messages="errors.collect('fecha_h')"
+                            data-vv-as="Hasta"
+                            v-on="on"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="fecha_h"
+                            no-title
+                            locale="es"
+                            first-day-of-week=1
+                            @input="menu_h = false">
+                        </v-date-picker>
+                    </v-menu>
+                </v-col>
+                <v-col
+                    cols="12"
+                    md="1"
+                >
+                    <v-select
+                        v-model="dh"
+                        data-vv-name="dh"
+                        data-vv-as="D-H"
+                        :error-messages="errors.collect('dh')"
+                        :items="dh_items"
+                        label="D/H"
+                        required
+                        ></v-select>
+                </v-col>
+                <v-col
+                    cols="12"
+                    md="2"
+                >
+                    <v-select
+                        v-model="manual"
+                        data-vv-name="manual"
+                        data-vv-as="origen"
+                        :error-messages="errors.collect('manual')"
+                        :items="ma_items"
+                        label="Origen"
+                    ></v-select>
+                </v-col>
+
+                <v-col
+                    cols="12"
+                    md="1"
+                >
+                <v-btn small @click="submit"  :loading="loading" rounded  color="info">
+                    Filtrar
+                </v-btn>
+                </v-col>
+            </v-row>
         </v-container>
     </v-form>
 </template>
@@ -145,13 +138,12 @@ export default {
                     {value: null, text:"Todos"},
                     {value: 'S', text:"Manual"},
                     {value: 'N', text:"Auto"},
-                    {value: 'C', text:"Auto-Compras"},
-                    {value: 'V', text:"Auto-Ventas"},
+                    {value: 'C', text:"Cierre"},
                 ],
             manual: null,
             menu_h: false,
             menu_d: false,
-            apunte_id:  null,
+
             label:"",
             fecha_d: new Date().toISOString().substr(0, 7)+"-01",
             fecha_h: new Date().toISOString().substr(0, 10),
@@ -160,19 +152,7 @@ export default {
     },
     beforeMount(){
 
-        axios.get('/utilidades/helpapuntes')
-            .then(res => {
-                this.apuntes = res.data;
-                this.apuntes.push({value: null, text: '-'});
-                if (this.isAdmin)
-                    this.ma_items.push({value: 'R', text: 'Regularización'});
 
-            })
-            .catch(err =>{
-
-                this.$toast.error(err.response.data.message);
-                this.$router.push({ name: 'dash' })
-            })
 
     },
     computed: {

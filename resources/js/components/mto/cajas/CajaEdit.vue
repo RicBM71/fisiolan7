@@ -1,5 +1,5 @@
 <template>
-	<div v-show="!show_loading">
+    <div v-show="!show_loading">
         <loading :show_loading="show_loading"></loading>
         <v-card>
             <v-card-title color="indigo">
@@ -10,43 +10,45 @@
         </v-card>
         <v-card>
             <v-form>
-                 <v-container>
-                     <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm2>
+                <v-container>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
                             <v-menu
                                 v-model="menu1"
                                 :close-on-content-click="false"
                                 :nudge-right="40"
-                                lazy
                                 transition="scale-transition"
                                 offset-y
-                                full-width
                                 min-width="290px"
-                                :disabled="!isSupervisor"
                             >
+                                <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    slot="activator"
-                                    :value="computedFecha"
+                                    v-model="computedFecha"
                                     label="Fecha"
-                                    v-validate="'required'"
-                                    data-vv-name="fecha"
-                                    append-icon="event"
+                                    prepend-icon="event"
                                     readonly
-                                    data-vv-as="Fecha"
+                                    data-vv-name="fecha"
                                     :error-messages="errors.collect('fecha')"
-                                    ></v-text-field>
+                                    data-vv-as="Fecha"
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
                                 <v-date-picker
                                     v-model="caja.fecha"
                                     no-title
                                     locale="es"
                                     first-day-of-week=1
-                                    @input="menu1 = false"
-                                    :disabled="!isSupervisor"
-                                ></v-date-picker>
+                                    @input="menu_1 = false">
+                                </v-date-picker>
                             </v-menu>
-                        </v-flex>
-                        <v-flex sm2 d-flex>
+                        </v-col>
+                        <v-col
+                                cols="12"
+                                md="1"
+                            >
                             <v-select
                                 v-model="caja.dh"
                                 v-validate="'required'"
@@ -57,32 +59,11 @@
                                 label="D/H"
                                 required
                                 ></v-select>
-                        </v-flex>
-                        <v-flex v-if="caja.manual!='N'" sm4 d-flex>
-                            <v-select
-                                v-model="caja.apunte_id"
-                                :error-messages="errors.collect('apunte_id')"
-                                data-vv-name="apunte_id"
-                                data-vv-as="apunte_id"
-                                :items="apuntes"
-
-                                label="Apunte"
-                            ></v-select>
-                        </v-flex>
-                        <v-flex v-else sm4></v-flex>
-                        <v-flex sm2>
-                            <v-text-field
-                                v-model="saldo"
-                                label="Saldo"
-                                class="inputPrice"
-                                readonly
-                            >
-                            </v-text-field>
-                        </v-flex>
-                     </v-layout>
-                    <v-layout row wrap>
-                         <v-flex sm1></v-flex>
-                        <v-flex sm8>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="5"
+                        >
                             <v-text-field
                                 v-model="caja.nombre"
                                 v-validate="'required'"
@@ -90,12 +71,14 @@
                                 label="Nombre"
                                 data-vv-name="nombre"
                                 data-vv-as="nombre"
-                                required
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
                             <v-text-field
                                 v-model="caja.importe"
                                 v-validate="'required|decimal:2|min:1'"
@@ -108,58 +91,41 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm2 d-flex>
-                            <v-select
-                                v-model="caja.manual"
-                                v-validate="'required'"
-                                data-vv-name="manual"
-                                data-vv-as="origen"
-                                :error-messages="errors.collect('manual')"
-                                :items="origenes"
-                                label="Origen"
-                                :readonly="!isAdmin"
-                                ></v-select>
-                        </v-flex>
-                         <v-flex sm2>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="2">
                             <v-text-field
                                 v-model="caja.username"
-                                :error-messages="errors.collect('username')"
                                 label="Usuario"
-                                data-vv-name="username"
                                 readonly
-                                v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12" md="2">
                             <v-text-field
                                 v-model="computedFModFormat"
                                 label="Modificado"
                                 readonly
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12" md="2">
                             <v-text-field
                                 v-model="computedFCreFormat"
                                 label="Creado"
                                 readonly
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm2>
-                            <div class="text-xs-center">
-                                <v-btn @click="submit"  round  :loading="loading" block  color="primary">
-                                    Guardar
-                                </v-btn>
-                            </div>
-                        </v-flex>
-                    </v-layout>
+                        </v-col>
+                        <v-col cols="12" md="2"></v-col>
+                        <v-col
+                            cols="12"
+                            md="1"
+                        >
+                            <v-btn @click="submit" small rounded  :loading="loading" block color="primary">Guardar</v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>
@@ -180,17 +146,13 @@ import {mapGetters} from 'vuex';
 		},
     	data () {
       		return {
-                titulo:"Apuntes de caja",
+                titulo:"Editar apunte",
                 caja: {},
                 url: "/mto/cajas",
                 ruta: "caja",
                 dhs:[
                     {value: 'D', text:"Debe"},
                     {value: 'H', text:"Haber"},
-                ],
-                origenes:[
-                    {value: 'S', text:"Manual"},
-                    {value: 'R', text:"Regularización"},
                 ],
                 saldo: 0,
                 loading: false,
@@ -210,8 +172,6 @@ import {mapGetters} from 'vuex';
 
                         this.caja = res.data.caja;
                         this.saldo = res.data.saldo;
-                        this.apuntes = res.data.apuntes;
-                        this.apuntes.push({value: null, text: '-'});
 
                         this.show = true;
                         this.show_loading = false;

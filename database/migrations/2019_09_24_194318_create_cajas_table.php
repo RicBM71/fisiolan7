@@ -22,6 +22,7 @@ class CreateCajasTable extends Migration
             $table->decimal('importe', 10, 2)->default(0);
             $table->String('manual',1)->default('S');
             $table->unsignedInteger('cita_id')->nullable()->index();
+            $table->unsignedInteger('paciente_id')->nullable()->index();
             $table->string('username',30)->nullable();
             $table->timestamps();
         });

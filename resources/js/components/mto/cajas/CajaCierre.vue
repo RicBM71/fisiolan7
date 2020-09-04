@@ -24,42 +24,42 @@
         <v-card>
             <v-form>
                  <v-container>
-                     <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm2>
+                     <v-row>
+                        <v-col cols="12"
+                            md="1"></v-col>
+                        <v-col cols="12"
+                            md="2">
                             <v-menu
                                 v-model="menu1"
                                 :close-on-content-click="false"
                                 :nudge-right="40"
-                                lazy
                                 transition="scale-transition"
                                 offset-y
-                                full-width
                                 min-width="290px"
-                                :readonly="!isSupervisor"
                             >
+                                <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    slot="activator"
-                                    :value="computedFecha"
+                                    v-model="computedFecha"
                                     label="Fecha"
-                                    v-validate="'required'"
-                                    data-vv-name="fecha"
-                                    append-icon="event"
+                                    prepend-icon="event"
                                     readonly
-                                    data-vv-as="Fecha"
+                                    data-vv-name="fecha"
                                     :error-messages="errors.collect('fecha')"
-                                    ></v-text-field>
+                                    data-vv-as="Fecha"
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
                                 <v-date-picker
                                     v-model="caja.fecha"
                                     no-title
                                     locale="es"
                                     first-day-of-week=1
-                                    @input="menu1 = false"
-                                    :readonly="!isSupervisor"
-                                ></v-date-picker>
+                                    @input="menu_1 = false">
+                                </v-date-picker>
                             </v-menu>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12"
+                            md="2">
                             <v-text-field
                                 :value="saldo |currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })"
                                 readonly
@@ -67,9 +67,10 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
+                        </v-col>
 
-                        <v-flex sm2>
+                        <v-col cols="12"
+                            md="2">
                             <v-text-field
                                 v-model="recuento_manual"
                                 v-validate="'decimal'"
@@ -81,8 +82,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12"
+                            md="2">
                             <v-text-field
                                 :value="recuento |currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })"
                                 readonly
@@ -90,8 +92,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                        <v-col cols="12"
+                            md="2">
                             <v-text-field
                                 :value="regulariza |currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })"
                                 readonly
@@ -99,21 +102,28 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm8></v-flex>
-                        <v-flex sm2>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col cols="12"
+                            md="1">
                             <div class="text-xs-center">
-                                        <v-btn @click="submit"  round  :loading="loading" block  color="primary">
+                                        <v-btn @click="submit"  rounded  :loading="loading" small block  color="primary">
                                 Regularizar
                                 </v-btn>
                             </div>
-                        </v-flex>
-                     </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm1>Billetes</v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="1"></v-col>
+                        <v-col cols="12"
+                            md="1">Billetes</v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[0]"
                                 v-validate="'numeric'"
@@ -125,8 +135,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[0]"
                                 disabled
@@ -134,8 +145,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[1]"
                                 v-validate="'numeric'"
@@ -148,8 +160,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[1]"
                                 label="Valor"
@@ -157,8 +170,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                         <v-flex sm1>
+                        </v-col>
+                         <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[2]"
                                 v-validate="'numeric'"
@@ -171,8 +185,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[2]"
                                 label="Valor"
@@ -180,8 +195,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[3]"
                                 v-validate="'numeric'"
@@ -193,8 +209,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[3]"
                                 disabled
@@ -202,12 +219,14 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
+                        </v-col>
 
-                    </v-layout>
-                     <v-layout row wrap>
-                         <v-flex sm1></v-flex>
-                        <v-flex sm1>
+                    </v-row>
+                     <v-row>
+                        <v-col cols="12"
+                            md="2"></v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[4]"
                                 v-validate="'numeric'"
@@ -220,8 +239,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[4]"
                                 label="Valor"
@@ -229,8 +249,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[5]"
                                 v-validate="'numeric'"
@@ -243,8 +264,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[5]"
                                 label="Valor"
@@ -252,8 +274,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="billetes[6]"
                                 v-validate="'numeric'"
@@ -266,8 +289,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe[6]"
                                 label="Valor"
@@ -275,11 +299,14 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm1>Monedas</v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="1"></v-col>
+                        <v-col cols="12"
+                            md="1">Monedas</v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[0]"
                                 v-validate="'numeric'"
@@ -291,8 +318,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[0]"
                                 disabled
@@ -300,8 +328,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[1]"
                                 v-validate="'numeric'"
@@ -314,8 +343,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[1]"
                                 label="Valor"
@@ -323,8 +353,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[2]"
                                 v-validate="'numeric'"
@@ -337,8 +368,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[2]"
                                 label="Valor"
@@ -346,8 +378,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[3]"
                                 v-validate="'numeric'"
@@ -360,8 +393,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[3]"
                                 label="Valor"
@@ -369,11 +403,13 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12"
+                            md="2"></v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[4]"
                                 v-validate="'numeric'"
@@ -386,8 +422,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[4]"
                                 label="Valor"
@@ -395,8 +432,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[5]"
                                 v-validate="'numeric'"
@@ -409,8 +447,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[5]"
                                 label="Valor"
@@ -418,8 +457,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[6]"
                                 v-validate="'numeric'"
@@ -432,8 +472,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[6]"
                                 label="Valor"
@@ -441,8 +482,9 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 v-model="monedas[7]"
                                 v-validate="'numeric'"
@@ -455,8 +497,9 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                        <v-flex sm1>
+                        </v-col>
+                        <v-col cols="12"
+                            md="1">
                             <v-text-field
                                 :value="importe_m[7]"
                                 label="Valor"
@@ -464,8 +507,8 @@
                                 class="inputPrice"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>

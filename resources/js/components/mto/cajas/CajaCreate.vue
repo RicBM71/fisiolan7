@@ -10,80 +10,60 @@
         </v-card>
         <v-card>
             <v-form>
-                 <v-container>
-                     <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm2>
+                <v-container>
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
                             <v-menu
                                 v-model="menu1"
                                 :close-on-content-click="false"
                                 :nudge-right="40"
-                                lazy
                                 transition="scale-transition"
                                 offset-y
-                                full-width
                                 min-width="290px"
-                                :disabled="computedEditFecha"
                             >
+                                <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    slot="activator"
-                                    :value="computedFecha"
+                                    v-model="computedFecha"
                                     label="Fecha"
-                                    v-validate="'required'"
-                                    data-vv-name="fecha"
-                                    append-icon="event"
+                                    prepend-icon="event"
                                     readonly
-                                    data-vv-as="Fecha"
+                                    data-vv-name="fecha"
                                     :error-messages="errors.collect('fecha')"
-                                    ></v-text-field>
+                                    data-vv-as="Fecha"
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
                                 <v-date-picker
                                     v-model="caja.fecha"
                                     no-title
                                     locale="es"
                                     first-day-of-week=1
-                                    @input="menu1 = false"
-                                    :disabled="computedEditFecha"
-                                ></v-date-picker>
+                                    @input="menu_1 = false">
+                                </v-date-picker>
                             </v-menu>
-                        </v-flex>
-                        <v-flex sm2 d-flex>
+                        </v-col>
+                        <v-col
+                                cols="12"
+                                md="1"
+                            >
                             <v-select
-                            v-model="caja.dh"
-                            v-validate="'required'"
-                            data-vv-name="dh"
-                            data-vv-as="dh"
-                            :error-messages="errors.collect('dh')"
-                            :items="dhs"
-                            label="D/H"
-                            required
-                            ></v-select>
-                        </v-flex>
-                        <v-flex sm2 d-flex>
-                            <v-select
-                                v-model="caja.manual"
+                                v-model="caja.dh"
                                 v-validate="'required'"
-                                data-vv-name="manual"
-                                data-vv-as="origen"
-                                :error-messages="errors.collect('manual')"
-                                :items="origenes"
-                                label="Origen"
-                                :readonly="!isAdmin"
+                                data-vv-name="dh"
+                                data-vv-as="dh"
+                                :error-messages="errors.collect('dh')"
+                                :items="dhs"
+                                label="D/H"
+                                required
                                 ></v-select>
-                        </v-flex>
-                         <v-flex sm3 d-flex>
-                            <v-select
-                            v-model="caja.apunte_id"
-                            :error-messages="errors.collect('apunte_id')"
-                            data-vv-name="apunte_id"
-                            data-vv-as="apunte_id"
-                            :items="apuntes"
-                            label="Apunte"
-                            ></v-select>
-                        </v-flex>
-                     </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm1></v-flex>
-                        <v-flex sm8>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="5"
+                        >
                             <v-text-field
                                 v-model="caja.nombre"
                                 v-validate="'required'"
@@ -94,8 +74,11 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                         <v-flex sm2>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="2"
+                        >
                             <v-text-field
                                 v-model="caja.importe"
                                 v-validate="'required|decimal:2|min:1'"
@@ -108,18 +91,14 @@
                                 v-on:keyup.enter="submit"
                             >
                             </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                        <v-flex sm8></v-flex>
-                        <v-flex sm2>
-                            <div class="text-xs-center">
-                                        <v-btn @click="submit"  round  :loading="loading" block  color="primary">
-                                Guardar
-                                </v-btn>
-                            </div>
-                        </v-flex>
-                    </v-layout>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            md="1"
+                        >
+                            <v-btn @click="submit" small rounded  :loading="loading" block color="primary">Guardar</v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-form>
         </v-card>
@@ -147,16 +126,9 @@ import {mapGetters} from 'vuex';
                     dh: 'D',
                     nombre: '',
                     manual: 'S',
-                    deposito_id:null,
-                    cobro_id: null,
-                    apunte_id: null
                 },
                 url: "/mto/cajas",
                 ruta: "caja",
-                origenes:[
-                    {value: 'S', text:"Manual"},
-                    {value: 'R', text:"Regularización"},
-                ],
                 dhs:[
                     {value: 'D', text:"Debe"},
                     {value: 'H', text:"Haber"},
@@ -171,19 +143,7 @@ import {mapGetters} from 'vuex';
       		}
         },
         mounted(){
-             this.show_loading = false;
-            axios.get(this.url+'/create')
-                .then(res => {
-
-                    this.apuntes = res.data.apuntes;
-                    this.apuntes.push({value: null, text: '-'});
-                    this.show = true;
-                    this.show_loading = false;
-                })
-                .catch(err => {
-                    this.$toast.error(err.response.data.message);
-                    this.$router.push({ name: this.ruta+'.index'})
-                })
+            this.show_loading = false;
         },
         computed: {
             ...mapGetters([
@@ -191,7 +151,7 @@ import {mapGetters} from 'vuex';
                 'isSupervisor',
             ]),
             computedEditFecha(){
-                
+
                 return !this.isSupervisor;
             },
             computedFecha() {

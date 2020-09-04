@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Caja extends Model
 {
     protected $fillable = [
-        'empresa_id', 'fecha', 'dh', 'nombre', 'importe', 'manual','cita_id','username'
+        'empresa_id', 'fecha', 'dh', 'nombre', 'importe', 'manual','cita_id','paciente_id','username'
     ];
 
     /**
@@ -24,12 +24,6 @@ class Caja extends Model
 
         static::addGlobalScope(new EmpresaScope);
     }
-
-    public function apunte()
-    {
-    	return ($this->belongsTo(Apunte::class));
-    }
-
 
     public function setImporteAttribute($value)
     {
@@ -52,39 +46,10 @@ class Caja extends Model
         return $query;
 
     }
-
     public function scopeManual($query, $manual){
 
-        switch ($manual) {
-            case '':
-                return $query;
-                break;
-            case 'C':
-                return $query->where('deposito_id', '>', 0);
-                break;
-            case 'V':
-                return $query->where('cobro_id', '>', 0);
-                break;
-            default:
-                return $query->where('manual', $manual);
-                break;
-        }
-
-    }
-
-    public function scopeAdmin($query){
-
-        if (!esAdmin())
-            $query->where('manual','<>','A');
-
-        return $query;
-
-    }
-
-    public function scopeApunte($query, $apunte_id){
-
-        if ($apunte_id != null)
-            $query->where('apunte_id',$apunte_id);
+        if ($manual != null)
+            $query->where('manual',$manual);
 
         return $query;
 

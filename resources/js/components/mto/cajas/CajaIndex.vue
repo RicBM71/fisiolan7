@@ -49,110 +49,81 @@
                 ></filtro-caja>
             </v-card>
             <v-card>
+                <v-card-title>
+                    <v-col
+                        cols="12"
+                        md="2"
+
+                    >
+                        Debe: {{total_debe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="2"
+
+                    >
+                        Haber: {{total_haber | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="2"
+
+                    >
+                        Saldo: {{saldo | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col
+                        cols="12"
+                        md="5"
+                    >
+                        <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            label="Buscar"
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-col>
+                </v-card-title>
                 <v-container>
-                    <v-layout row wrap>
-                        <v-flex xs2 class="font-weight-bold">
-                            Debe: {{total_debe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
-                        </v-flex>
-                        <v-flex xs2 class="font-weight-bold">
-                            Haber: {{total_haber | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
-                        </v-flex>
-                        <v-flex xs2 class="font-weight-bold">
-                            Saldo a {{fecha_saldo}}
-                        </v-flex>
-                        <v-flex xs2 class="font-weight-bold">
-                            {{saldo | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}
-                        </v-flex>
-                        <v-flex xs4>
-                            <v-spacer></v-spacer>
-                            <v-text-field
-                                v-model="search"
-                                append-icon="search"
-                                label="Buscar"
-                                single-line
-                                hide-details
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <br/>
-                    <v-layout row wrap>
-                        <v-flex xs12>
-                            <v-data-table
-                            :headers="headers"
-                            :items="items"
-                            :search="search"
-                            :expand="expand"
-                            @update:pagination="updateEventPagina"
-                            :pagination.sync="pagination"
-                            rows-per-page-text="Registros por página"
-                            >
-                                <template slot="items" slot-scope="props">
-                                    <td :class="colorear(props.item)">{{ formatDate(props.item.fecha) }}</td>
-                                    <td :class="colorear(props.item)">{{ props.item.dh }}</td>
-                                    <td :class="colorear(props.item)">{{ props.item.nombre }}</td>
-                                    <td v-if="props.item.dh=='D'" :class="colorear(props.item, true)">{{ props.item.importe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
-                                    <td else></td>
-                                    <td v-if="props.item.dh=='H'" :class="colorear(props.item, true)">{{ props.item.importe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                    <v-data-table
+                        :search="search"
+                        :headers="headers"
+                        :options="options"
+                        :items="items"
+                    >
+                        <template v-slot:body="{ items }">
+                            <tbody>
+                            <tr v-for="item in items" :key="item.id">
+                                <td :class="colorear(item)">{{ formatDate(item.fecha) }}</td>
+                                <td :class="colorear(item)">{{ item.dh }}</td>
+                                <td :class="colorear(item)">{{ item.nombre }}</td>
+                                <td v-if="item.dh=='D'" :class="colorear(item, true)">{{ item.importe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
+                                <td else></td>
+                                <td v-if="item.dh=='H'" :class="colorear(item, true)">{{ item.importe | currency('€', 2, { thousandsSeparator:'.', decimalSeparator: ',', symbolOnLeft: false })}}</td>
 
-                                    <td :class="colorear(props.item)">{{ props.item.username+" "+formatDateUpdated(props.item.updated_at) }}</td>
+                                <td :class="colorear(item)">{{ item.username+" "+formatDateUpdated(item.updated_at) }}</td>
 
-                                    <td class="justify-center layout px-0">
-                                         <v-icon
-                                                v-show="props.item.apunte_id >= 1"
-                                                small
-                                                class="mr-2"
-                                                @click="props.expanded = !props.expanded"
-                                            >
-                                                visibility
-                                        </v-icon>
-
-                                        <v-icon
-                                            v-if="puedeEditar(props.item)"
-                                            small
-                                            class="mr-2"
-                                            @click="editItem(props.item.id)"
-                                        >
-                                            edit
-                                        </v-icon>
-
-                                        <v-icon
-                                            v-show="puedeBorrar(props.item)"
-                                            small
-                                            @click="openDialog(props.item.id)"
-                                        >
-                                        delete
-                                        </v-icon>
-
-                                        <v-icon
-                                            v-show="props.item.deposito_id > 0"
-                                            small
-                                            @click="goCompra(props.item.deposito_id)"
-                                        >
-                                        shopping_cart
-                                        </v-icon>
-
-                                        <v-icon
-                                            v-show="props.item.cobro_id > 0"
-                                            small
-                                            @click="goVenta(props.item.cobro_id)"
-                                        >
-                                        credit_card
-                                        </v-icon>
-                                    </td>
-                                </template>
-                                <template v-slot:expand="props">
-                                    <v-card flat v-if="props.item.apunte_id >= 1">
-                                        <v-card-text class="font-italic">
-                                            {{ props.item.apunte.nombre }}
-                                        </v-card-text>
-                                    </v-card>
-                                </template>
-                                <template slot="pageText" slot-scope="props">
-                                    Registros {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
-                                </template>
-                            </v-data-table>
-                        </v-flex>
-                    </v-layout>
+                                <td>
+                                    <v-icon
+                                        v-if="item.manual != 'N'"
+                                        small
+                                        @click="editItem(item.id)"
+                                    >
+                                    mdi-pencil
+                                    </v-icon>
+                                    <v-icon
+                                        v-if="item.manual != 'N'"
+                                        small
+                                        @click="openDialog(item.id)"
+                                    >
+                                        mdi-delete
+                                    </v-icon>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </template>
+                    </v-data-table>
                 </v-container>
             </v-card>
         </v-container>
@@ -181,12 +152,12 @@ import {mapActions} from "vuex";
         expand: false,
         titulo: "Apuntes de caja",
         paginaActual:{},
-        pagination:{
+        options:{
             model: "caja",
-            descending: false,
             page: 1,
-            rowsPerPage: 10,
-            sortBy: "id",
+            itemsPerPage: 10,
+            sortDesc: false,
+            sortBy: ['fecha'],
         },
         search:"",
         headers: [
@@ -197,10 +168,10 @@ import {mapActions} from "vuex";
                 width: '2%'
             },
             {
-                text: 'D/H',
+                text: 'A',
                 align: 'left',
                 value: 'dh',
-                width: '1%'
+                width: '3%'
             },
             {
                 text: 'Concepto',
@@ -229,7 +200,8 @@ import {mapActions} from "vuex";
                 text: 'Acciones',
                 align: 'Center',
                 value: 'id',
-                width: '1%'
+                width: '1%',
+                sortable: false,
             }
         ],
         items:[],
@@ -253,7 +225,7 @@ import {mapActions} from "vuex";
     mounted()
     {
 
-        if (this.getPagination.model == this.pagination.model)
+        if (this.getPagination.model == this.options.model)
             this.updatePosPagina(this.getPagination);
         else
             this.unsetPagination();
@@ -369,38 +341,6 @@ import {mapActions} from "vuex";
         editItem (id) {
             this.setPagination(this.paginaActual);
             this.$router.push({ name: this.ruta+'.edit', params: { id: id } })
-        },
-        goCompra(deposito_id) {
-            axios.get('/compras/depositos/'+deposito_id+'/compra')
-                .then(res => {
-
-                    var ruta = res.data.tipo_id == 1 ? 'recompra' : 'compra';
-
-                    if (res.data.fase_id <= 2)
-                        this.$router.push({ name: 'compra.edit', params: { id: res.data.id } })
-                    else
-                        this.$router.push({ name: ruta+'.close', params: { id: res.data.id } })
-
-                })
-                .catch(err => {
-                    var msg = err.response.data.message;
-                    this.$toast.error(msg);
-            });
-        },
-        goVenta(cobro_id) {
-            this.show_loading = true;
-            axios.get('/ventas/cobros/'+cobro_id+'/albaran')
-                .then(res => {
-                    this.$router.push({ name: 'albaran.edit', params: { id: res.data } })
-                })
-                .catch(err => {
-                    var msg = err.response.data.message;
-                    this.$toast.error(msg);
-                })
-                .finally(()=> {
-                    this.show_loading = false;
-                });
-
         },
         openDialog (id){
             this.dialog = true;
