@@ -45,6 +45,11 @@ import AreaIndex from './components/mto/areas/AreaIndex.vue';
 import AreaCreate from './components/mto/areas/AreaCreate.vue';
 import AreaEdit from './components/mto/areas/AreaEdit.vue';
 
+import MutuaIndex from './components/mto/mutuas/MutuaIndex.vue';
+import MutuaCreate from './components/mto/mutuas/MutuaCreate.vue';
+import MutuaEdit from './components/mto/mutuas/MutuaEdit.vue';
+
+
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
 import CajaCreate from './components/mto/cajas/CajaCreate.vue';
@@ -262,6 +267,21 @@ export default [
                 path: '/areas/:id/edit',
                 name: 'area.edit',
                 component: AreaEdit,
+            },
+            {
+                path: '/mutuas',
+                name: 'mutua.index',
+                component: MutuaIndex,
+            },
+            {
+                path: '/mutuas/create',
+                name: 'mutua.create',
+                component: MutuaCreate,
+            },
+            {
+                path: '/mutuas/:id/edit',
+                name: 'mutua.edit',
+                component: MutuaEdit,
             },
             // {
             //     path: '*',

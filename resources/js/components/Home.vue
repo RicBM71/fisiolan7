@@ -93,7 +93,7 @@
                 </v-list-item-action>
                 <v-list-item-content @click="abrir(child.name)">
                     <v-list-item-title>
-                    **{{ child.text }}
+                    {{ child.text }}
                     </v-list-item-title>
                 </v-list-item-content>
                 </v-list-item>
@@ -106,8 +106,8 @@
                 <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-action>
-                <v-list-item-content>
-                <v-list-item-title @click="abrir(item.name)">
+                <v-list-item-content @click="abrir(item.name)">
+                <v-list-item-title>
                     {{ item.text }}
                 </v-list-item-title>
                 </v-list-item-content>
@@ -220,6 +220,7 @@ export default {
                 { icon: 'mdi-plus', text: 'Caja', name:'caja.index'  },
                 { icon: 'mdi-plus', text: 'Bonos', name:'bono.index' },
                 { icon: 'mdi-plus', text: 'Tratamientos', name:'tratamiento.index'  },
+                { icon: 'mdi-plus', text: 'Sociedades', name:'mutua.index'  },
             ],
             },
             {

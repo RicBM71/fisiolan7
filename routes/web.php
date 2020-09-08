@@ -102,6 +102,8 @@ Route::group([
         Route::post('cajas/saldo', 'CajasController@saldo');
         Route::post('cajas/excel', 'CajasController@excel');
 
+        Route::resource('mutuas', 'MutuasController', ['as' => 'mto']);
+
         // Route::resource('libros', 'LibrosController', ['as' => 'mto']);
         // Route::post('libros/filtrar', 'LibrosController@filtrar');
         // Route::resource('garantias', 'GarantiasController', ['as' => 'mto']);

@@ -23,11 +23,10 @@ class CreateMutuasTable extends Migration
             $table->string('telefono1', 15)->nullable();
             $table->string('telefono2', 15)->nullable();
             $table->string('telefonom', 15)->nullable();
-            $table->string('cif', 10)->nullable();
+            $table->string('cif', 10)->nullable()->unique();
             $table->string('email', 50)->nullable();
             $table->string('contacto', 50)->nullable();
             $table->string('username', 15)->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
