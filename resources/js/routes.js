@@ -49,14 +49,15 @@ import MutuaIndex from './components/mto/mutuas/MutuaIndex.vue';
 import MutuaCreate from './components/mto/mutuas/MutuaCreate.vue';
 import MutuaEdit from './components/mto/mutuas/MutuaEdit.vue';
 
-
 import CajaIndex from './components/mto/cajas/CajaIndex.vue';
 import CajaEdit from './components/mto/cajas/CajaEdit.vue';
 import CajaCreate from './components/mto/cajas/CajaCreate.vue';
 import CajaCierre from './components/mto/cajas/CajaCierre.vue';
 
+import PacienteIndex from './components/pacientes/PacienteIndex.vue';
+import PacienteCreate from './components/pacientes/PacienteCreate.vue';
+import PacienteEdit from './components/pacientes/PacienteEdit.vue';
 
-import ParametroEdit from './components/admin/parametros/ParametroEdit.vue';
 import EditPassword from './components/profile/edit-password/EditPassword.vue';
 
 
@@ -282,6 +283,21 @@ export default [
                 path: '/mutuas/:id/edit',
                 name: 'mutua.edit',
                 component: MutuaEdit,
+            },
+            {
+                path: '/pacientes',
+                name: 'paciente.index',
+                component: PacienteIndex,
+            },
+            {
+                path: '/pacientes/create',
+                name: 'paciente.create',
+                component: PacienteCreate,
+            },
+            {
+                path: '/pacientes/:id/edit',
+                name: 'paciente.edit',
+                component: PacienteEdit,
             },
             // {
             //     path: '*',

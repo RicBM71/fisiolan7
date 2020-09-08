@@ -80,7 +80,7 @@ Route::group([
     'namespace' => 'Mto',
     'middleware' => ['auth','password']],
     function (){
-        // Route::resource('clientes', 'ClientesController', ['as' => 'mto']);
+        Route::resource('pacientes', 'PacientesController', ['as' => 'mto']);
         // Route::put('clientes/{cliente}/obs', 'ClientesController@obs');
         // Route::get('clientes/{cliente}/albaranes', 'ClientesController@albaranes');
         // Route::post('clientes/filtrar', 'ClientesController@filtrar');
@@ -138,42 +138,43 @@ Route::group([
 );
 
 Route::group([
-    'prefix' => 'utilidades',
-    'namespace' => 'Utilidades',
+    'prefix' => 'tools',
+    'namespace' => 'Tools',
     'middleware' => ['auth','password']],
     function (){
-        Route::get('helpgrupos', 'HelpGruposController@index');
-      //  Route::get('helpgrupos/productos', 'HelpGruposController@productos');
-        Route::get('helpgrupos/{grupo_id}/clases', 'HelpGruposController@clases');
-        Route::post('helpcli', 'HelpCliController@index');
-        Route::post('helpcli/blacklist', 'HelpCliController@blacklist');
-        Route::post('helpcli/compras', 'HelpCliController@compras');
-        Route::post('helpcli/ventas', 'HelpCliController@ventas');
-        Route::post('helpcli/dni', 'HelpCliController@dni');
-        Route::post('helplibro', 'HelpLibroController@index');
-        Route::post('helplibro/ejercicio', 'HelpLibroController@ejercicio');
-        Route::get('helplibro/abiertos', 'HelpLibroController@abiertos');
-        Route::post('helpdepo', 'HelpDepositosController@index');
-        Route::post('helppro/vendibles', 'HelpProductoController@vendibles');
-        Route::post('helppro/producto', 'HelpProductoController@producto');
-        Route::post('helppro/albaranes', 'HelpProductoController@albaranes');
-        Route::post('helppro/find', 'HelpProductoController@find');
+           Route::post('helpcli', 'HelpPacienteController@index');
+    //     Route::get('helpgrupos', 'HelpGruposController@index');
+    //   //  Route::get('helpgrupos/productos', 'HelpGruposController@productos');
+    //     Route::get('helpgrupos/{grupo_id}/clases', 'HelpGruposController@clases');
+    //     Route::post('helpcli', 'HelpCliController@index');
+    //     Route::post('helpcli/blacklist', 'HelpCliController@blacklist');
+    //     Route::post('helpcli/compras', 'HelpCliController@compras');
+    //     Route::post('helpcli/ventas', 'HelpCliController@ventas');
+    //     Route::post('helpcli/dni', 'HelpCliController@dni');
+    //     Route::post('helplibro', 'HelpLibroController@index');
+    //     Route::post('helplibro/ejercicio', 'HelpLibroController@ejercicio');
+    //     Route::get('helplibro/abiertos', 'HelpLibroController@abiertos');
+    //     Route::post('helpdepo', 'HelpDepositosController@index');
+    //     Route::post('helppro/vendibles', 'HelpProductoController@vendibles');
+    //     Route::post('helppro/producto', 'HelpProductoController@producto');
+    //     Route::post('helppro/albaranes', 'HelpProductoController@albaranes');
+    //     Route::post('helppro/find', 'HelpProductoController@find');
 
-        Route::get('helppro/filtro', 'HelpProductoController@filtro');
-        Route::get('helpfases/compra', 'HelpFasesController@compra');
-        Route::get('helpfases/venta', 'HelpFasesController@venta');
-        Route::get('helpfiltroalb', 'HelpFiltroAlbController@index');
-        Route::post('helptaller/ventas', 'HelpTalleresController@ventas');
-        Route::put('reacli', 'ReasignarClienteController@reasignar');
-        Route::get('helpapuntes', 'HelpApuntesController@index');
+    //     Route::get('helppro/filtro', 'HelpProductoController@filtro');
+    //     Route::get('helpfases/compra', 'HelpFasesController@compra');
+    //     Route::get('helpfases/venta', 'HelpFasesController@venta');
+    //     Route::get('helpfiltroalb', 'HelpFiltroAlbController@index');
+    //     Route::post('helptaller/ventas', 'HelpTalleresController@ventas');
+    //     Route::put('reacli', 'ReasignarClienteController@reasignar');
+    //     Route::get('helpapuntes', 'HelpApuntesController@index');
 
-        Route::get('check/{ejercicio?}', 'ContadorCheckController@index');
-        Route::post('intercambio', 'IntercambioController@submit');
+    //     Route::get('check/{ejercicio?}', 'ContadorCheckController@index');
+    //     Route::post('intercambio', 'IntercambioController@submit');
 
-        Route::put('reasignar/empresa/producto/{producto}', 'ReasignarEmpresaProductoController@update');
-        Route::post('importar/producto', 'ImportarProductoController@store');
+    //     Route::put('reasignar/empresa/producto/{producto}', 'ReasignarEmpresaProductoController@update');
+    //     Route::post('importar/producto', 'ImportarProductoController@store');
 
-        Route::post('cierre', 'CierreController@submit');
+    //     Route::post('cierre', 'CierreController@submit');
 
      //   Route::get('helpbanco', 'HelpBancosController@index');
     }
