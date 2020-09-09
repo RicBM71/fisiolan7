@@ -7,6 +7,7 @@ use App\Mutua;
 use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Mto\UpdatePacienteRequest;
 
 class PacientesController extends Controller
@@ -46,6 +47,16 @@ class PacientesController extends Controller
             return ['paciente'=>$reg, 'message' => 'EL registro ha sido creado'];
     }
 
+    public function show(Paciente $paciente)
+    {
+
+        if (request()->wantsJson())
+            return [
+                'paciente' => $paciente,
+            ];
+
+    }
+
     public function edit(Paciente $paciente)
     {
 
@@ -56,13 +67,17 @@ class PacientesController extends Controller
             $recomendado = null;
         }
 
+        $foto = '/fotos/'.$paciente->id.'.jpg';
+
+        $paciente->load('historias');
 
         if (request()->wantsJson())
             return [
                 'medios'   => Medio::selMedios(),
                 'mutuas'   => Mutua::selMutuas(),
                 'paciente' => $paciente,
-                'recomendado' => $recomendado
+                'recomendado' => $recomendado,
+                'foto'      =>  Storage::disk('public')->exists($foto) ? '/storage'.$foto : false
             ];
 
     }
@@ -99,5 +114,56 @@ class PacientesController extends Controller
 
 
     }
+
+    public function capture(Request $request)
+    {
+
+        $data = $request->validate([
+            'paciente_id'   => ['required', 'integer'],
+            'img'           => ['required', 'string'],
+        ]);
+
+
+        $file = 'fotos/'.$data['paciente_id'].'.jpg';
+
+        $imgdata = explode( ",", $data['img']);
+
+        $i = base64_decode($imgdata[1]);
+
+        Storage::disk('public')->put($file, $i);
+
+    }
+
+    public function delcap(Request $request)
+    {
+
+        $data = $request->validate([
+            'paciente_id'   => ['required', 'integer'],
+        ]);
+
+
+        $file = 'public/fotos/'.$data['paciente_id'].'.jpg';
+
+        //$fotoPath = str_replace('storage', 'public', $file);
+
+        Storage::delete($file);
+
+        return $file;
+
+    }
+
+
+    private function getDecript($file,$pdf){
+
+        if (Storage::disk('docs')->exists($file))
+            $myFile = Storage::disk('docs')->get($file);
+        else
+            return false;
+
+
+        //return ($pdf) ?($myFile) : "data:image/jpg;base64,".$myFile;
+        return ($pdf) ? Crypt::decryptString($myFile) : "data:image/jpg;base64,".Crypt::decryptString($myFile);
+    }
+
 
 }

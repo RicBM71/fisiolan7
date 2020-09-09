@@ -1,6 +1,32 @@
 <template>
     <div>
         <my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
+        <v-tooltip bottom v-if="isAdmin && foto==false">
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="white"
+                    icon
+                    @click="goCaptura"
+                >
+                    <v-icon color="red darken-4">add_a_photo</v-icon>
+                </v-btn>
+            </template>
+            <span>Capurar Foto</span>
+        </v-tooltip>
+        <v-tooltip bottom v-if="isAdmin && foto!=false">
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="white"
+                    icon
+                    @click="goDelCaptura"
+                >
+                    <v-icon color="red darken-4">remove_circle_outline</v-icon>
+                </v-btn>
+            </template>
+            <span>Eliminar Foto</span>
+        </v-tooltip>
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -44,11 +70,10 @@
     </div>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 import MyDialog from '@/components/shared/MyDialog'
 export default {
-    props:{
-        id: Number
-    },
+    props:['id', 'foto'],
     components: {
         'my-dialog': MyDialog
     },
@@ -59,6 +84,11 @@ export default {
           url: "/mto/pacientes",
       }
     },
+    computed: {
+        ...mapGetters([
+           'isAdmin'
+        ]),
+    },
     methods:{
         goCreate(){
             this.$router.push({ name: this.ruta+'.create' })
@@ -68,6 +98,23 @@ export default {
         },
         goIndex(){
             this.$router.push({ name: this.ruta+'.index' })
+        },
+        goCaptura(){
+            this.$router.push({ name: this.ruta+'.captura' })
+        },
+        goDelCaptura(){
+            axios.post(this.url+'/delcap',{'paciente_id':this.id})
+                .then(response => {
+                    this.$toast.success('Captura eliminada');
+                    this.goCaptura();
+
+            })
+            .catch(err => {
+                this.status = true;
+                var msg = err.response.data.message;
+                this.$toast.error(msg);
+
+            });
         },
         openDialog (){
             this.dialog = true;

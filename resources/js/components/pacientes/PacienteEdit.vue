@@ -6,12 +6,12 @@
                 <h2 v-if="paciente.fecha_baja == null">{{titulo}}</h2>
                 <h2 v-else><span class="red--text darken-4">Borrado {{titulo}}</span></h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="paciente.id"></menu-ope>
+                <menu-ope :id="paciente.id" :foto="foto"></menu-ope>
             </v-card-title>
         </v-card>
         <v-card>
             <v-container>
-                <v-tabs fixed-tabs>
+                <v-tabs fixed-tabs color="primary">
                     <v-tab>
                         Datos generales
                     </v-tab>
@@ -33,7 +33,6 @@
 
                     <v-tab-item>
                         <v-form>
-
                                 <v-row>
                                     <v-col
                                         cols="12"
@@ -109,19 +108,18 @@
                                         >
                                         </v-text-field>
                                     </v-col>
-                                    <v-col
+                                     <v-col
                                         cols="12"
-                                        md="2"
+                                        md="1"
                                     >
-                                        <v-select
-                                            v-model="paciente.sexo"
-                                            v-validate="'required'"
-                                            :error-messages="errors.collect('sexo')"
-                                            label="Sexo"
-                                            data-vv-name="sexo"
-                                            data-vv-as="sexo"
-                                            :items="sexos"
-                                        ></v-select>
+                                     </v-col>
+                                     <v-col
+                                        cols="12"
+                                        md="1"
+                                    >
+                                        <v-avatar size="64px" v-if="foto!=false">
+                                            <img class="img-fluid" :src="foto">
+                                        </v-avatar>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -188,6 +186,20 @@
                                             required
                                         >
                                         </v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        md="2"
+                                    >
+                                        <v-select
+                                            v-model="paciente.sexo"
+                                            v-validate="'required'"
+                                            :error-messages="errors.collect('sexo')"
+                                            label="Sexo"
+                                            data-vv-name="sexo"
+                                            data-vv-as="sexo"
+                                            :items="sexos"
+                                        ></v-select>
                                     </v-col>
 
                                 </v-row>
@@ -408,11 +420,7 @@
                                     <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="paciente.notas1"
-                                            v-validate="'notas1'"
-                                            :error-messages="errors.collect('notas1')"
                                             label="Observaciones Pantalla"
-                                            data-vv-name="notas1"
-                                            data-vv-as="notas1"
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
@@ -420,11 +428,7 @@
                                     <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="paciente.notas2"
-                                            v-validate="'notas2'"
-                                            :error-messages="errors.collect('notas2')"
                                             label="Observaciones Lista"
-                                            data-vv-name="notas2"
-                                            data-vv-as="notas2"
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
@@ -434,11 +438,7 @@
                                     <v-col cols="12" md="4" v-if="isAdmin">
                                         <v-text-field
                                             v-model="paciente.obs_adm"
-                                            v-validate="'obs_adm'"
-                                            :error-messages="errors.collect('obs_adm')"
                                             label="Observaciones Admin"
-                                            data-vv-name="obs_adm"
-                                            data-vv-as="obs_adm"
                                             v-on:keyup.enter="submit"
                                         >
                                         </v-text-field>
@@ -482,6 +482,116 @@
 
                         </v-form>
                     </v-tab-item>
+                    <v-tab-item>
+                        <v-form>
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant1"
+                                        label="Antecedentes"
+                                        hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant2"
+                                        label="Implantes"
+                                        hint="DIU, Osteosíntesis, Prótesis..."
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant3"
+                                        label="Lesiones Oseas"
+                                        hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant4"
+                                        label="Enf. Cardiovasculares"
+                                        hint="DIU, Osteosíntesis, Prótesis..."
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant5"
+                                        label="Lesiones Cutaneas"
+                                        hint="Alergia, soriasis, cicatrices..."
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.ant6"
+                                        label="Otras lesiones"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-model="paciente.antobs"
+                                        label="Observaciones"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="1">
+                                    <v-text-field
+                                        v-model="paciente.peso"
+                                        label="Peso"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="1">
+                                    <v-text-field
+                                        v-model="paciente.altura"
+                                        label="Altura"
+                                        v-on:keyup.enter="submit"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="1">
+                                    <v-switch
+                                        label="Embarazada"
+                                        v-model="paciente.embarazada"
+                                        color="warning">
+                                    ></v-switch>
+                                </v-col>
+                                <v-col
+                                        cols="12"
+                                        md="1"
+                                    >
+                                </v-col>
+                                <v-col
+                                        cols="12"
+                                        md="1"
+                                    >
+                                        <v-btn v-if="paciente.fecha_baja == null" @click="submit"  rounded  :loading="loading" small color="primary">
+                                            Guardar
+                                        </v-btn>
+                                    </v-col>
+                            </v-row>
+                        </v-form>
+                        <v-row>
+                            <v-col cols="12" md="12">
+                                <historias :historias="historias"></historias>
+                            </v-col>
+                        </v-row>
+                    </v-tab-item>
                 </v-tabs>
             </v-container>
         </v-card>
@@ -491,6 +601,7 @@
 import moment from 'moment'
 import Loading from '@/components/shared/Loading'
 import MenuOpe from './MenuOpe'
+import Historias from './Historias'
 import {mapGetters} from 'vuex';
 	export default {
 		$_veeValidate: {
@@ -498,7 +609,8 @@ import {mapGetters} from 'vuex';
         },
         components: {
             'menu-ope': MenuOpe,
-            'loading': Loading
+            'loading': Loading,
+            'historias': Historias
 		},
     	data () {
       		return {
@@ -516,13 +628,16 @@ import {mapGetters} from 'vuex';
                 medios:[],
                 mutuas:[],
 
+                historias:[],
+
                 show: false,
                 show_loading: true,
 
                 recomendados:[],
                 isLoading: false,
                 search: null,
-                model: null
+                model: null,
+                foto: null
 
       		}
         },
@@ -537,9 +652,14 @@ import {mapGetters} from 'vuex';
                         this.mutuas = res.data.mutuas;
                         this.medios = res.data.medios;
 
+                        this.historias = this.paciente.historias;
+
+                        this.foto = res.data.foto;
+
                         this.titulo = res.data.paciente.nom_ape;
 
-                        if (res.data.recomendado.length > 0)
+                        //console.log(res.data.recomendado);
+                        if (res.data.recomendado != null)
                             this.recomendados = res.data.recomendado;
 
                         this.mutuas.push({value: null, text: '-'});
@@ -694,6 +814,15 @@ import {mapGetters} from 'vuex';
 .inputNumber >>> input {
   text-align: center;
   -moz-appearance:textfield;
+}
+
+
+.v-form>.container>.layout>.flex {
+    padding: 1px 0px 1px 0px;
+}
+.v-text-field {
+    padding-top: 1px;
+    margin-top: 1px;
 }
 
 </style>

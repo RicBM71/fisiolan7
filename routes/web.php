@@ -81,6 +81,8 @@ Route::group([
     'middleware' => ['auth','password']],
     function (){
         Route::resource('pacientes', 'PacientesController', ['as' => 'mto']);
+        Route::post('pacientes/capture', 'PacientesController@capture');
+        Route::post('pacientes/delcap', 'PacientesController@delcap');
         // Route::put('clientes/{cliente}/obs', 'ClientesController@obs');
         // Route::get('clientes/{cliente}/albaranes', 'ClientesController@albaranes');
         // Route::post('clientes/filtrar', 'ClientesController@filtrar');

@@ -39,7 +39,7 @@
                         hide-details
                     ></v-text-field>
                 </v-card-title>
-                <v-container>
+                <v-card-text>
                     <v-data-table
                         :search="search"
                         :headers="headers"
@@ -63,7 +63,7 @@
                         {{ item.username + " " + formatDate(item.updated_at)}}
                     </template>
                     </v-data-table>
-                </v-container>
+                </v-card-text>
             </v-card>
         </v-container>
     </div>

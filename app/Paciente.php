@@ -88,6 +88,12 @@ class Paciente extends Model
 
         }
 
+        public function historias()
+        {
+            return $this->hasMany(Historia::class);
+        }
+
+
         public function scopeRazon($query, $razon){
 
             if (!Empty($razon)){
