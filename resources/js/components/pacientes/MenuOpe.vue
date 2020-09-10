@@ -1,6 +1,20 @@
 <template>
     <div>
         <my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
+
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="white"
+                    icon
+                    @click="goCreateHistoria"
+                >
+                    <v-icon color="primary">create_new_folder</v-icon>
+                </v-btn>
+            </template>
+            <span>Nueva entrada en historia clínica</span>
+        </v-tooltip>
         <v-tooltip bottom v-if="isAdmin && foto==false">
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -14,7 +28,7 @@
             </template>
             <span>Capurar Foto</span>
         </v-tooltip>
-        <v-tooltip bottom v-if="isAdmin && foto!=false">
+        <v-tooltip bottom v-if="isAdmin && foto!=false && id > 0">
             <template v-slot:activator="{ on }">
                 <v-btn
                     v-on="on"
@@ -135,6 +149,20 @@ export default {
                 this.$toast.error(msg);
 
             });
+
+        },
+        goCreateHistoria(){
+
+            axios.post('/mto/historias', {paciente_id: this.id})
+                .then(response => {
+                    this.$toast.success('Se ha creado una nueva entrada');
+                    this.$router.push({ name: 'historia.edit', params: { id: response.data.historia.id } })
+                })
+                .catch(err => {
+
+                    this.$toast.error(err.response.data.message);
+
+                });
 
         },
 

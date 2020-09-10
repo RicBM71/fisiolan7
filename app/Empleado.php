@@ -62,4 +62,14 @@ class Empleado extends Model
 
     }
 
+    public static function selFisios(){
+
+        return Empleado::select('id AS value', 'nombre AS text')
+                            ->where('categoria_id', 1)
+                            ->whereNull('fecha_baja')
+                            ->orderBy('nombre', 'asc')
+                            ->get();
+
+    }
+
 }

@@ -57,6 +57,10 @@ import CajaCierre from './components/mto/cajas/CajaCierre.vue';
 import PacienteIndex from './components/pacientes/PacienteIndex.vue';
 import PacienteCreate from './components/pacientes/PacienteCreate.vue';
 import PacienteEdit from './components/pacientes/PacienteEdit.vue';
+
+import HistoriaEdit from './components/pacientes/historias/HistoriaEdit.vue';
+
+
 import Captura from './components/pacientes/Captura.vue';
 
 import EditPassword from './components/profile/edit-password/EditPassword.vue';
@@ -304,6 +308,11 @@ export default [
                 path: '/pacientes/:id/captura',
                 name: 'paciente.captura',
                 component: Captura,
+            },
+            {
+                path: '/historia/:id/edit',
+                name: 'historia.edit',
+                component: HistoriaEdit,
             },
             // {
             //     path: '*',

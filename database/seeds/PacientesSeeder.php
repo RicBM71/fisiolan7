@@ -24,7 +24,7 @@ class PacientesSeeder extends Seeder
 
 
             $data[]=array(
-
+                'id'     => $row->id,
                 'nombre' => $row->nombre,
                 'apellidos' => $row->apellidos,
                 'direccion' => $row->direccion,
@@ -90,7 +90,8 @@ class PacientesSeeder extends Seeder
 
             $data[]=array(
 
-                'nombre' => $row->nombre,
+                'id'        => $row->id,
+                'nombre'    => $row->nombre,
                 'created_at'    => date('Y-m-d'),
                 'updated_at'    => date('Y-m-d'),
                 'username'      => $row->sysusr

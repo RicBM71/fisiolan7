@@ -80,12 +80,15 @@ Route::group([
     'namespace' => 'Mto',
     'middleware' => ['auth','password']],
     function (){
+        
         Route::resource('pacientes', 'PacientesController', ['as' => 'mto']);
         Route::post('pacientes/capture', 'PacientesController@capture');
         Route::post('pacientes/delcap', 'PacientesController@delcap');
+        Route::post('pacientes/filtrar', 'PacientesController@filtrar');
+        Route::resource('historias', 'HistoriasController', ['as' => 'mto']);
+
         // Route::put('clientes/{cliente}/obs', 'ClientesController@obs');
         // Route::get('clientes/{cliente}/albaranes', 'ClientesController@albaranes');
-        // Route::post('clientes/filtrar', 'ClientesController@filtrar');
         // Route::resource('clidocs', 'ClidocsController', ['only'=>['store','destroy'],'as' => 'mto']);
         // Route::get('clidocs/{cliente_id}/{compra_id?}/create', 'ClidocsController@create');
 

@@ -11,6 +11,19 @@
                     <v-tooltip bottom v-if="isAdmin">
                         <template v-slot:activator="{ on }">
                             <v-btn
+                                v-on="on"
+                                color="white"
+                                icon
+                                @click="show_filtro = !show_filtro"
+                            >
+                                <v-icon color="primary">mdi-filter-plus</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Filtrar</span>
+                    </v-tooltip>
+                    <v-tooltip bottom v-if="isAdmin">
+                        <template v-slot:activator="{ on }">
+                            <v-btn
                                 v-show="items.length > 0"
                                 v-on="on"
                                 color="white"
@@ -27,6 +40,11 @@
 
                     <menu-ope></menu-ope>
                 </v-card-title>
+            </v-card>
+            <v-card v-show="show_filtro">
+                <v-card-text>
+                    <filtro :show_filtro.sync="show_filtro" :items.sync="items"></filtro>
+                </v-card-text>
             </v-card>
             <v-card>
                 <v-card-title>
@@ -59,6 +77,11 @@
                             mdi-delete
                         </v-icon>
                     </template>
+                    <template v-slot:item.id="{ item }">
+                        <v-avatar size="32px" v-if="item.foto!=false">
+                            <img class="img-fluid" :src="item.foto">
+                        </v-avatar>
+                    </template>
                     <template v-slot:item.username="{ item }">
                         {{ item.username + " " + formatDate(item.updated_at)}}
                     </template>
@@ -73,6 +96,7 @@ import moment from 'moment'
 import MyDialog from '@/components/shared/MyDialog'
 import Loading from '@/components/shared/Loading'
 import MenuOpe from './MenuOpe'
+import Filtro  from './PacienteFiltro'
 import {mapGetters} from 'vuex'
 import {mapActions} from "vuex";
   export default {
@@ -83,6 +107,7 @@ import {mapActions} from "vuex";
         'my-dialog': MyDialog,
         'menu-ope': MenuOpe,
         'loading': Loading,
+        'filtro': Filtro,
     },
     data () {
       return {
@@ -91,7 +116,7 @@ import {mapActions} from "vuex";
         search:"",
         headers: [
             {
-                text: 'ID',
+                text: 'F',
                 align: 'left',
                 value: 'id',
             },
@@ -126,6 +151,11 @@ import {mapActions} from "vuex";
                 value: 'email',
             },
             {
+                text: 'Observaciones',
+                align: 'left',
+                value: 'notas1',
+            },
+            {
                 text: 'Usuario',
                 align: 'left',
                 value: 'username',
@@ -141,6 +171,7 @@ import {mapActions} from "vuex";
         dialog: false,
         registro_id: 0,
         show_loading: true,
+        show_filtro: false,
         url: "/mto/pacientes",
         ruta: "paciente",
 

@@ -17,9 +17,18 @@ class Historia extends Model
         'diagnosticado',
         'interno',
         'cie',
-        'fisio_id',
+        'empleado_id',
         'username'
 
     ];
+
+    // public function paciente(){
+    //     return $this->hasOne(Paciente::class);
+    // }
+
+    public function paciente()
+    {
+    	return $this->belongsTo(Paciente::class);
+    }
 
 }

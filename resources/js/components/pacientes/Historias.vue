@@ -39,7 +39,7 @@ import {mapGetters} from 'vuex'
       return {
         options:{
             itemsPerPage: 5,
-            sortDesc: true,
+            sortDesc: [true],
             sortBy: ['fecha'],
         },
         headers: [
@@ -76,7 +76,7 @@ import {mapGetters} from 'vuex'
     mounted()
     {
 
-        console.log('historia');
+        //console.log('historia');
         // axios.get(this.url)
         //     .then(res => {
 

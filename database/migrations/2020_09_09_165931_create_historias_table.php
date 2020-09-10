@@ -22,9 +22,9 @@ class CreateHistoriasTable extends Migration
             $table->text('juicio')->nullable();
             $table->text('tratamiento')->nullable();
             $table->boolean('diagnosticado')->default(false);
-            $table->boolean('interno')->default(false);
+            $table->boolean('interno')->default(true);
             $table->string('cie', 15)->nullable();
-            $table->unsignedInteger('fisio_id')->nullable();
+            $table->unsignedInteger('empleado_id')->nullable();
             $table->string('username', 15);
             $table->timestamps();
         });

@@ -21,6 +21,42 @@ class PacientesController extends Controller
             return $data;
     }
 
+    public function filtrar(Request $request)
+    {
+
+        $data = $request->validate([
+            'nombre' => ['nullable'],
+            'direccion' => ['nullable'],
+            'telefono' => ['nullable'],
+            'espera' => ['boolean'],
+        ]);
+
+
+        if (request()->wantsJson()){
+            return $this->seleccionar($data);
+        }
+
+    }
+
+    /**
+     *  @param array $data // condiciones where genéricas
+     *  @param array $doc  // condiciones para documentos
+     */
+    private function seleccionar($data){
+
+
+        return Paciente::nombre($data['nombre'])
+                        ->direccion($data['direccion'])
+                        ->telefono($data['telefono'])
+                        ->espera($data['espera'])
+                        ->orderBy('id','desc')
+                        ->get()
+                        ->take(500);
+
+
+    }
+
+
     public function create()
     {
         //$this->authorize('create', new iva);
@@ -67,7 +103,7 @@ class PacientesController extends Controller
             $recomendado = null;
         }
 
-        $foto = '/fotos/'.$paciente->id.'.jpg';
+
 
         $paciente->load('historias');
 
@@ -76,8 +112,7 @@ class PacientesController extends Controller
                 'medios'   => Medio::selMedios(),
                 'mutuas'   => Mutua::selMutuas(),
                 'paciente' => $paciente,
-                'recomendado' => $recomendado,
-                'foto'      =>  Storage::disk('public')->exists($foto) ? '/storage'.$foto : false
+                'recomendado' => $recomendado
             ];
 
     }

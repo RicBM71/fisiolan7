@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Paciente extends Model
 {
@@ -56,11 +57,19 @@ class Paciente extends Model
 
         ];
 
-        protected $appends = ['nom_ape','edad'];
+        protected $appends = ['nom_ape','edad', 'foto'];
 
         public function getNomApeAttribute(){
 
             return $this->nombre." ".$this->apellidos;
+
+        }
+
+        public function getFotoAttribute(){
+
+            $foto = '/fotos/'.$this->id.'.jpg';
+
+            return Storage::disk('public')->exists($foto) ? '/storage'.$foto : false;
 
         }
 
@@ -109,6 +118,56 @@ class Paciente extends Model
             return $query;
 
         }
+
+        public function scopeNombre($query, $texto){
+
+
+            if (Empty($texto)) return $query;
+
+            if (strpos($texto,',') !== false){
+
+                $data_exp = explode(",", $texto);
+                
+                if ($data_exp[0] != '' && $data_exp[1] != ''){
+                    $query->where('nombre','like',$data_exp[0].'%')
+                          ->where('apellidos','like',$data_exp[1].'%');
+                }elseif ($data_exp[0] != ''){
+                    $query->where('nombre','like',$data_exp[0].'%');
+                }elseif ($data_exp[1] != ''){
+                    $query->where('apellidos','like',$data_exp[1].'%');
+                }
+
+                return $query;
+
+            }
+
+            return $query->where('apellidos','like',$texto.'%');
+
+        }
+
+        public function scopeDireccion($query, $texto){
+
+            if (Empty($texto)) return $query;
+
+            return $query->where('direccion','like',$texto.'%');
+        }
+
+        public function scopeTelefono($query, $texto){
+
+            if (Empty($texto)) return $query;
+
+            return $query->where('telefono1','like',$texto.'%')
+                  ->OrWhere('telefono2','like',$texto.'%')
+                  ->OrWhere('telefonom','like',$texto.'%');
+
+        }
+
+        public function scopeEspera($query, $espera){
+
+            return ($espera == true) ? $query->where('espera', $espera) : $query;
+
+        }
+
 
         public static function selPacienteId($id)
         {

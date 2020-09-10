@@ -6,7 +6,7 @@
                 <h2 v-if="paciente.fecha_baja == null">{{titulo}}</h2>
                 <h2 v-else><span class="red--text darken-4">Borrado {{titulo}}</span></h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="paciente.id" :foto="foto"></menu-ope>
+                <menu-ope :id="paciente.id" :foto="paciente.foto"></menu-ope>
             </v-card-title>
         </v-card>
         <v-card>
@@ -117,8 +117,8 @@
                                         cols="12"
                                         md="1"
                                     >
-                                        <v-avatar size="64px" v-if="foto!=false">
-                                            <img class="img-fluid" :src="foto">
+                                        <v-avatar size="64px" v-if="paciente.foto!=false">
+                                            <img class="img-fluid" :src="paciente.foto">
                                         </v-avatar>
                                     </v-col>
                                 </v-row>
@@ -615,7 +615,7 @@ import {mapGetters} from 'vuex';
     	data () {
       		return {
                 titulo:"Editar",
-                paciente: {},
+                paciente: {foto:false},
                 sexos:[
                     {value: 'V', text:"Varón"},
                     {value: 'M', text:"Mujer"},
@@ -637,7 +637,7 @@ import {mapGetters} from 'vuex';
                 isLoading: false,
                 search: null,
                 model: null,
-                foto: null
+
 
       		}
         },
@@ -653,8 +653,6 @@ import {mapGetters} from 'vuex';
                         this.medios = res.data.medios;
 
                         this.historias = this.paciente.historias;
-
-                        this.foto = res.data.foto;
 
                         this.titulo = res.data.paciente.nom_ape;
 
