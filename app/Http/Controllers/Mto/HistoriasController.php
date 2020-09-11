@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Mto;
 
-use App\Empleado;
+use App\Facultativo;
 use App\Historia;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,7 +39,7 @@ class HistoriasController extends Controller
         if (request()->wantsJson())
             return [
                 'historia'  => $historia,
-                'empleados' => Empleado::selFisios()
+                'facultativos' => Facultativo::selFisios()
             ];
 
     }

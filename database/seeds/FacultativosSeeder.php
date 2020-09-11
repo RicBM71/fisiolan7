@@ -1,11 +1,11 @@
 <?php
 
 use App\Horario;
-use App\Empleado;
+use App\Facultativo;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EmpleadosSeeder extends Seeder
+class FacultativosSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class EmpleadosSeeder extends Seeder
      */
     public function run()
     {
-        Empleado::truncate();
+        Facultativo::truncate();
         Horario::truncate();
 
         $reg = DB::connection('db2')->select('select * from fisios');
@@ -54,7 +54,7 @@ class EmpleadosSeeder extends Seeder
 
         }
 
-        DB::table('empleados')->insert($data);
+        DB::table('facultativos')->insert($data);
 
         $reg = DB::connection('db2')->select('select * from horarios');
 
@@ -65,7 +65,7 @@ class EmpleadosSeeder extends Seeder
 
             $data[]=array(
                 'id'         => $row->id,
-                'empleado_id'=> $row->fisio,
+                'facultativo_id'=> $row->fisio,
                 'fecha'      => $row->fecha,
                 'inim_1'     => $row->ini1_1,
                 'finm_1'     => $row->fin1_1,

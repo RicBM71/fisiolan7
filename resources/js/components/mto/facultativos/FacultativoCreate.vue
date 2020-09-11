@@ -5,7 +5,7 @@
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="empleado.id"></menu-ope>
+                <menu-ope :id="facultativo.id"></menu-ope>
             </v-card-title>
         </v-card>
         <v-card v-show="!loading">
@@ -22,7 +22,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.nombre"
+                                v-model="facultativo.nombre"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('nombre')"
                                 label="Nombre"
@@ -38,7 +38,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.apellidos"
+                                v-model="facultativo.apellidos"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('apellidos')"
                                 label="Apellidos"
@@ -54,7 +54,7 @@
                             md="3"
                         >
                             <v-select
-                                v-model="empleado.categoria_id"
+                                v-model="facultativo.categoria_id"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('categoria_id')"
                                 label="Categoría"
@@ -97,14 +97,14 @@
 		},
     	data () {
       		return {
-                empleado: {
+                facultativo: {
                     id:       0,
                     nombre: null,
                     apellidos: null,
                     categoria_id: null
                 },
 
-                titulo: "Nuevo Empleado",
+                titulo: "Nuevo Facultativo",
                 categorias: [],
 
                 loading: true,
@@ -113,14 +113,14 @@
         },
         mounted(){
 
-            axios.get('/mto/empleados/create')
+            axios.get('/mto/facultativos/create')
                 .then(res => {
                     this.categorias = res.data.categorias;
                 })
                 .catch(err => {
                      if (err.response.status != 401){
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: 'empleado.index'});
+                        this.$router.push({ name: 'facultativo.index'});
                         }
                 })
                 .finally(()=>{
@@ -133,11 +133,11 @@
     		]),
             computedFModFormat() {
                 moment.locale('es');
-                return this.empleado.updated_at ? moment(this.empleado.updated_at).format('D/MM/YYYY H:mm') : '';
+                return this.facultativo.updated_at ? moment(this.facultativo.updated_at).format('D/MM/YYYY H:mm') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
-                return this.empleado.created_at ? moment(this.empleado.created_at).format('D/MM/YYYY H:mm') : '';
+                return this.facultativo.created_at ? moment(this.facultativo.created_at).format('D/MM/YYYY H:mm') : '';
             },
 
         },
@@ -146,14 +146,14 @@
                 if (this.loading === false){
                     this.loading = true;
 
-                    var url = "/mto/empleados";
+                    var url = "/mto/facultativos";
 
                     this.$validator.validateAll().then((result) => {
                         if (result){
-                            axios.post(url, this.empleado)
+                            axios.post(url, this.facultativo)
                                 .then(res => {
 
-                                    this.$router.push({ name: 'empleado.edit', params: { id: res.data.registro.id } })
+                                    this.$router.push({ name: 'facultativo.edit', params: { id: res.data.registro.id } })
                                 })
                                 .catch(err => {
                                         const msg_valid = err.response.data.errors;

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GenericasSeeder::class);
         $this->call(BancosTableSeeder::class);
         $this->call(TratamientosSeeder::class);
-        $this->call(EmpleadosSeeder::class);
+        $this->call(FacultativosSeeder::class);
         $this->call(MutuasSeeder::class);
         $this->call(AreasSeeder::class);
         $this->call(CajasSeeder::class);

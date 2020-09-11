@@ -18,7 +18,7 @@
                     </template>
                     <span>Horario</span>
                 </v-tooltip>
-                <menu-ope :id="empleado.id"></menu-ope>
+                <menu-ope :id="facultativo.id"></menu-ope>
 
             </v-card-title>
         </v-card>
@@ -31,7 +31,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.nombre"
+                                v-model="facultativo.nombre"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('nombre')"
                                 label="Nombre"
@@ -47,7 +47,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.apellidos"
+                                v-model="facultativo.apellidos"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('apellidos')"
                                 label="Apellidos"
@@ -63,7 +63,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.colegiado"
+                                v-model="facultativo.colegiado"
                                 v-validate="'numeric'"
                                 :error-messages="errors.collect('colegiado')"
                                 label="Colegiado"
@@ -79,7 +79,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.cif"
+                                v-model="facultativo.cif"
                                 v-validate="'alpha_num'"
                                 :error-messages="errors.collect('cif')"
                                 label="Cif"
@@ -95,7 +95,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.numero_ss"
+                                v-model="facultativo.numero_ss"
                                 v-validate="'alpha_dash'"
                                 :error-messages="errors.collect('numero_ss')"
                                 label="Número SS"
@@ -111,7 +111,7 @@
                             md="2"
                         >
                             <v-select
-                                v-model="empleado.categoria_id"
+                                v-model="facultativo.categoria_id"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('categoria_id')"
                                 label="Categoría"
@@ -127,7 +127,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.direccion"
+                                v-model="facultativo.direccion"
                                 v-validate="'max:50'"
                                 :error-messages="errors.collect('direccion')"
                                 label="Dirección"
@@ -143,7 +143,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.cpostal"
+                                v-model="facultativo.cpostal"
                                 v-validate="'max:5'"
                                 :error-messages="errors.collect('cpostal')"
                                 label="CP"
@@ -159,7 +159,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.poblacion"
+                                v-model="facultativo.poblacion"
                                 v-validate="'max:50'"
                                 :error-messages="errors.collect('poblacion')"
                                 label="Poblacion"
@@ -175,7 +175,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.provincia"
+                                v-model="facultativo.provincia"
                                 v-validate="'max:50'"
                                 :error-messages="errors.collect('provincia')"
                                 label="Provincia"
@@ -191,7 +191,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.email"
+                                v-model="facultativo.email"
                                 v-validate="'email'"
                                 :error-messages="errors.collect('email')"
                                 label="email"
@@ -209,7 +209,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.alias"
+                                v-model="facultativo.alias"
                                 v-validate="'required'"
                                 :error-messages="errors.collect('alias')"
                                 label="Alias"
@@ -240,7 +240,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefonom"
+                                v-model="facultativo.telefonom"
                                 v-validate="'numeric|max:10'"
                                 :error-messages="errors.collect('telefonom')"
                                 label="Móvil"
@@ -256,7 +256,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefono1"
+                                v-model="facultativo.telefono1"
                                 v-validate="'numeric|max:10'"
                                 :error-messages="errors.collect('telefono1')"
                                 label="Teléfono"
@@ -273,7 +273,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefono2"
+                                v-model="facultativo.telefono2"
                                 v-validate="'numeric|max:10'"
                                 :error-messages="errors.collect('telefono2')"
                                 label="Teléfono 2"
@@ -289,7 +289,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.orden"
+                                v-model="facultativo.orden"
                                 v-validate="'numeric'"
                                 :error-messages="errors.collect('orden')"
                                 label="Orden"
@@ -305,7 +305,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.fecha_baja"
+                                v-model="facultativo.fecha_baja"
                                 :error-messages="errors.collect('fecha_baja')"
                                 label="Fecha Baja"
                                 data-vv-name="fecha_baja"
@@ -319,7 +319,7 @@
                             <v-color-picker
                                 hide-canvas
                                 hide-inputs
-                                v-model="empleado.color"
+                                v-model="facultativo.color"
                                 flat
                             ></v-color-picker>
                         </v-col>
@@ -331,7 +331,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.iban"
+                                v-model="facultativo.iban"
                                 :error-messages="errors.collect('iban')"
                                 label="IBAN"
                                 counter=30
@@ -343,7 +343,7 @@
 
                         <v-col cols="12" md="2">
                             <v-text-field
-                                v-model="empleado.username"
+                                v-model="facultativo.username"
                                 label="Usuario"
                                 readonly
                             >
@@ -395,8 +395,8 @@ import MenuOpe from './MenuOpe'
 		},
     	data () {
       		return {
-                titulo:"Empleado",
-                empleado: {},
+                titulo:"Facultativo",
+                facultativo: {},
                 loading: true,
                 categorias:[]
       		}
@@ -405,14 +405,14 @@ import MenuOpe from './MenuOpe'
             var id = this.$route.params.id;
 
             if (id > 0)
-                axios.get('/mto/empleados/'+id+'/edit')
+                axios.get('/mto/facultativos/'+id+'/edit')
                     .then(res => {
-                        this.empleado = res.data.registro;
+                        this.facultativo = res.data.registro;
                         this.categorias = res.data.categorias;
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: 'empleado.index'})
+                        this.$router.push({ name: 'facultativo.index'})
                     })
                     .finally(()=>{
                        this.loading = false;
@@ -423,7 +423,7 @@ import MenuOpe from './MenuOpe'
                 // getter
                 get: function () {
                   moment.locale('es');
-                    return this.empleado.fecha_nacimiento ? moment(this.empleado.fecha_nacimiento).format('DD/MM/YYYY') : '';
+                    return this.facultativo.fecha_nacimiento ? moment(this.facultativo.fecha_nacimiento).format('DD/MM/YYYY') : '';
                 },
                 // setter
                 set: function (newValue) {
@@ -433,17 +433,17 @@ import MenuOpe from './MenuOpe'
                                     newValue.substring(2,4)+"-"+
                                     newValue.substring(0,2);
 
-                        this.empleado.fecha_nacimiento = f;
+                        this.facultativo.fecha_nacimiento = f;
                     }
                 }
             },
             computedFModFormat() {
                 moment.locale('es');
-                return this.empleado.updated_at ? moment(this.empleado.updated_at).format('D/MM/YYYY H:mm:ss') : '';
+                return this.facultativo.updated_at ? moment(this.facultativo.updated_at).format('D/MM/YYYY H:mm:ss') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
-                return this.empleado.created_at ? moment(this.empleado.created_at).format('D/MM/YYYY H:mm:ss') : '';
+                return this.facultativo.created_at ? moment(this.facultativo.created_at).format('D/MM/YYYY H:mm:ss') : '';
             }
 
         },
@@ -452,13 +452,13 @@ import MenuOpe from './MenuOpe'
 
                 if (this.loading === false){
                     this.loading = true;
-                    var url = "/mto/empleados/"+this.empleado.id;
+                    var url = "/mto/facultativos/"+this.facultativo.id;
                     this.$validator.validateAll().then((result) => {
                         if (result){
-                            axios.put(url, this.empleado)
+                            axios.put(url, this.facultativo)
                                 .then(res => {
                                     this.$toast.success(res.data.message);
-                                    this.empleado = res.data.registro;
+                                    this.facultativo = res.data.registro;
                                     //this.$validator.reset();
                                     this.errors.clear()
                                 })
@@ -491,7 +491,7 @@ import MenuOpe from './MenuOpe'
                 this.$router.push({ name: 'horario.index'})
             },
             clearFechaNac(){
-                this.empleado.fecha_nacimiento = null;
+                this.facultativo.fecha_nacimiento = null;
 
             },
 

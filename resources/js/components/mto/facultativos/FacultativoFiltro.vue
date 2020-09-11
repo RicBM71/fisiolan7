@@ -45,7 +45,7 @@ export default {
                 this.$validator.validateAll().then((result) => {
                     if (result){
                         this.loading = true;
-                        axios.post('/mto/empleados/filtrar', this.query)
+                        axios.post('/mto/facultativos/filtrar', this.query)
                         .then(res => {
 
                             this.loading = false;
@@ -55,7 +55,7 @@ export default {
                              if (res.data.length > 0)
                                 this.$emit('update:show_filtro', false);
                             else
-                                this.$toast.warning('No se han encontrado empleados');
+                                this.$toast.warning('No se han encontrado facultativos');
 
 
                         })

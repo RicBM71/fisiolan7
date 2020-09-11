@@ -34,7 +34,7 @@ class UpdateHistoriaRequest extends FormRequest
             'exploracion'    => ['nullable', 'string'],
             'informe'        => ['boolean'],
             'diagnosticado'  => ['boolean'],
-            'empleado_id'    => ['nullable','integer'],
+            'facultativo_id'    => ['nullable','integer'],
 
         ];
     }

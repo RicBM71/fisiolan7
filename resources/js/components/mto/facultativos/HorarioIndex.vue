@@ -2,7 +2,6 @@
 <div>
         <loading :show_loading="loading"></loading>
 		<my-dialog :dialog.sync="dialog" registro="registro" @destroyReg="destroyReg"></my-dialog>
-        <rest-dialog :dialog.sync="dialog_rest" registro="registro" @destroyReg="destroyReg"></rest-dialog>
         <v-card>
             <v-card-title>
                 <h2>{{titulo}}</h2>
@@ -13,39 +12,37 @@
                             v-on="on"
                             color="white"
                             icon
-                            @click="show_filtro = !show_filtro"
+                            @click="create"
                         >
-                            <v-icon color="primary">mdi-filter-plus</v-icon>
+                            <v-icon color="primary">mdi-plus</v-icon>
                         </v-btn>
                     </template>
-                    <span>Filtrar</span>
+                        <span>Nuevo</span>
                 </v-tooltip>
-                <menu-ope></menu-ope>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-on="on"
+                            color="white"
+                            icon
+                            @click="goBack()"
+                        >
+                            <v-icon color="primary">mdi-arrow-left</v-icon>
+                        </v-btn>
+                    </template>
+                        <span>Volver</span>
+                </v-tooltip>
             </v-card-title>
         </v-card>
-        <v-card v-show="show_filtro">
-            <v-card-title>
-                <filtro :show_filtro.sync="show_filtro" :items.sync="items"></filtro>
-            </v-card-title>
-        </v-card>
-        <v-card v-if="!loading">
-            <v-card-title>
-                <v-spacer></v-spacer>
-                <v-text-field
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Buscar"
-                    single-line
-                    hide-details
-                ></v-text-field>
-            </v-card-title>
 
+        <v-card v-if="!loading">
             <v-data-table
-                :search="search"
                 :headers="headers"
                 :items="items"
             >
-
+            <template v-slot:item.fecha="{ item }">
+                {{ formatDate(item.fecha)}}
+            </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon
                     small
@@ -73,51 +70,44 @@
     </div>
 </template>
 <script>
+import moment from 'moment';
 import MyDialog from '@/components/shared/MyDialog'
-import RestDialog from '@/components/shared/RestDialog'
 import Loading from '@/components/shared/Loading'
-import MenuOpe from './MenuOpe'
-import Filtro  from './EmpleadoFiltro'
 import {mapGetters} from 'vuex'
 import {mapActions} from "vuex";
   export default {
     components: {
         'my-dialog': MyDialog,
-        'rest-dialog': RestDialog,
-        'menu-ope': MenuOpe,
         'loading': Loading,
-        'filtro' : Filtro
     },
     data () {
       return {
-        titulo: "Empleados",
-        show_filtro: false,
-        search:"",
+        titulo: "Horarios",
         headers: [
             {
-                text: 'Nombre',
+                text: 'Fecha',
                 align: 'left',
-                value: 'nom_ape'
-            },
-             {
-                text: 'Categoría',
-                align: 'left',
-                value: 'categoria.nombre'
+                value: 'fecha'
             },
             {
-                text: 'Telefono',
+                text: 'Inicio',
                 align: 'left',
-                value: 'telefono1'
+                value: 'inim_1'
             },
             {
-                text: 'Móvil',
+                text: 'Inicio',
                 align: 'left',
-                value: 'telefonom'
+                value: 'finm_1'
             },
             {
-                text: 'mail',
+                text: 'Inicio',
                 align: 'left',
-                value: 'email'
+                value: 'init_1'
+            },
+            {
+                text: 'Fin',
+                align: 'left',
+                value: 'fint_1'
             },
             {
                 text: 'Acciones',
@@ -129,18 +119,24 @@ import {mapActions} from "vuex";
         dialog: false,
         dialog_rest: false,
         item_id: 0,
-        loading: true
-
+        loading: true,
+        facultativo:{
+            nombre: '',
+            apellidos:''
+        }
       }
     },
     mounted()
     {
 
 
-        axios.get('/mto/empleados')
+        axios.get('/mto/horarios')
             .then(res => {
 
-                this.items = res.data;
+                this.items = res.data.horario;
+                this.facultativo = res.data.facultativo;
+
+                this.titulo = "Horario "+this.facultativo.nombre+" "+this.facultativo.apellidos;
                 //console.log(this.items);
 
             })
@@ -159,31 +155,32 @@ import {mapActions} from "vuex";
         ])
     },
     methods:{
+        formatDate(f){
+            moment.locale('es');
+            return moment(f).format('DD/MM/YYYY');
+        },
+        goBack(){
+            this.$router.go(-1);
+        },
         create(){
-            this.$router.push({ name: 'empleado.create'})
+            this.$router.push({ name: 'horario.create'})
         },
         editItem(item) {
-            if (item.fecha_baja == null)
-                this.$router.push({ name: 'empleado.edit', params: { id: item.id } })
-            else
-                this.$router.push({ name: 'empleado.show', params: { id: item.id } })
+            this.$router.push({ name: 'horario.edit', params: { id: item.id } })
 
         },
         openDialog(item){
-            if (item.fecha_baja != null)
-                this.dialog_rest = true;
-            else
-                this.dialog = true;
+            this.dialog = true;
             this.item_id = item.id;
         },
         destroyReg () {
             this.dialog = false;
 
-            axios.post('/mto/empleados/'+this.item_id,{_method: 'delete'})
+            axios.post('/mto/horarios/'+this.item_id,{_method: 'delete'})
                 .then(res => {
 
                 if (res.status == 200){
-                    this.$toast.success('Empleado eliminado!');
+                    this.$toast.success('Registro eliminado!');
                     this.items = res.data;
                 }
                 })

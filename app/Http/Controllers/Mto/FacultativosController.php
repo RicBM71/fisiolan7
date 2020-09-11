@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Mto;
 
-use App\Empleado;
+use App\Facultativo;
 use App\Categoria;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Mto\UpdateEmpleadoRequest;
+use App\Http\Requests\Mto\UpdateFacultativoRequest;
 
-class EmpleadosController extends Controller
+class FacultativosController extends Controller
 {
 
 
@@ -22,7 +22,7 @@ class EmpleadosController extends Controller
     public function index()
     {
 
-        $data = Empleado::with(['categoria'])->activos(true)->get();
+        $data = Facultativo::with(['categoria'])->activos(true)->get();
 
         if (request()->wantsJson())
             return $data;
@@ -49,7 +49,7 @@ class EmpleadosController extends Controller
     private function seleccionar($data){
 
 
-        return Empleado::with(['categoria'])->activos($data['activo'])->get();
+        return Facultativo::with(['categoria'])->activos($data['activo'])->get();
 
 
     }
@@ -86,21 +86,21 @@ class EmpleadosController extends Controller
 
         $data['username'] = session('username');
 
-        $reg = Empleado::create($data);
+        $reg = Facultativo::create($data);
 
         if (request()->wantsJson())
             return ['registro'=>$reg, 'message' => 'EL registro ha sido creado'];
     }
 
 
-    public function show(Empleado $empleado)
+    public function show(Facultativo $facultativo)
     {
 
-        $empleado->load('categoria');
+        $facultativo->load('categoria');
 
         if (request()->wantsJson())
             return [
-                'registro'     => $empleado,
+                'registro'     => $facultativo,
             ];
 
     }
@@ -111,50 +111,50 @@ class EmpleadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit(Facultativo $facultativo)
     {
-        if ($empleado->fecha_baja != null)
-            $this->show($empleado->id);
+        if ($facultativo->fecha_baja != null)
+            $this->show($facultativo->id);
       //  $this->authorize('update', $user->load('empresas'));
 
 
-        session(['empleado_id' => $empleado->id]);
+        session(['facultativo_id' => $facultativo->id]);
 
         if (request()->wantsJson())
             return [
-                'registro'     => $empleado,
+                'registro'     => $facultativo,
                 'categorias' => Categoria::selCategorias()
             ];
 
     }
 
-    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
+    public function update(UpdateFacultativoRequest $request, Facultativo $facultativo)
     {
 
-        //$this->authorize('update', $empleado);
+        //$this->authorize('update', $facultativo);
 
         $data = $request->validated();
 
-        $empleado->update($data);
+        $facultativo->update($data);
 
         if (request()->wantsJson())
-            return ['registro'=>$empleado, 'message' => 'EL registro ha sido modificado!'];
+            return ['registro'=>$facultativo, 'message' => 'EL registro ha sido modificado!'];
 
     }
 
-    public function destroy(Empleado $empleado)
+    public function destroy(Facultativo $facultativo)
     {
 
-        //$this->authorize('delete', $empleado);
+        //$this->authorize('delete', $facultativo);
 
         $data = [
             'fecha_baja' => Carbon::today()
         ];
 
-        $empleado->update($data);
+        $facultativo->update($data);
 
         if (request()->wantsJson()){
-            return response()->json(Empleado::with(['categoria'])->activos(true)->get());
+            return response()->json(Facultativo::with(['categoria'])->activos(true)->get());
         }
 
 

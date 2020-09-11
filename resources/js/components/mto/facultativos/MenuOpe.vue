@@ -81,10 +81,10 @@ export default {
             this.$router.go(-1)
         },
         goCreate(){
-            this.$router.push({ name: 'empleado.create' })
+            this.$router.push({ name: 'facultativo.create' })
         },
         goIndex(){
-            this.$router.push({ name: 'empleado.index' })
+            this.$router.push({ name: 'facultativo.index' })
         },
         openDialog (){
             this.dialog = true;
@@ -92,9 +92,9 @@ export default {
         destroyReg () {
             this.dialog = false;
 
-            axios.post('/mto/empleados/'+this.id,{_method: 'delete'})
+            axios.post('/mto/facultativos/'+this.id,{_method: 'delete'})
                 .then(response => {
-                this.$router.push({ name: 'empleado.index' })
+                this.$router.push({ name: 'facultativo.index' })
                 this.$toast.success('Registro eliminado!');
 
             })

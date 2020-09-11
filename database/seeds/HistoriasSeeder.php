@@ -36,7 +36,7 @@ class HistoriasSeeder extends Seeder
                 'diagnosticado' => $row->diagnosticado == 'S' ? true : false,
                 'informe'       => $row->interno== 'S' ? false : true,
                 'cie'           => $row->cie,
-                'empleado_id'   => $row->fisio > 0 ? $row->fisio : null,
+                'facultativo_id'   => $row->fisio > 0 ? $row->fisio : null,
                 'created_at'    => $row->fecha.' 00:00:00',
                 'updated_at'    => $row->sysfum.' '.$row->syshum,
                 'username'      => $row->sysusr

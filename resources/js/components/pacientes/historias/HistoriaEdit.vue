@@ -67,13 +67,13 @@
                                         md="3"
                                     >
                                         <v-select
-                                            v-model="historia.empleado_id"
+                                            v-model="historia.facultativo_id"
                                             v-validate="'numeric'"
-                                            :error-messages="errors.collect('empleado_id')"
+                                            :error-messages="errors.collect('facultativo_id')"
                                             label="Firma fisioterapeuta"
-                                            data-vv-name="empleado_id"
-                                            data-vv-as="empleado_id"
-                                            :items="empleados"
+                                            data-vv-name="facultativo_id"
+                                            data-vv-as="facultativo_id"
+                                            :items="facultativos"
                                         ></v-select>
                                 </v-col>
                             </v-row>
@@ -179,7 +179,7 @@ import {mapGetters} from 'vuex';
                 menu1: false,
                 show: false,
                 show_loading: true,
-                empleados:[],
+                facultativos:[],
                 menu1:false
       		}
         },
@@ -192,8 +192,8 @@ import {mapGetters} from 'vuex';
                     .then(res => {
 
                         this.historia = res.data.historia;
-                        this.empleados = res.data.empleados;
-                        this.empleados.push({value: null, text: '-'});
+                        this.facultativos = res.data.facultativos;
+                        this.facultativos.push({value: null, text: '-'});
 
                         this.titulo = this.historia.paciente.nom_ape;
                         this.show = true;

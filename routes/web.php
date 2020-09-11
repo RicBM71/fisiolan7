@@ -80,7 +80,7 @@ Route::group([
     'namespace' => 'Mto',
     'middleware' => ['auth','password']],
     function (){
-        
+
         Route::resource('pacientes', 'PacientesController', ['as' => 'mto']);
         Route::post('pacientes/capture', 'PacientesController@capture');
         Route::post('pacientes/delcap', 'PacientesController@delcap');
@@ -97,8 +97,8 @@ Route::group([
         Route::resource('bonos', 'BonosController', ['as' => 'mto']);
         Route::resource('ivas', 'IvasController', ['as' => 'mto']);
         Route::resource('tratamientos', 'TratamientosController', ['as' => 'mto']);
-        Route::post('empleados/filtrar', 'EmpleadosController@filtrar');
-        Route::resource('empleados', 'EmpleadosController', ['as' => 'mto']);
+        Route::post('facultativos/filtrar', 'FacultativosController@filtrar');
+        Route::resource('facultativos', 'FacultativosController', ['as' => 'mto']);
         Route::resource('horarios', 'HorariosController', ['as' => 'mto']);
 
         Route::resource('cajas', 'CajasController', ['as' => 'mto']);

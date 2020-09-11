@@ -4,7 +4,7 @@ namespace App\Http\Requests\Mto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmpleadoRequest extends FormRequest
+class UpdateFacultativoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

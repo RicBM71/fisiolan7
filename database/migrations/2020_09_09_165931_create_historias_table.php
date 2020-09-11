@@ -24,7 +24,7 @@ class CreateHistoriasTable extends Migration
             $table->boolean('diagnosticado')->default(false);
             $table->boolean('informe')->default(true);
             $table->string('cie', 15)->nullable();
-            $table->unsignedInteger('empleado_id')->nullable();
+            $table->unsignedInteger('facultativo_id')->nullable();
             $table->string('username', 15);
             $table->timestamps();
         });

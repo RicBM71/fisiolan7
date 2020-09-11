@@ -208,7 +208,7 @@ export default {
 
         items: [
             { icon: 'mdi-contacts', text: 'Pacientes', name: 'paciente.index' },
-            { icon: 'mdi-contacts', text: 'Empleados', name: 'empleado.index' },
+            { icon: 'mdi-contacts', text: 'Facultativos', name: 'facultativo.index' },
             { icon: 'mdi-content-copy', text: 'Duplicates' },
             {
             icon: 'mdi-chevron-up',

@@ -17,7 +17,7 @@ class Historia extends Model
         'diagnosticado',
         'informe',
         'cie',
-        'empleado_id',
+        'facultativo_id',
         'username'
 
     ];

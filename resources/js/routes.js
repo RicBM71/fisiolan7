@@ -32,14 +32,15 @@ import BonoEdit from './components/mto/bonos/BonoEdit.vue';
 import TratamientoIndex from './components/mto/tratamientos/TratamientoIndex.vue';
 import TratamientoCreate from './components/mto/tratamientos/TratamientoCreate.vue';
 import TratamientoEdit from './components/mto/tratamientos/TratamientoEdit.vue';
-import EmpleadoIndex from './components/mto/empleados/EmpleadoIndex.vue';
-import EmpleadoCreate from './components/mto/empleados/EmpleadoCreate.vue';
-import EmpleadoEdit from './components/mto/empleados/EmpleadoEdit.vue';
-import EmpleadoShow from './components/mto/empleados/EmpleadoShow.vue';
 
-import HorarioIndex from './components/mto/empleados/HorarioIndex.vue';
-import HorarioCreate from './components/mto/empleados/HorarioCreate.vue';
-import HorarioEdit from './components/mto/empleados/HorarioEdit.vue';
+import FacultativoIndex from './components/mto/facultativos/FacultativoIndex.vue';
+import FacultativoCreate from './components/mto/facultativos/FacultativoCreate.vue';
+import FacultativoEdit from './components/mto/facultativos/FacultativoEdit.vue';
+import FacultativoShow from './components/mto/facultativos/FacultativoShow.vue';
+
+import HorarioIndex from './components/mto/facultativos/HorarioIndex.vue';
+import HorarioCreate from './components/mto/facultativos/HorarioCreate.vue';
+import HorarioEdit from './components/mto/facultativos/HorarioEdit.vue';
 
 import AreaIndex from './components/mto/areas/AreaIndex.vue';
 import AreaCreate from './components/mto/areas/AreaCreate.vue';
@@ -225,24 +226,24 @@ export default [
                 component: TratamientoEdit,
             },
             {
-                path: '/empleados',
-                name: 'empleado.index',
-                component: EmpleadoIndex,
+                path: '/facultativos',
+                name: 'facultativo.index',
+                component: FacultativoIndex,
             },
             {
-                path: '/empleados/create',
-                name: 'empleado.create',
-                component: EmpleadoCreate,
+                path: '/facultativos/create',
+                name: 'facultativo.create',
+                component: FacultativoCreate,
             },
             {
-                path: '/empleados/:id/edit',
-                name: 'empleado.edit',
-                component: EmpleadoEdit,
+                path: '/facultativos/:id/edit',
+                name: 'facultativo.edit',
+                component: FacultativoEdit,
             },
             {
-                path: '/empleados/:id',
-                name: 'empleado.show',
-                component: EmpleadoShow,
+                path: '/facultativos/:id',
+                name: 'facultativo.show',
+                component: FacultativoShow,
             },
             {
                 path: '/horarios',

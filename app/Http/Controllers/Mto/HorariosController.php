@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mto;
 
 use App\Horario;
-use App\Empleado;
+use App\Facultativo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mto\UpdateHorarioRequest;
@@ -14,12 +14,12 @@ class HorariosController extends Controller
     public function index()
     {
 
-        $data = Horario::where('empleado_id',session('empleado_id'))->get();
+        $data = Horario::where('facultativo_id',session('facultativo_id'))->get();
 
         if (request()->wantsJson())
             return [
                 'horario' => $data,
-                'empleado'=> Empleado::findOrFail(session('empleado_id'))
+                'facultativo'=> Facultativo::findOrFail(session('facultativo_id'))
             ];
     }
 
@@ -31,7 +31,7 @@ class HorariosController extends Controller
         ]);
 
         $data['username'] = session('username');
-        $data['empleado_id']=session('empleado_id');
+        $data['facultativo_id']=session('facultativo_id');
 
         $reg = Horario::create($data);
 
@@ -43,7 +43,7 @@ class HorariosController extends Controller
     public function edit(Horario $horario)
     {
 
-        $horario->load('empleado');
+        $horario->load('facultativo');
 
         if (request()->wantsJson())
             return [
@@ -55,7 +55,7 @@ class HorariosController extends Controller
     public function update(UpdateHorarioRequest $request, Horario $horario)
     {
 
-        //$this->authorize('update', $empleado);
+        //$this->authorize('update', $facultativo);
 
         $data = $request->validated();
 
@@ -71,13 +71,13 @@ class HorariosController extends Controller
     public function destroy(Horario $horario)
     {
 
-        //$this->authorize('delete', $empleado);
+        //$this->authorize('delete', $facultativo);
 
 
         $horario->delete();
 
         if (request()->wantsJson())
-            return Horario::where('empleado_id',session('empleado_id'))->get();
+            return Horario::where('facultativo_id',session('facultativo_id'))->get();
 
 
     }

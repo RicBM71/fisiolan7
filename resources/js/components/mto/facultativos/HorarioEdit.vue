@@ -354,7 +354,7 @@ import MenuOpe from './MenuOpe'
 		},
     	data () {
       		return {
-                titulo:"Empleado",
+                titulo:"Facultativo",
                 horario: {},
                 inim_1:"",
                 loading: true,
@@ -367,9 +367,9 @@ import MenuOpe from './MenuOpe'
             if (id > 0)
                 axios.get('/mto/horarios/'+id+'/edit')
                     .then(res => {
-                        
+
                         this.horario = res.data.registro;
-                        this.titulo = 'Horario '+res.data.registro.empleado.nombre;
+                        this.titulo = 'Horario '+res.data.registro.facultativo.nombre;
 
                     })
                     .catch(err => {

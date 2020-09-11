@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Empleado extends Model
+class Facultativo extends Model
 {
 
     protected $dates =['fecha_nacimiento','fecha_baja'];
@@ -64,7 +64,7 @@ class Empleado extends Model
 
     public static function selFisios(){
 
-        return Empleado::select('id AS value', 'nombre AS text')
+        return Facultativo::select('id AS value', 'nombre AS text')
                             ->where('categoria_id', 1)
                             ->whereNull('fecha_baja')
                             ->orderBy('nombre', 'asc')

@@ -5,7 +5,7 @@
             <v-card-title color="indigo">
                 <h2 color="indigo">{{titulo}}</h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="empleado.id"></menu-ope>
+                <menu-ope :id="facultativo.id"></menu-ope>
             </v-card-title>
         </v-card>
         <v-card v-show="!loading">
@@ -17,7 +17,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.nombre"
+                                v-model="facultativo.nombre"
                                 label="Nombre"
                                 disabled
                             >
@@ -28,7 +28,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.apellidos"
+                                v-model="facultativo.apellidos"
                                 label="Apellidos"
                                 disabled
                             >
@@ -39,7 +39,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.colegiado"
+                                v-model="facultativo.colegiado"
                                 label="Colegiado"
                                 disabled
                             >
@@ -50,7 +50,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.cif"
+                                v-model="facultativo.cif"
                                 label="Cif"
                                 disabled
                             >
@@ -61,7 +61,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.numero_ss"
+                                v-model="facultativo.numero_ss"
                                 label="Número SS"
                                 disabled
                             >
@@ -72,7 +72,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.categoria.nombre"
+                                v-model="facultativo.categoria.nombre"
                                 label="Categoría"
                                 disabled
                             >
@@ -85,7 +85,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.direccion"
+                                v-model="facultativo.direccion"
                                 label="Dirección"
                                 disabled
                             >
@@ -96,7 +96,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.cpostal"
+                                v-model="facultativo.cpostal"
                                 label="CP"
                                 disabled
                             >
@@ -107,7 +107,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.poblacion"
+                                v-model="facultativo.poblacion"
                                 label="Poblacion"
                                 disabled
                             >
@@ -118,7 +118,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.provincia"
+                                v-model="facultativo.provincia"
                                 label="Provincia"
                                 disabled
                             >
@@ -129,7 +129,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.email"
+                                v-model="facultativo.email"
                                 label="email"
                                 disabled
                             >
@@ -142,7 +142,7 @@
                             md="2"
                         >
                             <v-text-field
-                                v-model="empleado.alias"
+                                v-model="facultativo.alias"
                                 label="Alias"
                                 disabled
                             >
@@ -164,7 +164,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefonom"
+                                v-model="facultativo.telefonom"
                                 label="Móvil"
                                 disabled
                             >
@@ -175,7 +175,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefono1"
+                                v-model="facultativo.telefono1"
                                 label="Teléfono"
                                 disabled
                             >
@@ -187,7 +187,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.telefono2"
+                                v-model="facultativo.telefono2"
                                 label="Teléfono 2"
                                 disabled
                             >
@@ -198,7 +198,7 @@
                             md="1"
                         >
                             <v-text-field
-                                v-model="empleado.orden"
+                                v-model="facultativo.orden"
                                 label="Orden"
                                 disabled
                             >
@@ -219,7 +219,7 @@
                             <v-color-picker
                                 hide-canvas
                                 hide-inputs
-                                v-model="empleado.color"
+                                v-model="facultativo.color"
                                 flat
                             ></v-color-picker>
                         </v-col>
@@ -231,7 +231,7 @@
                             md="3"
                         >
                             <v-text-field
-                                v-model="empleado.iban"
+                                v-model="facultativo.iban"
                                 label="IBAN"
                                 disabled
                             >
@@ -240,7 +240,7 @@
 
                         <v-col cols="12" md="2">
                             <v-text-field
-                                v-model="empleado.username"
+                                v-model="facultativo.username"
                                 label="Usuario"
                                 disabled
                             >
@@ -283,8 +283,8 @@ import MenuOpe from './MenuOpe'
 		},
     	data () {
       		return {
-                titulo:"Empleado",
-                empleado: { categoria:{nombre: ""}},
+                titulo:"Facultativo",
+                facultativo: { categoria:{nombre: ""}},
                 loading: true,
       		}
         },
@@ -292,13 +292,13 @@ import MenuOpe from './MenuOpe'
             var id = this.$route.params.id;
 
             if (id > 0)
-                axios.get('/mto/empleados/'+id)
+                axios.get('/mto/facultativos/'+id)
                     .then(res => {
-                        this.empleado = res.data.registro;
+                        this.facultativo = res.data.registro;
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: 'empleado.index'})
+                        this.$router.push({ name: 'facultativo.index'})
                     })
                     .finally(()=>{
                        this.loading = false;
@@ -307,19 +307,19 @@ import MenuOpe from './MenuOpe'
         computed: {
             computedFechaNac() {
                 moment.locale('es');
-                return this.empleado.fecha_nacimiento ? moment(this.empleado.fecha_nacimiento).format('D/MM/YYYY') : '';
+                return this.facultativo.fecha_nacimiento ? moment(this.facultativo.fecha_nacimiento).format('D/MM/YYYY') : '';
             },
             computedFechaBaja() {
                 moment.locale('es');
-                return this.empleado.fecha_baja ? moment(this.empleado.fecha_baja).format('D/MM/YYYY') : '';
+                return this.facultativo.fecha_baja ? moment(this.facultativo.fecha_baja).format('D/MM/YYYY') : '';
             },
             computedFModFormat() {
                 moment.locale('es');
-                return this.empleado.updated_at ? moment(this.empleado.updated_at).format('D/MM/YYYY H:mm:ss') : '';
+                return this.facultativo.updated_at ? moment(this.facultativo.updated_at).format('D/MM/YYYY H:mm:ss') : '';
             },
             computedFCreFormat() {
                 moment.locale('es');
-                return this.empleado.created_at ? moment(this.empleado.created_at).format('D/MM/YYYY H:mm:ss') : '';
+                return this.facultativo.created_at ? moment(this.facultativo.created_at).format('D/MM/YYYY H:mm:ss') : '';
             }
 
         },
