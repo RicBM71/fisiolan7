@@ -105,7 +105,7 @@ class PacientesController extends Controller
 
 
 
-        $paciente->load('historias');
+        $paciente->load(['historias','pacbonos.tratamiento']);
 
         if (request()->wantsJson())
             return [

@@ -34,6 +34,7 @@ class TratamientosSeeder extends Seeder
                 'tpv'        => $row->vendible == 'S' ? true : false,
                 'inventario' => $row->inventario == 'N' ? true : false,
                 'activo'     => $row->baja == 'N' ? true : false,
+                'bono'       => $row->bono == 'S' ? true : false,
                 'created_at' => $row->sysfum.' 00:00:00',
                 'updated_at' => $row->sysfum.' '.$row->syshum,
                 'username'   => $row->sysusr

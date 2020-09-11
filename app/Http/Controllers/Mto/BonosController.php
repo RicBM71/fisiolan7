@@ -35,7 +35,7 @@ class BonosController extends Controller
 
         if (request()->wantsJson())
             return [
-                'tratamientos' => Tratamiento::selTratamientos()
+                'tratamientos' => Tratamiento::selTratamientos()->get()
             ];
     }
 
@@ -76,7 +76,7 @@ class BonosController extends Controller
         if (request()->wantsJson())
             return [
                 'bono'         => $bono,
-                'tratamientos' => Tratamiento::selTratamientos()
+                'tratamientos' => Tratamiento::selTratamientos()->get()
             ];
 
     }

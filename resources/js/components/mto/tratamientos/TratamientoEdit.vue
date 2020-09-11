@@ -211,6 +211,13 @@
                                 color="primary">
                             ></v-switch>
                         </v-col>
+                        <v-col cols="12" md="2">
+                            <v-switch
+                                label="Admite bono"
+                                v-model="tratamiento.bono"
+                                color="primary">
+                            ></v-switch>
+                        </v-col>
                     </v-row>
                     <v-row>
                         <v-col

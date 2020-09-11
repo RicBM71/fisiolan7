@@ -57,7 +57,7 @@ class CreatePacientesTable extends Migration
             $table->text('obs_adm')->nullable();
             $table->boolean('espera')->default(false);
             $table->boolean('factura_auto')->default(true);
-            $table->string('username', 15)->nullable();
+            $table->string('username', 30)->nullable();
             $table->timestamps();
         });
     }

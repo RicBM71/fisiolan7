@@ -26,7 +26,7 @@ class CreateMutuasTable extends Migration
             $table->string('cif', 10)->nullable()->unique();
             $table->string('email', 50)->nullable();
             $table->string('contacto', 50)->nullable();
-            $table->string('username', 15)->nullable();
+            $table->string('username', 30)->nullable();
             $table->timestamps();
         });
     }

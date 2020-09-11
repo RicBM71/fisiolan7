@@ -86,6 +86,7 @@ Route::group([
         Route::post('pacientes/delcap', 'PacientesController@delcap');
         Route::post('pacientes/filtrar', 'PacientesController@filtrar');
         Route::resource('historias', 'HistoriasController', ['as' => 'mto']);
+        Route::resource('pacbonos', 'PacbonosController', ['as' => 'mto']);
 
         // Route::put('clientes/{cliente}/obs', 'ClientesController@obs');
         // Route::get('clientes/{cliente}/albaranes', 'ClientesController@albaranes');

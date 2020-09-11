@@ -27,6 +27,7 @@ class CreateTratamientosTable extends Migration
             $table->boolean('tpv')->default(false);
             $table->boolean('inventario')->default(false);
             $table->boolean('activo')->default(true);
+            $table->boolean('bono')->default(true);
             $table->string('username',30)->nullable();
             $table->timestamps();
         });

@@ -102,6 +102,11 @@ class Paciente extends Model
             return $this->hasMany(Historia::class);
         }
 
+        public function pacbonos()
+        {
+            return $this->hasMany(Pacbono::class);
+        }
+
 
         public function scopeRazon($query, $razon){
 
@@ -127,7 +132,7 @@ class Paciente extends Model
             if (strpos($texto,',') !== false){
 
                 $data_exp = explode(",", $texto);
-                
+
                 if ($data_exp[0] != '' && $data_exp[1] != ''){
                     $query->where('nombre','like',$data_exp[0].'%')
                           ->where('apellidos','like',$data_exp[1].'%');

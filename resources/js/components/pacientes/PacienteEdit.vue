@@ -12,6 +12,19 @@
                             v-on="on"
                             color="white"
                             icon
+                            @click="goCreateBono"
+                        >
+                            <v-icon color="primary">call_to_action</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Nuevo Bono</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-on="on"
+                            color="white"
+                            icon
                             @click="goCreateHistoria"
                         >
                             <v-icon color="primary">mdi-hospital-marker</v-icon>
@@ -614,6 +627,14 @@
                             </v-col>
                         </v-row>
                     </v-tab-item>
+                    <v-tab-item></v-tab-item>
+                    <v-tab-item>
+                        <v-row>
+                            <v-col cols="12" md="12">
+                                <pacbonos :pacbonos="pacbonos"></pacbonos>
+                            </v-col>
+                        </v-row>
+                    </v-tab-item>
                 </v-tabs>
             </v-container>
         </v-card>
@@ -623,7 +644,8 @@
 import moment from 'moment'
 import Loading from '@/components/shared/Loading'
 import MenuOpe from './MenuOpe'
-import Historias from './Historias'
+import Historias from './historias/Historias'
+import Pacbonos from './pacbono/Pacbonos'
 import {mapGetters} from 'vuex';
 	export default {
 		$_veeValidate: {
@@ -632,7 +654,8 @@ import {mapGetters} from 'vuex';
         components: {
             'menu-ope': MenuOpe,
             'loading': Loading,
-            'historias': Historias
+            'historias': Historias,
+            'pacbonos': Pacbonos
 		},
     	data () {
       		return {
@@ -651,6 +674,7 @@ import {mapGetters} from 'vuex';
                 mutuas:[],
 
                 historias:[],
+                pacbonos:[],
 
                 show: false,
                 show_loading: true,
@@ -675,10 +699,12 @@ import {mapGetters} from 'vuex';
                         this.medios = res.data.medios;
 
                         this.historias = this.paciente.historias;
+                        this.pacbonos = this.paciente.pacbonos;
 
                         this.titulo = res.data.paciente.nom_ape;
 
-                        //console.log(res.data.recomendado);
+                        console.log(this.paciente);
+
                         if (res.data.recomendado != null)
                             this.recomendados = res.data.recomendado;
 
@@ -838,6 +864,9 @@ import {mapGetters} from 'vuex';
 
                     });
 
+            },
+            goCreateBono(){
+              this.$router.push({ name: 'pacbono.create', params: { id: this.paciente.id } })
             },
 
     }

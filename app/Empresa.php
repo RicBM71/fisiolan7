@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\AislarEmpresaScope;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -108,5 +109,15 @@ class Empresa extends Model
 
     public function getFlag($flag){
         return $this->flags[$flag];
+    }
+
+    public static function incrementaBono(){
+
+        DB::table('empresas')->where('id', session('empresa_id'))->increment('ult_bono');
+
+        $e = Empresa::findOrfail(session('empresa_id'));
+
+        return $e->ult_bono;
+
     }
 }

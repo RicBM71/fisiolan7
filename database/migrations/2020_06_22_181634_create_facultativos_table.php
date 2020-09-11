@@ -36,7 +36,7 @@ class CreateFacultativosTable extends Migration
             $table->unsignedInteger('grupo_id')->default(1);
             $table->unsignedInteger('categoria_id');
             $table->integer('orden')->default(999);
-            $table->string('username', 15)->nullable();
+            $table->string('username', 30)->nullable();
             $table->timestamps();
         });
     }

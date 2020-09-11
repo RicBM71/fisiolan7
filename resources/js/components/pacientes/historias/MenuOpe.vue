@@ -23,7 +23,7 @@
                     icon
                     @click="openDialog"
                 >
-                    <v-icon color="primary">delete</v-icon>
+                    <v-icon color="red darken-4">delete</v-icon>
                 </v-btn>
             </template>
                 <span>Borrar Registro</span>

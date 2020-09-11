@@ -21,7 +21,7 @@ class CreateAreasTable extends Migration
             $table->time('tarde', 0)->default('00:00:00');
             $table->smallInteger('frecuencia')->default(30);
             $table->boolean('activo')->default(true);
-            $table->string('username', 15)->nullable();
+            $table->string('username', 30)->nullable();
             $table->timestamps();
         });
     }

@@ -60,7 +60,8 @@ import PacienteCreate from './components/pacientes/PacienteCreate.vue';
 import PacienteEdit from './components/pacientes/PacienteEdit.vue';
 
 import HistoriaEdit from './components/pacientes/historias/HistoriaEdit.vue';
-
+import PacbonoEdit from './components/pacientes/pacbono/PacbonoEdit.vue';
+import PacbonoCreate from './components/pacientes/pacbono/PacbonoCreate.vue';
 
 import Captura from './components/pacientes/Captura.vue';
 
@@ -314,6 +315,16 @@ export default [
                 path: '/historia/:id/edit',
                 name: 'historia.edit',
                 component: HistoriaEdit,
+            },
+            {
+                path: '/pacbono/:id/edit',
+                name: 'pacbono.edit',
+                component: PacbonoEdit,
+            },
+            {
+                path: '/pacbono/:id/create',
+                name: 'pacbono.create',
+                component: PacbonoCreate,
             },
             // {
             //     path: '*',

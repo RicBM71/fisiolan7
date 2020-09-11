@@ -12,6 +12,15 @@ class Bono extends Model
 
     ];
 
+    public static function selBonos()
+    {
+
+        return Bono::select('id AS value', 'nombre AS text')
+            ->orderBy('nombre', 'asc')
+            ->get();
+
+    }
+
     public function tratamiento()
     {
     	return ($this->belongsTo(Tratamiento::class));
