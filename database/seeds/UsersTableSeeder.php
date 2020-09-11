@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
 
         $gestRole = Role::create(['name'=>'Gestor']);
 
-        // Permission::create(['name'=>'addcom','nombre'=>'Crea Compras']);
+        Permission::create(['name'=>'delete','nombre'=>'Delete']);
         // Permission::create(['name'=>'addven','nombre'=>'Crea Ventas']);
         // Permission::create(['name'=>'delcom','nombre'=>'* Borra Compras/Edt Fecha']);
         // Permission::create(['name'=>'reacom','nombre'=>'* Reabre Compras']);

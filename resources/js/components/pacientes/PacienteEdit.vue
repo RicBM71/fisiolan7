@@ -6,6 +6,19 @@
                 <h2 v-if="paciente.fecha_baja == null">{{titulo}}</h2>
                 <h2 v-else><span class="red--text darken-4">Borrado {{titulo}}</span></h2>
                 <v-spacer></v-spacer>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-on="on"
+                            color="white"
+                            icon
+                            @click="goCreateHistoria"
+                        >
+                            <v-icon color="primary">mdi-hospital-marker</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Nueva entrada en historia clínica</span>
+                </v-tooltip>
                 <menu-ope :id="paciente.id" :foto="paciente.foto"></menu-ope>
             </v-card-title>
         </v-card>
@@ -487,6 +500,7 @@
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant1"
                                         label="Antecedentes"
                                         hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
@@ -496,6 +510,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant2"
                                         label="Implantes"
                                         hint="DIU, Osteosíntesis, Prótesis..."
@@ -505,6 +520,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant3"
                                         label="Lesiones Oseas"
                                         hint="Hepatitis, Fibromialgia, VIH,Cáncer, E. Chron..."
@@ -514,6 +530,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant4"
                                         label="Enf. Cardiovasculares"
                                         hint="DIU, Osteosíntesis, Prótesis..."
@@ -523,6 +540,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant5"
                                         label="Lesiones Cutaneas"
                                         hint="Alergia, soriasis, cicatrices..."
@@ -532,6 +550,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.ant6"
                                         label="Otras lesiones"
                                         v-on:keyup.enter="submit"
@@ -542,6 +561,7 @@
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.antobs"
                                         label="Observaciones"
                                         v-on:keyup.enter="submit"
@@ -550,6 +570,7 @@
                                 </v-col>
                                 <v-col cols="12" md="1">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.peso"
                                         label="Peso"
                                         v-on:keyup.enter="submit"
@@ -558,6 +579,7 @@
                                 </v-col>
                                 <v-col cols="12" md="1">
                                     <v-text-field
+                                        class="font-weight-medium"
                                         v-model="paciente.altura"
                                         label="Altura"
                                         v-on:keyup.enter="submit"
@@ -801,6 +823,20 @@ import {mapGetters} from 'vuex';
             },
             clearFechaNac(){
                 this.paciente.fecha_nacimiento = null;
+
+            },
+            goCreateHistoria(){
+
+                axios.post('/mto/historias', {paciente_id: this.paciente.id})
+                    .then(response => {
+                        this.$toast.success('Se ha creado una nueva entrada');
+                        this.$router.push({ name: 'historia.edit', params: { id: response.data.historia.id } })
+                    })
+                    .catch(err => {
+
+                        this.$toast.error(err.response.data.message);
+
+                    });
 
             },
 

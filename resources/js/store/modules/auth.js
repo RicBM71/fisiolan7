@@ -119,8 +119,8 @@ const getters = {
     isGestor: (state) =>{
         return (state.roles.indexOf('Gestor') >= 0) ? true : false;
     },
-    hasAddCom: (state) =>{
-        return (state.permisos.indexOf('addcom') >= 0) ? true : false;
+    hasDelete: (state) =>{
+        return (state.permisos.indexOf('delete') >= 0) ? true : false;
     },
     hasAddVen: (state) =>{
         return (state.permisos.indexOf('addven') >= 0) ? true : false;

@@ -17,7 +17,7 @@
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    v-show="id > 0 && isAdmin"
+                    v-show="id > 0 && hasDelete"
                     v-on="on"
                     color="white"
                     icon
@@ -60,7 +60,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-           'isAdmin'
+           'hasDelete'
         ]),
     },
     methods:{
@@ -90,8 +90,8 @@ export default {
             axios.post(this.url+'/'+this.id,{_method: 'delete'})
                 .then(response => {
 
-                    this.$router.push({ name: this.ruta+'.index' })
-                    this.$toast.success('Registro eliminado!');
+                    this.$router.push({ name: 'paciente.edit', params: { id: this.paciente_id } })
+                    this.$toast.success('Entrada a historia eliminada!');
 
             })
             .catch(err => {

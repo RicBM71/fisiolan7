@@ -32,7 +32,7 @@ class UpdateHistoriaRequest extends FormRequest
             'juicio'         => ['nullable', 'string'],
             'tratamiento'    => ['nullable', 'string'],
             'exploracion'    => ['nullable', 'string'],
-            'interno'        => ['boolean'],
+            'informe'        => ['boolean'],
             'diagnosticado'  => ['boolean'],
             'empleado_id'    => ['nullable','integer'],
 

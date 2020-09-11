@@ -34,7 +34,7 @@ class HistoriasSeeder extends Seeder
                 'juicio'        => $row->juicio=='' ? null : $row->juicio,
                 'tratamiento'   => $row->tratamiento=='' ? null : $row->tratamiento,
                 'diagnosticado' => $row->diagnosticado == 'S' ? true : false,
-                'interno'       => $row->interno== 'S' ? true: false,
+                'informe'       => $row->interno== 'S' ? false : true,
                 'cie'           => $row->cie,
                 'empleado_id'   => $row->fisio > 0 ? $row->fisio : null,
                 'created_at'    => $row->fecha.' 00:00:00',

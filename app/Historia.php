@@ -15,7 +15,7 @@ class Historia extends Model
         'juicio',
         'tratamiento',
         'diagnosticado',
-        'interno',
+        'informe',
         'cie',
         'empleado_id',
         'username'

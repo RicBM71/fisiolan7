@@ -46,21 +46,6 @@
                                         </v-date-picker>
                                     </v-menu>
                                 </v-col>
-                                <v-col
-                                        cols="12"
-                                        md="3"
-                                    >
-                                        <v-select
-                                            v-model="historia.empleado_id"
-                                            v-validate="'numeric'"
-                                            :error-messages="errors.collect('empleado_id')"
-                                            label="Fisioterapeuta"
-                                            data-vv-name="empleado_id"
-                                            data-vv-as="empleado_id"
-                                            :items="empleados"
-                                        ></v-select>
-                                </v-col>
-                                <v-col cols="12" md="2"></v-col>
                                 <v-col cols="12" md="2">
                                     <v-switch
                                         label="Diagnosticado"
@@ -68,15 +53,29 @@
                                         color="primary">
                                     ></v-switch>
                                 </v-col>
+                                <v-col cols="12" md="2"></v-col>
                                 <v-col cols="12" md="2">
                                     <v-switch
-                                        label="Uso Interno"
-                                        v-model="historia.interno"
+                                        label="Informe Externo"
+                                        v-model="historia.informe"
                                         color="primary">
                                     ></v-switch>
                                 </v-col>
-
-
+                                <v-col
+                                        v-if="historia.informe"
+                                        cols="12"
+                                        md="3"
+                                    >
+                                        <v-select
+                                            v-model="historia.empleado_id"
+                                            v-validate="'numeric'"
+                                            :error-messages="errors.collect('empleado_id')"
+                                            label="Firma fisioterapeuta"
+                                            data-vv-name="empleado_id"
+                                            data-vv-as="empleado_id"
+                                            :items="empleados"
+                                        ></v-select>
+                                </v-col>
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="6">
@@ -202,7 +201,7 @@ import {mapGetters} from 'vuex';
                     })
                     .catch(err => {
                         this.$toast.error(err.response.data.message);
-                        this.$router.push({ name: this.ruta+'.index'})
+                        this.$router.push({ name: 'dash'})
                     })
                     .finally(()=> {
                         this.show_loading = false;
@@ -210,7 +209,7 @@ import {mapGetters} from 'vuex';
         },
         computed: {
         ...mapGetters([
-                'isSupervisor',
+                'hasDelete',
                 'isAdmin'
             ]),
             computedFecha() {
@@ -233,8 +232,6 @@ import {mapGetters} from 'vuex';
 
                 if (this.loading === false){
                     this.loading = true;
-
-                    console.log(this.historia);
 
                     this.$validator.validateAll().then((result) => {
                         if (result){

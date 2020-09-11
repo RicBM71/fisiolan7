@@ -16,7 +16,7 @@
                                 icon
                                 @click="show_filtro = !show_filtro"
                             >
-                                <v-icon color="primary">mdi-filter-plus</v-icon>
+                                <v-icon color="primary">mdi-filter</v-icon>
                             </v-btn>
                         </template>
                         <span>Filtrar</span>

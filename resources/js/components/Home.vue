@@ -230,7 +230,7 @@ export default {
             model: false,
             children: [
                 { text: 'Empresas', name: 'empresa.index' },
-                { text: 'Usuarios' },
+                { text: 'Usuarios', name: 'users.index' },
                 { text: 'Print' },
                 { text: 'Undo changes' },
                 { text: 'Other contacts' },

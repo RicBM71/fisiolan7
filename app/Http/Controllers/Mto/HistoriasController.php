@@ -62,5 +62,12 @@ class HistoriasController extends Controller
 
     }
 
+    public function destroy(Historia $historia)
+    {
+
+        $historia->delete();
+
+    }
+
 
 }
