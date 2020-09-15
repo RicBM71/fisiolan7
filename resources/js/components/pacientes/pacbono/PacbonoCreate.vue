@@ -121,7 +121,7 @@
 
             axios.get('/mto/pacbonos/create')
                 .then(res => {
-                    console.log(res);
+                    
                     this.bonos = res.data.bonos;
                 })
                 .catch(err => {

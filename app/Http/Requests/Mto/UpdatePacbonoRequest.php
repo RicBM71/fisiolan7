@@ -25,6 +25,7 @@ class UpdatePacbonoRequest extends FormRequest
     {
         return [
             'fecha'         => ['required','date'],
+            'bono'          => ['required','integer'],
             'paciente_id'   => ['required','integer'],
             'tratamiento_id'=> ['required','integer'],
             'importe'       => ['required','numeric'],

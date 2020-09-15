@@ -149,6 +149,9 @@ Route::group([
     'middleware' => ['auth','password']],
     function (){
            Route::post('helpcli', 'HelpPacienteController@index');
+           Route::post('compartir/bono', 'CompartirBonoController@submit');
+           Route::post('compartir/locate', 'CompartirBonoController@locate');
+           Route::post('compartir/multiple', 'CompartirBonoController@multiple');
     //     Route::get('helpgrupos', 'HelpGruposController@index');
     //   //  Route::get('helpgrupos/productos', 'HelpGruposController@productos');
     //     Route::get('helpgrupos/{grupo_id}/clases', 'HelpGruposController@clases');

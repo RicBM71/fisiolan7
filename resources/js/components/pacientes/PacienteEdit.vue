@@ -703,8 +703,6 @@ import {mapGetters} from 'vuex';
 
                         this.titulo = res.data.paciente.nom_ape;
 
-                        console.log(this.paciente);
-
                         if (res.data.recomendado != null)
                             this.recomendados = res.data.recomendado;
 

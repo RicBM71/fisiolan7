@@ -129,7 +129,7 @@ import Loading from '@/components/shared/Loading'
 
         axios.get('/admin/users')
             .then(res => {
-                console.log(res);
+
                 this.usuarios = res.data;
                 this.registros = true;
             })

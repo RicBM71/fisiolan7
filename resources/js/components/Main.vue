@@ -2,7 +2,7 @@
     <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex sm3 xs12>
-                 <v-btn rounded block large color="grey" class="blue-grey lighten-3" @click="goFindCompra()">
+                 <v-btn rounded block large color="grey" class="blue-grey lighten-3" @click="goPacientes()">
                      Pacientes
                      <v-icon right dark>mdi-account-multiple</v-icon>
                 </v-btn>
@@ -68,8 +68,8 @@ export default {
         ...mapActions([
 				'setAuthUser'
             ]),
-        goUsers(){
-            this.$router.push({ name: 'users.index' })
+        goPacientes(){
+            this.$router.push({ name: 'paciente.index' })
         },
     },
 

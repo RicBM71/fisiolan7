@@ -5,7 +5,7 @@
             <v-card-title>
                 <h2>{{titulo}}</h2>
                 <v-spacer></v-spacer>
-                <menu-ope :id="pacbono.id" :paciente_id="pacbono.paciente_id"></menu-ope>
+                <menu-ope :id="pacbono.id" :paciente_id="pacbono.paciente_id" :bono="pacbono.bono"></menu-ope>
             </v-card-title>
         </v-card>
         <v-card>
