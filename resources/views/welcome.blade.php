@@ -20,10 +20,9 @@
 
         <script>
             window.Laravel = {!! json_encode([
-                'csrfToken' => csrf_token(),
+                // 'csrfToken' => csrf_token(),
                 'siteName'  => config('app.name'),
-                'apiDomain' => '/api'
-                //'apiDomain' => config('app.url').'/api'
+                // 'apiDomain' => '/api'
             ]) !!}
         </script>
     </head>

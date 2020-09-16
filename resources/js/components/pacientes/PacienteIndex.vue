@@ -16,7 +16,7 @@
                                 icon
                                 @click="show_filtro = !show_filtro"
                             >
-                                <v-icon color="primary">filter</v-icon>
+                                <v-icon color="primary">filter_alt</v-icon>
                             </v-btn>
                         </template>
                         <span>Filtrar</span>

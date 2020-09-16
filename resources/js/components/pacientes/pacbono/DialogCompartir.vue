@@ -25,14 +25,6 @@
                         ></v-autocomplete>
                     </v-col>
                 </v-row>
-                <v-row>
-                     <v-col
-                        cols="12"
-                        md="12"
-                    >
-                        <v-btn text color="primary"  @click="goLocalizar()">Buscar compartidos</v-btn>
-                     </v-col>
-                </v-row>
             </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>

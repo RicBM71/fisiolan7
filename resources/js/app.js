@@ -1,7 +1,5 @@
 
 require('./bootstrap');
-
-
 window.Vue = require('vue');
 
 // import 'vuetify/dist/vuetify.min.css'
@@ -13,19 +11,6 @@ import vuetify from '@/plugins/vuetify'
 
 import router from './router';
 import store from './store/index';
-
-// axios.interceptors.request.use(config => {
-// 	config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
-// 	config.headers['X-Requested-With'] = 'XMLHttpRequest';
-
-// 	if (jwtToken.getToken()) {
-// 		config.headers['Authorization'] = 'Bearer ' + jwtToken.getToken();
-// 	}
-
-// 	return config;
-// }, error => {
-// 	return Promise.reject(error);
-// });
 
 axios.interceptors.response.use(response => {
 	return response;
@@ -41,20 +26,6 @@ axios.interceptors.response.use(response => {
     else if (error.response.status == 503){
         window.location = "/";
     }
-    //let errorResponseData = error.response.data;
-    //console.log(error.response.status);
-    //store.dispatch('unsetAuthUser')
-    //router.push({name: 'home'});
-
-	//const errors = ["token_invalid", "token_expired", "token_not_provided"];
-
-	// if (errorResponseData.error && errors.includes(errorResponseData.error)) {
-	// 	store.dispatch('unsetAuthUser')
-	// 		.then(() => {
-	// 			jwtToken.removeToken();
-	// 			router.push({name: 'login'});
-	// 		});
-	// }
 
 	return Promise.reject(error);
 });
@@ -73,20 +44,6 @@ Vue.use(Vuetify, {
     }
     })
 
-// const opts = {x: 'center--text',
-//         y: 'top',
-//         color: 'info',
-//         icon: 'info',
-//         timeout: 3000,
-//         dismissable: true,
-//         autoHeight: false,
-//         multiLine: false,
-//         vertical: false,
-//         property: '$toast' }; // your options
-// const vueObj = new Vuetify(opts);
-
-// export default vueObj;
-
 Vue.use(VuetifyToast, { $vuetify: vuetify.framework,
     x: 'center',
     y: 'top', // default
@@ -104,25 +61,6 @@ Vue.use(VuetifyToast, { $vuetify: vuetify.framework,
     property: '$toast' // default
  });
 
-    // Vue.use(VuetifyToast, { $vuetify: vueObj.framework });
-
-    // Vue.use(VuetifyToast, {
-    // 	x: 'center--text', // default
-    // 	y: 'top',
-    // 	color: 'info', // default
-    // 	icon: 'info',
-    // 	timeout: 3000, // default
-    // 	dismissable: true, // default
-    // 	autoHeight: false, // default
-    // 	multiLine: false, // default
-    // 	vertical: false, // default
-    // 	shorts: {
-    // 		custom: {
-    // 			color: 'purple'
-    // 		}
-    // 	},
-    // 	property: '$toast' // default
-    // })
 
 /*************************
  * VeeValidate
