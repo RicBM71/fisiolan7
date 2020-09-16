@@ -39,13 +39,13 @@
                             small
                             @click="editItem(item.id)"
                         >
-                            mdi-pencil
+                            edit
                         </v-icon>
                         <v-icon
                             small
                             @click="openDialog(item.id)"
                         >
-                            mdi-delete
+                            delete
                         </v-icon>
                     </template>
                     </v-data-table>

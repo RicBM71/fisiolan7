@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "material-design-icons-iconfont": "^6.1.0",
         "moment": "^2.28.0",
         "vee-validate": "^2.1.17",
         "vue-toastr": "^2.1.2",

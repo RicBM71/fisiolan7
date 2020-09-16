@@ -14,7 +14,7 @@
                             icon
                             @click="create"
                         >
-                            <v-icon color="primary">mdi-plus</v-icon>
+                            <v-icon color="primary">add</v-icon>
                         </v-btn>
                     </template>
                         <span>Nuevo</span>
@@ -27,7 +27,7 @@
                             icon
                             @click="goBack()"
                         >
-                            <v-icon color="primary">mdi-arrow-left</v-icon>
+                            <v-icon color="primary">arrow_back</v-icon>
                         </v-btn>
                     </template>
                         <span>Volver</span>
@@ -48,21 +48,21 @@
                     small
                     @click="editItem(item)"
                 >
-                    mdi-pencil
+                    edit
                 </v-icon>
                 <v-icon
                     v-if="item.fecha_baja == null"
                     small
                     @click="openDialog(item)"
                 >
-                    mdi-delete
+                    delete
                 </v-icon>
                 <v-icon
                     v-else
                     small
                     @click="openDialog(item)"
                 >
-                    mdi-restore
+                    restore
                 </v-icon>
             </template>
             </v-data-table>

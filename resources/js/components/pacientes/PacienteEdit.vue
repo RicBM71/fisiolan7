@@ -14,7 +14,7 @@
                             icon
                             @click="goCreateBono"
                         >
-                            <v-icon color="primary">call_to_action</v-icon>
+                            <v-icon color="orange">share</v-icon>
                         </v-btn>
                     </template>
                     <span>Nuevo Bono</span>
@@ -27,7 +27,7 @@
                             icon
                             @click="goCreateHistoria"
                         >
-                            <v-icon color="primary">mdi-hospital-marker</v-icon>
+                            <v-icon color="success">local_hospital</v-icon>
                         </v-btn>
                     </template>
                     <span>Nueva entrada en historia clínica</span>
@@ -368,7 +368,7 @@
                                             :search-input.sync="search"
                                             label="Recomendado"
                                             placeholder="Indicar nom,ape"
-                                            prepend-icon="mdi-database-search"
+                                            prepend-icon="person_search"
                                             clearable
                                             @click:clear="clearRec"
                                         ></v-autocomplete>

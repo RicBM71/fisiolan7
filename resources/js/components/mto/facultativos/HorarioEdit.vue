@@ -13,7 +13,7 @@
                             icon
                             @click="goCreate"
                         >
-                            <v-icon color="primary">mdi-plus</v-icon>
+                            <v-icon color="primary">add</v-icon>
                         </v-btn>
                     </template>
                     <span>Nuevo</span>
@@ -26,7 +26,7 @@
                             icon
                             @click="goHorario"
                         >
-                            <v-icon color="primary">mdi-arrow-left</v-icon>
+                            <v-icon color="primary">arrow_back</v-icon>
                         </v-btn>
                     </template>
                     <span>Horario</span>

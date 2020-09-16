@@ -59,6 +59,7 @@ axios.interceptors.response.use(response => {
 	return Promise.reject(error);
 });
 
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 /*********************************
 /* VuetifyToast

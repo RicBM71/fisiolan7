@@ -15,7 +15,7 @@
                             :search-input.sync="search"
                             label="Paciente Destino"
                             placeholder="Indicar nom,ape"
-                            prepend-icon="mdi-database-search"
+                            prepend-icon="person_search"
                             v-validate="'required'"
                             :error-messages="errors.collect('recomendado_id')"
                             data-vv-name="recomendado_id"

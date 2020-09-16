@@ -9,7 +9,7 @@
                     icon
                     @click="goCreate"
                 >
-                    <v-icon color="primary">mdi-plus</v-icon>
+                    <v-icon color="primary">add</v-icon>
                 </v-btn>
             </template>
                 <span>Nuevo</span>
@@ -23,7 +23,7 @@
                     icon
                     @click="openDialog"
                 >
-                    <v-icon color="primary">mdi-delete</v-icon>
+                    <v-icon color="primary">delete</v-icon>
                 </v-btn>
             </template>
                 <span>Borrar Registro</span>
@@ -36,7 +36,7 @@
                     icon
                     @click="goIndex"
                 >
-                    <v-icon color="primary">mdi-format-list-bulleted</v-icon>
+                    <v-icon color="primary">format_list_bulleted</v-icon>
                 </v-btn>
             </template>
             <span>Lista</span>
@@ -49,7 +49,7 @@
                     icon
                     @click="goBack()"
                 >
-                    <v-icon color="primary">mdi-arrow-left</v-icon>
+                    <v-icon color="primary">arrow_back</v-icon>
                 </v-btn>
             </template>
             <span>Volver</span>

@@ -15,7 +15,7 @@
                             icon
                             @click="show_filtro = !show_filtro"
                         >
-                            <v-icon color="primary">mdi-filter-plus</v-icon>
+                            <v-icon color="primary">filter_alt</v-icon>
                         </v-btn>
                     </template>
                     <span>Filtrar</span>
@@ -33,7 +33,7 @@
                 <v-spacer></v-spacer>
                 <v-text-field
                     v-model="search"
-                    append-icon="mdi-magnify"
+                    append-icon="search"
                     label="Buscar"
                     single-line
                     hide-details
@@ -51,14 +51,14 @@
                     small
                     @click="editItem(item)"
                 >
-                    mdi-pencil
+                    edit
                 </v-icon>
                 <v-icon
                     v-if="item.fecha_baja == null"
                     small
                     @click="openDialog(item)"
                 >
-                    mdi-delete
+                    delete
                 </v-icon>
                 <v-icon
                     v-else

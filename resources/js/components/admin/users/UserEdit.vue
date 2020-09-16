@@ -15,7 +15,7 @@
                             icon
                             @click="reset"
                         >
-                            <v-icon color="orange">mdi-verified_user</v-icon>
+                            <v-icon color="orange">verified_user</v-icon>
                         </v-btn>
                     </template>
                         <span>Reset Password</span>
