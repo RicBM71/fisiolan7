@@ -12,7 +12,7 @@
                     small
                     @click="editItem(item.id)"
                 >
-                    edit
+                    mdi-pencil
                 </v-icon>
             </template>
             <template v-slot:item.fecha="{ item }">

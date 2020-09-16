@@ -46,7 +46,7 @@
                         <v-avatar>
                                <img class="img-fluid" :src="avatar">
                         </v-avatar>
-                        <v-btn @click="openDialog" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Avatar</v-btn>
+                        <v-btn @click="openDialog" flat round><v-icon color="red darken-4">mdi-delete</v-icon> Eliminar Avatar</v-btn>
                     </v-flex>
                     <v-flex sm2 v-else>
                         <vue-dropzone

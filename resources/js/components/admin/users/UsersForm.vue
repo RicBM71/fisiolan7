@@ -13,7 +13,7 @@
                     right
                     color="teal accent-4"
                     >
-                    <v-icon>add</v-icon>
+                    <v-icon>mdi-plus</v-icon>
                 </v-btn>
 
                 <v-layout row wrap>

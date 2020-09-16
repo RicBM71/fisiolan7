@@ -155,7 +155,7 @@
                                 </v-flex>
                                 <v-flex sm3 v-else>
                                     <v-img class="img-fluid" :src="parametro.img1"></v-img>
-                                    <v-btn @click="borraLogo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Imagen Principal</v-btn>
+                                    <v-btn @click="borraLogo" flat round><v-icon color="red darken-4">mdi-delete</v-icon> Eliminar Imagen Principal</v-btn>
                                 </v-flex>
                                 <v-flex sm1></v-flex>
                                 <v-flex sm3 v-if="parametro.img2==null">
@@ -168,7 +168,7 @@
                                 </v-flex>
                                 <v-flex sm3 v-else>
                                     <v-img class="img-fluid" :src="parametro.img2"></v-img>
-                                    <v-btn @click="borraFondo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Imagen Sección</v-btn>
+                                    <v-btn @click="borraFondo" flat round><v-icon color="red darken-4">mdi-delete</v-icon> Eliminar Imagen Sección</v-btn>
                                 </v-flex>
                             </v-layout>
                         </v-container>

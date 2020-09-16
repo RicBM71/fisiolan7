@@ -51,7 +51,7 @@
                     small
                     @click="editItem(item)"
                 >
-                    edit
+                    mdi-pencil
                 </v-icon>
                 <v-icon
                     v-if="item.fecha_baja == null"

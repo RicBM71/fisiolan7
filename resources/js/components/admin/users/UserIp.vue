@@ -23,7 +23,7 @@
                 cols="4"
                 md="2"
             >
-                <v-btn @click="add()" text rounded><v-icon color="blue darken-4">add</v-icon>Nueva IP</v-btn>
+                <v-btn @click="add()" text rounded><v-icon color="blue darken-4">mdi-plus</v-icon>Nueva IP</v-btn>
             </v-col>
         </v-row>
         <v-row no-gutters>

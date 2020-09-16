@@ -64,7 +64,7 @@
                                                 class="mr-2"
                                                 @click="editItem(props.item.id)"
                                             >
-                                                edit
+                                                mdi-pencil
                                             </v-icon>
                                             &nbsp;
                                             <v-icon

@@ -37,7 +37,7 @@
                     icon
                     @click="goCreate"
                 >
-                    <v-icon color="primary">add</v-icon>
+                    <v-icon color="primary">mdi-plus</v-icon>
                 </v-btn>
             </template>
                 <span>Nuevo</span>
@@ -51,7 +51,7 @@
                     icon
                     @click="openDialog"
                 >
-                    <v-icon color="primary">delete</v-icon>
+                    <v-icon color="primary">mdi-delete</v-icon>
                 </v-btn>
             </template>
                 <span>Borrar Registro</span>

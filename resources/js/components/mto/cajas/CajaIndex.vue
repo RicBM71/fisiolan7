@@ -110,7 +110,7 @@
                                         small
                                         @click="editItem(item.id)"
                                     >
-                                    edit
+                                    mdi-pencil
                                     </v-icon>
                                     <v-icon
                                         v-if="item.manual != 'N'"

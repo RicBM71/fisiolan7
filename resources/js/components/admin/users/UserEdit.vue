@@ -321,7 +321,7 @@
                                             <img class="img-fluid" :src="user.avatar" alt="avatar">
                                         </v-avatar>
                                         <v-btn @click="openDialog" text icon color="red darken-4">
-                                            <v-icon>delete</v-icon>
+                                            <v-icon>mdi-delete</v-icon>
                                         </v-btn>
                                     </div>
                                 </v-col>

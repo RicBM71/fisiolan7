@@ -13,7 +13,7 @@
                             icon
                             @click="goCreate"
                         >
-                            <v-icon color="primary">add</v-icon>
+                            <v-icon color="primary">mdi-plus</v-icon>
                         </v-btn>
                     </template>
                     <span>Nuevo</span>

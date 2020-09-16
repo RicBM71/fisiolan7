@@ -14,7 +14,7 @@
                             icon
                             @click="create"
                         >
-                            <v-icon color="primary">add</v-icon>
+                            <v-icon color="primary">mdi-plus</v-icon>
                         </v-btn>
                     </template>
                         <span>Nuevo</span>
@@ -48,7 +48,7 @@
                     small
                     @click="editItem(item)"
                 >
-                    edit
+                    mdi-pencil
                 </v-icon>
                 <v-icon
                     v-if="item.fecha_baja == null"

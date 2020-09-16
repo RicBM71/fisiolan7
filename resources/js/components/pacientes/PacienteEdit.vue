@@ -12,12 +12,12 @@
                             v-on="on"
                             color="white"
                             icon
-                            @click="goCreateBono"
+                            @click="goCreateBono()"
                         >
-                            <v-icon color="orange">share</v-icon>
+                            <v-icon color="primary">mdi-share-variant</v-icon>
                         </v-btn>
                     </template>
-                    <span>Nuevo Bono</span>
+                    <span>Nuevo Bono 22</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
@@ -27,7 +27,7 @@
                             icon
                             @click="goCreateHistoria"
                         >
-                            <v-icon color="success">local_hospital</v-icon>
+                            <v-icon color="success">mdi-hospital-box</v-icon>
                         </v-btn>
                     </template>
                     <span>Nueva entrada en historia clínica</span>
@@ -635,6 +635,24 @@
                             </v-col>
                         </v-row>
                     </v-tab-item>
+                    <v-tab-item>
+                        <v-row>
+                            <v-col cols="12" md="12">
+                                <adjuntos :adjuntos="adjuntos"></adjuntos>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="4"></v-col>
+                            <v-col cols="12" md="3">
+                                <vue-dropzone
+                                            ref="myVueDropzone"
+                                            id="dropzone"
+                                            :options="dropzoneOptions"
+                                            v-on:vdropzone-success="uploadAdjunto"
+                                ></vue-dropzone>
+                            </v-col>
+                        </v-row>
+                    </v-tab-item>
                 </v-tabs>
             </v-container>
         </v-card>
@@ -646,7 +664,10 @@ import Loading from '@/components/shared/Loading'
 import MenuOpe from './MenuOpe'
 import Historias from './historias/Historias'
 import Pacbonos from './pacbono/Pacbonos'
+import Adjuntos from './adjuntos/Adjuntos'
 import {mapGetters} from 'vuex';
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 	export default {
 		$_veeValidate: {
       		validator: 'new'
@@ -655,7 +676,9 @@ import {mapGetters} from 'vuex';
             'menu-ope': MenuOpe,
             'loading': Loading,
             'historias': Historias,
-            'pacbonos': Pacbonos
+            'pacbonos': Pacbonos,
+            'adjuntos': Adjuntos,
+            'vueDropzone': vue2Dropzone,
 		},
     	data () {
       		return {
@@ -675,6 +698,7 @@ import {mapGetters} from 'vuex';
 
                 historias:[],
                 pacbonos:[],
+                adjuntos:[],
 
                 show: false,
                 show_loading: true,
@@ -683,6 +707,19 @@ import {mapGetters} from 'vuex';
                 isLoading: false,
                 search: null,
                 model: null,
+
+                dropzoneOptions: {
+                    url: '/mto/adjuntos/'+this.$route.params.id+'/upload',
+                    paramName: 'adjunto',
+                    acceptedFiles: '.jpg,jpeg,.png,.pdf',
+                    thumbnailWidth: 150,
+                    maxFiles: 1,
+                    maxFilesize: 4,
+                    headers: {
+		    		    'X-CSRF-TOKEN':  window.axios.defaults.headers.common['X-CSRF-TOKEN']
+                    },
+                    dictDefaultMessage: 'Arrastra el fichero/documento o clic aquí'
+                },
 
 
       		}
@@ -700,6 +737,7 @@ import {mapGetters} from 'vuex';
 
                         this.historias = this.paciente.historias;
                         this.pacbonos = this.paciente.pacbonos;
+                        this.adjuntos = this.paciente.adjuntos;
 
                         this.titulo = res.data.paciente.nom_ape;
 
@@ -865,6 +903,9 @@ import {mapGetters} from 'vuex';
             },
             goCreateBono(){
               this.$router.push({ name: 'pacbono.create', params: { id: this.paciente.id } })
+            },
+            uploadAdjunto(file, response){
+                //this.empresa = response.empresa;
             },
 
     }

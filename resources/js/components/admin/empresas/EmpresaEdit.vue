@@ -434,7 +434,7 @@
                                 </v-col>
                                 <v-col cols="12" md="2" v-else>
                                     <v-img class="img-fluid" :src="empresa.img_logo"></v-img>
-                                    <v-btn @click="borraLogo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Logo</v-btn>
+                                    <v-btn @click="borraLogo" flat round><v-icon color="red darken-4">mdi-delete</v-icon> Eliminar Logo</v-btn>
                                 </v-col>
                                 <v-col cols="12" md="1"></v-col>
                                 <v-col cols="12" md="3" v-if="empresa.img_fondo==null">
@@ -447,7 +447,7 @@
                                 </v-col>
                                 <v-col cols="12" md="3" v-else>
                                     <v-img class="img-fluid" :src="empresa.img_fondo"></v-img>
-                                    <v-btn @click="borraFondo" flat round><v-icon color="red darken-4">delete</v-icon> Eliminar Fondo</v-btn>
+                                    <v-btn @click="borraFondo" flat round><v-icon color="red darken-4">mdi-delete</v-icon> Eliminar Fondo</v-btn>
                                 </v-col>
                             </v-row>
                         </v-container>

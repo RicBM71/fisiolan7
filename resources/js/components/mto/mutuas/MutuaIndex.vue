@@ -39,7 +39,7 @@
                             small
                             @click="editItem(item.id)"
                         >
-                            edit
+                            mdi-pencil
                         </v-icon>
                         <v-icon
                             small

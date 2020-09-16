@@ -107,6 +107,11 @@ class Paciente extends Model
             return $this->hasMany(Pacbono::class);
         }
 
+        public function adjuntos()
+        {
+            return $this->hasMany(Adjunto::class);
+        }
+
 
         public function scopeRazon($query, $razon){
 
