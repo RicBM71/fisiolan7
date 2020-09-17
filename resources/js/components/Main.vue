@@ -4,13 +4,13 @@
             <v-flex sm3 xs12>
                  <v-btn rounded block large color="grey" class="blue-grey lighten-3" @click="goPacientes()">
                      Pacientes
-                     <v-icon right dark>account_multiple</v-icon>
+                     <v-icon right dark>mdi-account</v-icon>
                 </v-btn>
             </v-flex>
             <v-flex sm3 xs12>
                  <v-btn rounded block large color="grey" class="blue-grey lighten-3" @click="goUsers()">
                      Usuarios
-                     <v-icon right dark>account_multiple</v-icon>
+                     <v-icon right dark>mdi-account</v-icon>
                 </v-btn>
             </v-flex>
         </v-layout>

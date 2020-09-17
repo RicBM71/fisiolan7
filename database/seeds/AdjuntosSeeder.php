@@ -28,7 +28,7 @@ class AdjuntosSeeder extends Seeder
 
                 'paciente_id'   => $row->paciente,
                 'descripcion'   => $row->nombre,
-                'path'          => '/storage/docs/d2000/'.$row->fichero,
+                'path'          => '/storage/docs/sanaval/'.$row->fichero,
                 'created_at'    => $row->fecha.' 00:00:00',
                 'updated_at'    => $row->sysfum.' '.$row->syshum,
                 'username'      => $row->sysusr
@@ -37,7 +37,7 @@ class AdjuntosSeeder extends Seeder
             $i++;
 
             if ($i % 1000 == 0){
-                DB::table('historias')->insert($data);
+                DB::table('adjuntos')->insert($data);
                 $data = array();
             }
 

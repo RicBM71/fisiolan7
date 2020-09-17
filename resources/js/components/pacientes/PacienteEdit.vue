@@ -627,7 +627,14 @@
                             </v-col>
                         </v-row>
                     </v-tab-item>
-                    <v-tab-item></v-tab-item>
+                    <v-tab-item>
+                        <v-row>
+                            <v-col cols="12" md="12">
+                                <citas :citas="citas"></citas>
+                            </v-col>
+                        </v-row>
+
+                    </v-tab-item>
                     <v-tab-item>
                         <v-row>
                             <v-col cols="12" md="12">
@@ -665,6 +672,7 @@ import MenuOpe from './MenuOpe'
 import Historias from './historias/Historias'
 import Pacbonos from './pacbono/Pacbonos'
 import Adjuntos from './adjuntos/Adjuntos'
+import Citas from './citas/Citas'
 import {mapGetters} from 'vuex';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
@@ -678,6 +686,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
             'historias': Historias,
             'pacbonos': Pacbonos,
             'adjuntos': Adjuntos,
+            'citas': Citas,
             'vueDropzone': vue2Dropzone,
 		},
     	data () {
@@ -699,6 +708,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                 historias:[],
                 pacbonos:[],
                 adjuntos:[],
+                citas:[],
 
                 show: false,
                 show_loading: true,
@@ -738,6 +748,9 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
                         this.historias = this.paciente.historias;
                         this.pacbonos = this.paciente.pacbonos;
                         this.adjuntos = this.paciente.adjuntos;
+                        this.citas = res.data.citas;
+
+                        console.log(res);
 
                         this.titulo = res.data.paciente.nom_ape;
 

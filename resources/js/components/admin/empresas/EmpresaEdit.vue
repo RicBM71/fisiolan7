@@ -216,7 +216,7 @@
                                             label="SMS Password"
                                             data-vv-name="sms_password"
                                             data-vv-as="password"
-                                            :append-icon="show_sms_passwd ? 'visibility' : 'visibility_off'"
+                                            :append-icon="show_sms_passwd ? 'mdi-eye' : 'mdi-eye-off'"
                                             :type="show_sms_passwd ? 'text' : 'password'"
                                             @click:append="show_sms_passwd = !show_sms_passwd"
                                             v-on:keyup.enter="submit"
@@ -272,7 +272,7 @@
                                             <v-text-field
                                                 v-model="empresa.sms_am"
                                                 label="Envío mañanas"
-                                                append-icon="access_time"
+                                                append-icon="mdi-clock-outline"
                                                 readonly
                                                 v-bind="attrs"
                                                 v-on="on"
@@ -302,7 +302,7 @@
                                             <v-text-field
                                                 v-model="empresa.sms_pm"
                                                 label="Envío tardes"
-                                                append-icon="access_time"
+                                                append-icon="mdi-clock-outline"
                                                 readonly
                                                 v-bind="attrs"
                                                 v-on="on"
@@ -348,7 +348,22 @@
                                         >
                                         </v-text-field>
                                     </v-col>
-                                    <v-col cols="12" md="3">
+                                    <v-col
+                                        cols="12"
+                                        md="2"
+                                    >
+                                        <v-text-field
+                                            v-model="empresa.disco"
+                                            v-validate="'required|alpha'"
+                                            :error-messages="errors.collect('disco')"                                            d
+                                            label="Disco Adjuntos"
+                                            data-vv-name="disco"
+                                            data-vv-as="disco"
+                                            v-on:keyup.enter="submit"
+                                        >
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="2">
                                     <v-switch
                                         label="TPV PC"
                                         v-model="empresa.tpv"

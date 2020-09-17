@@ -47,6 +47,7 @@ class CreateEmpresasTable extends Migration
             $table->time('sms_pm')->nullable();
             $table->string('ccc_ss', 30)->nullable();
             $table->boolean('tpv')->default(false);
+            $table->string('disco')->default('disk');
             $table->string('username',30)->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();

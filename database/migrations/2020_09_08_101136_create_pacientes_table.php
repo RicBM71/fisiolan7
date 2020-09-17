@@ -21,9 +21,9 @@ class CreatePacientesTable extends Migration
             $table->string('cpostal', 5)->nullable();
             $table->string('poblacion', 50)->nullable();
             $table->string('provincia', 50)->nullable();
-            $table->string('telefono1', 15)->nullable();
-            $table->string('telefono2', 15)->nullable();
-            $table->string('telefonom', 15)->nullable();
+            $table->string('telefono1', 15)->nullable()->index();
+            $table->string('telefono2', 15)->nullable()->index();
+            $table->string('telefonom', 15)->nullable()->index();
             $table->string('sms', 1)->default('N');
             $table->string('texto_tf2', 50)->nullable();
             $table->string('email', 50)->nullable();
@@ -59,6 +59,8 @@ class CreatePacientesTable extends Migration
             $table->boolean('factura_auto')->default(true);
             $table->string('username', 30)->nullable();
             $table->timestamps();
+
+            $table->index(['nombre', 'apellidos']);
         });
     }
 

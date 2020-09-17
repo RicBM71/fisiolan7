@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mto;
 
+use App\Cita;
 use App\Medio;
 use App\Mutua;
 use App\Paciente;
@@ -112,7 +113,8 @@ class PacientesController extends Controller
                 'medios'   => Medio::selMedios(),
                 'mutuas'   => Mutua::selMutuas(),
                 'paciente' => $paciente,
-                'recomendado' => $recomendado
+                'recomendado' => $recomendado,
+                'citas'     => Cita::with(['tratamiento','estado','facultativo'])->where('paciente_id', $paciente->id)->get(),
             ];
 
     }

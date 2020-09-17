@@ -112,6 +112,11 @@ class Paciente extends Model
             return $this->hasMany(Adjunto::class);
         }
 
+        public function citas()
+        {
+            return $this->hasMany(Adjunto::class);
+        }
+
 
         public function scopeRazon($query, $razon){
 
