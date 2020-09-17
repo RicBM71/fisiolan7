@@ -11,7 +11,7 @@
                     icon
                     @click="goCaptura"
                 >
-                    <v-icon color="red darken-4">add_a_photo</v-icon>
+                    <v-icon color="red darken-4">mdi-camera-plus</v-icon>
                 </v-btn>
             </template>
             <span>Capurar Foto</span>
@@ -64,7 +64,7 @@
                     icon
                     @click="goIndex"
                 >
-                    <v-icon color="primary">list</v-icon>
+                    <v-icon color="primary">mdi-list</v-icon>
                 </v-btn>
             </template>
             <span>Lista</span>

@@ -368,7 +368,7 @@
                                             :search-input.sync="search"
                                             label="Recomendado"
                                             placeholder="Indicar nom,ape"
-                                            prepend-icon="person_search"
+                                            prepend-icon="mdi-database-search"
                                             clearable
                                             @click:clear="clearRec"
                                         ></v-autocomplete>
