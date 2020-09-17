@@ -23,7 +23,7 @@
         </v-toolbar-title>
         <v-spacer />
         <v-btn v-if="!isLoggedIn" icon v-on:click="login">
-            <v-icon>person</v-icon>
+            <v-icon>mdi-account</v-icon>
         </v-btn>
         <v-btn v-else icon :to="{name: 'dash'}">
             <v-icon>desktop_windows</v-icon>
