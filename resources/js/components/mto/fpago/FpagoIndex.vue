@@ -35,7 +35,7 @@
                                     small
                                     @click="openDialog(props.item.id)"
                                     >
-                                    delete
+                                    mdi-delete
                                     </v-icon>
                                 </td>
                             </template>

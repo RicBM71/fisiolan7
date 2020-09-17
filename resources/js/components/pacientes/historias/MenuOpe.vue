@@ -36,7 +36,7 @@
                     icon
                     @click="goVolver"
                 >
-                    <v-icon color="primary">keyboard_return</v-icon>
+                    <v-icon color="primary">mdi-keyboard_return</v-icon>
                 </v-btn>
             </template>
             <span>Volver a paciente</span>

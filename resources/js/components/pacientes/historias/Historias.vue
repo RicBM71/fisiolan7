@@ -109,7 +109,7 @@ import {mapGetters} from 'vuex'
             if (f == null) return null;
             moment.locale('es');
 
-            return moment(f).format('DD/MM/YYYY H:MM:DD');
+            return moment(f).format('DD/MM/YYYY H:mm:ss');
 
         },
         create(){

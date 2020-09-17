@@ -87,6 +87,8 @@ Route::group([
         Route::post('pacientes/filtrar', 'PacientesController@filtrar');
         Route::resource('historias', 'HistoriasController', ['as' => 'mto']);
         Route::resource('pacbonos', 'PacbonosController', ['as' => 'mto']);
+        Route::resource('adjuntos', 'AdjuntosController', ['only'=>['show','update','destroy'], 'as' => 'mto']);
+        Route::post('adjuntos/{paciente_id}/upload', 'AdjuntosController@upload');
 
         // Route::put('clientes/{cliente}/obs', 'ClientesController@obs');
         // Route::get('clientes/{cliente}/albaranes', 'ClientesController@albaranes');

@@ -891,9 +891,11 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
                 axios.post('/mto/historias', {paciente_id: this.paciente.id})
                     .then(response => {
+                        x
                         this.$toast.success('Se ha creado una nueva entrada');
                         this.$router.push({ name: 'historia.edit', params: { id: response.data.historia.id } })
                     })
+
                     .catch(err => {
 
                         this.$toast.error(err.response.data.message);
@@ -905,6 +907,9 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
               this.$router.push({ name: 'pacbono.create', params: { id: this.paciente.id } })
             },
             uploadAdjunto(file, response){
+                this.adjuntos = response.adjuntos;
+                this.$refs['myVueDropzone'].removeAllFiles(true);
+                this.$toast.success('Se ha subido el fichero correctamente');
                 //this.empresa = response.empresa;
             },
 
@@ -926,5 +931,4 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
     padding-top: 1px;
     margin-top: 1px;
 }
-
 </style>

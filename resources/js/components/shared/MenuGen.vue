@@ -35,7 +35,7 @@
                     icon
                     @click="goIndex"
                 >
-                    <v-icon color="primary">list</v-icon>
+                    <v-icon color="primary">mdi-list</v-icon>
                 </v-btn>
             </template>
             <span>Lista</span>

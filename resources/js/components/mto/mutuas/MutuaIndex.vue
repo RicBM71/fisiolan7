@@ -45,7 +45,7 @@
                             small
                             @click="openDialog(item.id)"
                         >
-                            delete
+                            mdi-delete
                         </v-icon>
                     </template>
                     </v-data-table>

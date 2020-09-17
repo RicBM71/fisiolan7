@@ -27,7 +27,7 @@
                             icon
                             @click="goBack()"
                         >
-                            <v-icon color="primary">arrow_back</v-icon>
+                            <v-icon color="primary">mdi-arrow_back</v-icon>
                         </v-btn>
                     </template>
                         <span>Volver</span>
@@ -55,7 +55,7 @@
                     small
                     @click="openDialog(item)"
                 >
-                    delete
+                    mdi-delete
                 </v-icon>
                 <v-icon
                     v-else

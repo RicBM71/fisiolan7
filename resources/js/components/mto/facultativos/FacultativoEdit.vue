@@ -13,7 +13,7 @@
                             icon
                             @click="goHorario"
                         >
-                            <v-icon color="primary">alarm</v-icon>
+                            <v-icon color="primary">mdi-alarm</v-icon>
                         </v-btn>
                     </template>
                     <span>Horario</span>

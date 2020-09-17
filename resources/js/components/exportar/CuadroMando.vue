@@ -14,7 +14,7 @@
                             icon
                             @click="show_filtro = !show_filtro"
                         >
-                            <v-icon color="primary">filter_list</v-icon>
+                            <v-icon color="primary">mdi-filter_list</v-icon>
                         </v-btn>
                     </template>
                     <span>Selección</span>

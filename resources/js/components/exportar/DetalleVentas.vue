@@ -14,7 +14,7 @@
                             icon
                             @click="show_filtro = !show_filtro"
                         >
-                            <v-icon color="primary">filter_list</v-icon>
+                            <v-icon color="primary">mdi-filter_list</v-icon>
                         </v-btn>
                     </template>
                     <span>Selección</span>
@@ -145,7 +145,7 @@
                         <v-spacer></v-spacer>
                         <v-text-field
                             v-model="search"
-                            append-icon="search"
+                            append-icon="mdi-magnify"
                             label="Buscar"
                             single-line
                             hide-details

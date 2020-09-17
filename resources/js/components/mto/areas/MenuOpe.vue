@@ -36,7 +36,7 @@
                     icon
                     @click="goIndex"
                 >
-                    <v-icon color="primary">format_list_bulleted</v-icon>
+                    <v-icon color="primary">mdi-format-list-bulleted</v-icon>
                 </v-btn>
             </template>
             <span>Lista</span>
@@ -49,7 +49,7 @@
                     icon
                     @click="goBack()"
                 >
-                    <v-icon color="primary">arrow_back</v-icon>
+                    <v-icon color="primary">mdi-arrow_back</v-icon>
                 </v-btn>
             </template>
             <span>Volver</span>

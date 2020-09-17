@@ -15,7 +15,7 @@
                                     icon
                                     @click="filtro = !filtro"
                                 >
-                                    <v-icon color="primary">filter_list</v-icon>
+                                    <v-icon color="primary">mdi-filter_list</v-icon>
                                 </v-btn>
                             </template>
                             <span>Filtrar</span>
@@ -34,7 +34,7 @@
                                 <v-spacer></v-spacer>
                                 <v-text-field
                                     v-model="search"
-                                    append-icon="search"
+                                    append-icon="mdi-magnify"
                                     label="Buscar"
                                     single-line
                                     hide-details
@@ -72,7 +72,7 @@
                                                 small
                                                 @click="openDialog(props.item)"
                                             >
-                                                delete
+                                                mdi-delete
                                             </v-icon>
                                             &nbsp;
                                             <v-icon

@@ -14,7 +14,7 @@
                 <v-spacer></v-spacer>
                 <v-text-field
                     v-model="search"
-                    append-icon="search"
+                    append-icon="mdi-magnify"
                     label="Buscar"
                     single-line
                     hide-details
@@ -37,7 +37,7 @@
                     small
                     @click="openDialog(item.id)"
                 >
-                    delete
+                    mdi-delete
                 </v-icon>
             </template>
             </v-data-table>

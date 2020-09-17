@@ -15,7 +15,7 @@
                     <v-flex xs6>
                         <v-text-field
                             v-model="search"
-                            append-icon="search"
+                            append-icon="mdi-magnify"
                             label="Buscar"
                             single-line
                             hide-details

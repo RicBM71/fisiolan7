@@ -7,12 +7,33 @@
             :headers="headers"
             :items="adjuntos"
         >
+            <template v-slot:item.descripcion="props">
+                <v-edit-dialog
+                    :return-value.sync="props.item.descripcion"
+                    @save="save(props.item)"
+                > {{ props.item.descripcion }}
+                <template v-slot:input>
+                    <v-text-field
+                    v-model="props.item.descripcion"
+                    label="Editar"
+                    single-line
+                    counter
+                    ></v-text-field>
+                </template>
+                </v-edit-dialog>
+            </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon
                     small
-                    @click="editItem(item.id)"
+                    @click="openItem(item.id)"
                 >
-                    mdi-pencil
+                    mdi-card-search
+                </v-icon>
+                <v-icon
+                    small
+                    @click="deleteItem(item)"
+                >
+                    mdi-delete
                 </v-icon>
             </template>
             <template v-slot:item.created_at="{ item }">
@@ -38,7 +59,7 @@ import {mapGetters} from 'vuex'
     data () {
       return {
         options:{
-            itemsPerPage: 10,
+            itemsPerPage: 8,
             sortDesc: [true],
             sortBy: ['created_at'],
         },
@@ -89,18 +110,53 @@ import {mapGetters} from 'vuex'
 
         },
         formatDateTime(f){
+
             if (f == null) return null;
             moment.locale('es');
 
-            return moment(f).format('DD/MM/YYYY H:MM:DD');
+            return moment(f).format('DD/MM/YYYY H:mm:ss');
 
         },
         create(){
             this.$router.push({ name: this.ruta+'.create'})
         },
-        editItem (id) {
-            this.$router.push({ name: this.ruta+'.edit', params: { id: id } })
+        openItem (id) {
+
+            var url = '/mto/adjuntos/'+id;
+
+            window.open(url, '_blank');
         },
+        save(item){
+
+            var url = '/mto/adjuntos';
+            axios.put(url+"/"+item.id, {descripcion:item.descripcion})
+                .then(res => {
+
+                })
+                .catch(err => {
+                    this.$toast.error(err.response.data.message);
+                })
+                .finally(()=> {
+                });
+        },
+        deleteItem(item){
+
+            if (confirm('¿Estás seguro de borrar el fichero?')) {
+                var url = '/mto/adjuntos/'+item.id;
+                axios.post(url,{_method: 'delete'})
+                    .then(response => {
+                        const index = this.adjuntos.indexOf(item);
+                        this.adjuntos.splice(index, 1);
+                        this.$toast.success('Registro eliminado!');
+                    })
+                    .catch(err => {
+                        var msg = err.response.data.message;
+                        this.$toast.error(msg);
+
+                    });
+            }
+
+        }
     }
   }
 </script>
