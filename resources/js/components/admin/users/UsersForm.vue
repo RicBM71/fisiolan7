@@ -106,7 +106,7 @@
                                 :value="computedDateFormat"
                                 clearable
                                 label="Fecha Bloqueo"
-                                prepend-icon="event"
+                                prepend-icon="mdi-calendar"
                                 readonly
                                 @click:clear="clearDate"
                                 ></v-text-field>

@@ -138,7 +138,7 @@
                                         <v-text-field
                                             v-model="computedDateExpira"
                                             label="Ult. Password"
-                                            prepend-icon="event"
+                                            prepend-icon="mdi-calendar"
                                             clearable
                                             @click:clear="clearDateExp"
                                             readonly
@@ -184,7 +184,7 @@
                                         <v-text-field
                                             v-model="computedDateFormat"
                                             label="Fecha Bloqueo"
-                                            prepend-icon="event"
+                                            prepend-icon="mdi-calendar"
                                             readonly
                                             clearable
                                             @click:clear="clearDate"
@@ -214,7 +214,7 @@
                                             :value="computedDateFormat"
                                             clearable
                                             label="Fecha Bloqueo"
-                                            prepend-icon="event"
+                                            prepend-icon="mdi-calendar"
                                             readonly
                                             data-vv-as="F. bloqueo"
                                             @click:clear="clearDate"

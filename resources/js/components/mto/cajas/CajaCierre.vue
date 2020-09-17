@@ -41,7 +41,7 @@
                                 <v-text-field
                                     v-model="computedFecha"
                                     label="Fecha"
-                                    prepend-icon="event"
+                                    prepend-icon="mdi-calendar"
                                     readonly
                                     data-vv-name="fecha"
                                     :error-messages="errors.collect('fecha')"

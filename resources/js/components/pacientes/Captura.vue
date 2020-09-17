@@ -35,9 +35,9 @@
                     <v-col v-else cols="12" md="6"></v-col>
 
                     <v-col cols="12" md="4">
-                        <v-btn v-show="!loading" text rounded :disabled="disabled_cap" @click="onCapture"><v-icon color="red darken-4">camera</v-icon></v-btn>
-                        <v-btn v-show="!loading" text rounded @click="reset()"><v-icon dark color="gray">adjust</v-icon>Reset</v-btn>
-                        <v-btn :loading="loading" text rounded :disabled="disabled_save" @click="submit"><v-icon dark color="primary">save</v-icon>Guardar</v-btn>
+                        <v-btn v-show="!loading" text rounded :disabled="disabled_cap" @click="onCapture"><v-icon color="red darken-4">mdi-camera</v-icon></v-btn>
+                        <v-btn v-show="!loading" text rounded @click="reset()"><v-icon dark color="gray">mdi-adjust</v-icon>Reset</v-btn>
+                        <v-btn :loading="loading" text rounded :disabled="disabled_save" @click="submit"><v-icon dark color="primary">mdi-save</v-icon>Guardar</v-btn>
                         <br/>
                             <!-- <code v-if="device">{{ device.label }}</code> -->
                                 <vue-web-cam

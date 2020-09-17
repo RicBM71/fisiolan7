@@ -30,7 +30,7 @@
                                         <v-text-field
                                             v-model="computedFecha"
                                             label="Fecha"
-                                            prepend-icon="event"
+                                            prepend-icon="mdi-calendar"
                                             readonly
                                             data-vv-name="fecha"
                                             :error-messages="errors.collect('fecha')"
@@ -121,7 +121,7 @@
 
             axios.get('/mto/pacbonos/create')
                 .then(res => {
-                    
+
                     this.bonos = res.data.bonos;
                 })
                 .catch(err => {

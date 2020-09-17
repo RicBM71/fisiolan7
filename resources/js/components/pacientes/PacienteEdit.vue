@@ -17,7 +17,7 @@
                             <v-icon color="primary">mdi-share-variant</v-icon>
                         </v-btn>
                     </template>
-                    <span>Nuevo Bono 22</span>
+                    <span>Nuevo Bono</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
@@ -27,7 +27,7 @@
                             icon
                             @click="goCreateHistoria"
                         >
-                            <v-icon color="success">mdi-hospital-box</v-icon>
+                            <v-icon color="primary">mdi-hospital-marker</v-icon>
                         </v-btn>
                     </template>
                     <span>Nueva entrada en historia clínica</span>

@@ -11,7 +11,7 @@
                     icon
                     @click="compartidos = !compartidos"
                 >
-                    <v-icon color="primary">batch_prediction</v-icon>
+                    <v-icon color="primary">mdi-folder-account</v-icon>
                 </v-btn>
             </template>
                 <span>Buscar Compartidos anteriores</span>
@@ -24,7 +24,7 @@
                     icon
                     @click="compartir = !compartir"
                 >
-                    <v-icon color="primary">add_task</v-icon>
+                    <v-icon color="primary">mdi-share-variant</v-icon>
                 </v-btn>
             </template>
                 <span>Compartir bono</span>

@@ -305,7 +305,7 @@
                                                 :value="computedFechaBaja"
                                                 clearable
                                                 label="Fecha Baja"
-                                                prepend-icon="event"
+                                                prepend-icon="mdi-calendar"
                                                 readonly
                                                 data-vv-as="F. Baja"
                                                 @click:clear="clearDate"

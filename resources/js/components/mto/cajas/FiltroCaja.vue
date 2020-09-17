@@ -19,7 +19,7 @@
                         <v-text-field
                             v-model="computedFechaD"
                             label="Fecha"
-                            prepend-icon="event"
+                            prepend-icon="mdi-calendar"
                             readonly
                             data-vv-name="fecha_d"
                             :error-messages="errors.collect('fecha_d')"
@@ -52,7 +52,7 @@
                         <v-text-field
                             v-model="computedFechaH"
                             label="Fecha"
-                            prepend-icon="event"
+                            prepend-icon="mdi-calendar"
                             readonly
                             data-vv-name="fecha_h"
                             :error-messages="errors.collect('fecha_h')"

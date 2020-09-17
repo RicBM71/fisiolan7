@@ -86,7 +86,7 @@
                                                 :value="computedFechaDoc"
                                                 clearable
                                                 label="Fecha Doc"
-                                                prepend-icon="event"
+                                                prepend-icon="mdi-calendar"
                                                 :error-messages="errors.collect('fecha_dni')"
                                                 readonly
                                                 data-vv-as="F. dod"
@@ -119,7 +119,7 @@
                                             data-vv-name="fecha_dni"
                                             :error-messages="errors.collect('fecha_dni')"
                                             label="Fecha Validez"
-                                            prepend-icon="event"
+                                            prepend-icon="mdi-calendar"
                                             clearable
                                             @click:clear="clearDateFD"
                                             readonly
@@ -333,7 +333,7 @@
                                                 :value="computedFechaBaja"
                                                 clearable
                                                 label="Fecha Baja"
-                                                prepend-icon="event"
+                                                prepend-icon="mdi-calendar"
                                                 readonly
                                                 data-vv-as="F. Baja"
                                                 @click:clear="clearDate"

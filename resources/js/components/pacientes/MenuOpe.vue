@@ -11,7 +11,7 @@
                     icon
                     @click="goCaptura"
                 >
-                    <v-icon color="red darken-4">mdi-camera-plus</v-icon>
+                    <v-icon color="greeb darken-4">mdi-camera-plus</v-icon>
                 </v-btn>
             </template>
             <span>Capurar Foto</span>
@@ -24,7 +24,7 @@
                     icon
                     @click="goDelCaptura"
                 >
-                    <v-icon color="red darken-4">remove_circle_outline</v-icon>
+                    <v-icon color="red darken-4">mdi-head-remove</v-icon>
                 </v-btn>
             </template>
             <span>Eliminar Foto</span>
